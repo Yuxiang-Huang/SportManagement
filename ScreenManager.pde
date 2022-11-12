@@ -18,12 +18,26 @@ void draw(){
 }
 
 void mousePressed() {
-  if (screen.equals("Intro")){
+  if (back.over){
+    if (screen.equals("Team")){
+      screen = "Intro";
+    }
+    back.over = false;
+  }
+  
+  else if (screen.equals("Intro")){
     if (indiv.over) {
-      println("pressed");
+      //println("pressed");
     }
     else if (team.over) {
       screen = "Team";
+    }
+  }
+  else if (screen.equals("Team")){
+    for (String i : sessions.keySet()){
+      if (sessions.get(i).over){
+        
+      }
     }
   }
 }
