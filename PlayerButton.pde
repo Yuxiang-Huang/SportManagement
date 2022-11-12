@@ -48,15 +48,14 @@ public class PlayerButton{
   }
   
   void displayGraph(String title){
-    //rectMode(CORNER);
-    //ArrayList<Float> data = new ArrayList<Float>();
-    //for (int i = 0; i < names.length; i ++){  
-    //  for (int j = 0; j < statsIncluded.length; j++){
-    //    data.add(stats.get(statsIncluded[j])[i]);
-    //  }
-    //}
-    //drawGraph(title, "Team Bar", "%", names, data);
-    //drawTeamBarGraph(statNames.length, teamGoals, statNames, data);
-    //rectMode(CENTER);
+    rectMode(CORNER);
+    //just first stat for now
+    String[] xLabel = new String[stats.get(statNames[0]).size()];
+    for (int i = 0; i < xLabel.length; i ++){
+      xLabel[i] = (i + 1) + "";
+    }  
+    drawGraph(title, "Scatter", statNames[0], xLabel, stats.get(statNames[0]));
+    drawScatterPlot(stats.get(statNames[0]));
+    rectMode(CENTER);
   }
 }
