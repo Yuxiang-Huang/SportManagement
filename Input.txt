@@ -1,19 +1,19 @@
 A, B
-Top Speed (m/s), Power (J/s), Distance (miles)
+Top Speed (m/s), Power Play (J/s), Distance (miles)
 
 Session 1
 12 22 32
 A
 10 9
-20 21
-30 29
+24 21
+40 29
 B
-11 9
+3 9
 22 21
-33 29
+15 29
 
 Session 2
-23 43 12
+23 43 30
 A
 12 9
 45 21
