@@ -1,32 +1,19 @@
 A, B, C
 Top Speed (m/s), Power Play (J/s), Distance (miles)
 
+Personal Goal:
+A: 11 20 30
+B: 4 9 2
+C: 5 25 23
+
 Session 1
-12 22 32
-A
-10 9
-24 21
-40 29
-B
-3 9
-22 21
-15 29
-C
-3 9
-22 21
-15 29
+Team Goals: 12 22 32
+A: 10 24 40
+B: 3 22 21
+C: 3 9 22
 
 Session 2
-23 43 30
-A
-12 9
-45 21
-23 29
-B
-3 9
-12 21
-40 41
-C
-3 9
-22 21
-15 29
+Team Goals: 23 43 30
+A: 12 9 45
+B: 5 9 12
+C: 3 9 22

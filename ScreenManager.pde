@@ -4,6 +4,7 @@ boolean refresh = true;
 String[] statsIncluded;
 
 void draw(){
+  //for graphs
   if (refresh){
     background(255);
   }

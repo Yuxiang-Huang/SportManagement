@@ -6,7 +6,7 @@ public class PlayerButton{
   boolean over = false;
 
   HashMap<String, float[]> stats = new HashMap<String, float[]>();
-  float[] teamGoals;
+  HashMap<String, float[]> goals = new HashMap<String, float[]>();
 
   public PlayerButton(float x, float y, color c, int size) {
     origColor = c;
@@ -48,15 +48,15 @@ public class PlayerButton{
   }
   
   void displayGraph(String title){
-    rectMode(CORNER);
-    ArrayList<Float> data = new ArrayList<Float>();
-    for (int i = 0; i < names.length; i ++){  
-      for (int j = 0; j < statsIncluded.length; j++){
-        data.add(stats.get(statsIncluded[j])[i]);
-      }
-    }
-    drawGraph(title, "Team Bar", "%", names, data);
-    drawTeamBarGraph(statNames.length, teamGoals, statNames, data);
-    rectMode(CENTER);
+    //rectMode(CORNER);
+    //ArrayList<Float> data = new ArrayList<Float>();
+    //for (int i = 0; i < names.length; i ++){  
+    //  for (int j = 0; j < statsIncluded.length; j++){
+    //    data.add(stats.get(statsIncluded[j])[i]);
+    //  }
+    //}
+    //drawGraph(title, "Team Bar", "%", names, data);
+    //drawTeamBarGraph(statNames.length, teamGoals, statNames, data);
+    //rectMode(CENTER);
   }
 }
