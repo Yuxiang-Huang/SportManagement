@@ -6,7 +6,7 @@ public class SessionButton{
   boolean over = false;
   boolean active = true;
   
-  HashMap<String, float[]> playerStats;
+  HashMap<String, float[]> stats = new HashMap<String, float[]>();
   float[] teamGoal;
 
   public SessionButton(float x, float y, color c, int size) {
