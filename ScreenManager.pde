@@ -20,23 +20,38 @@ void draw(){
       sessions.get(i).update(i);
     }
   }
+  
+  else if (screen.equals("Player Selecting")){
+    for (String i : players.keySet()){
+      players.get(i).update(i);
+    }
+  }
 }
 
 void mousePressed() {
+  //back button
   if (back.over){
     if (screen.equals("Session Selecting")){
       screen = "Intro";
     }
-    else if (screen.equals("Team Display")){
+    else if (screen.equals("Session Display")){
       screen = "Session Selecting";
+      refresh = true;
+    }
+    else if (screen.equals("Player Selecting")){
+      screen = "Intro";
+    }
+    else if (screen.equals("Player Display")){
+      screen = "Player Selecting";
       refresh = true;
     }
     back.over = false;
   }
   
+  //other buttons
   else if (screen.equals("Intro")){
     if (indiv.over) {
-      //println("pressed");
+      screen = "Player Selecting";
     }
     else if (team.over) {
       screen = "Session Selecting";
@@ -46,7 +61,7 @@ void mousePressed() {
     for (String i : sessions.keySet()){
       if (sessions.get(i).over){
         sessions.get(i).displayGraph("Session" + i);
-        screen = "Team Display";
+        screen = "Session Display";
         refresh = false;
       }
     }

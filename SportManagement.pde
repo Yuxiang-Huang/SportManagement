@@ -3,10 +3,12 @@ int index = 0;
 
 String[] names;
 String[] statNames;
+HashMap<String, PlayerButton> players = new HashMap<String, PlayerButton>();
+int numOfPlayer = 0;
 HashMap<String, SessionButton> sessions = new HashMap<String, SessionButton>();
 int numOfSession = 0;
-int sessionButtonSize = 100;
-int distBtwSession = 50;
+int buttonSize = 100;
+int distBtwButton = 50;
 
 IndivButton indiv;
 TeamButton team;
@@ -50,6 +52,8 @@ void setup(){
   //for now include all
   statsIncluded = statNames;
   
+  int save = index;
+  
   //for sessions
   while (index < allData.length){
     while (index < allData.length && ! curr[0].equals("Session")){
@@ -60,14 +64,28 @@ void setup(){
       curr = allData[index++].split(" ");
     }
   }
+  
+  //for indiv
+  createAllPlayerButtons();
+  
+  index = save;
+  while (index < allData.length){
+    while (index < allData.length && ! curr[0].equals("Session")){
+      curr = allData[index++].split(" ");
+    }
+    if (index < allData.length){
+      readIndiv(index-1);
+      curr = allData[index++].split(" ");
+    }
+  }
 }
 
 void readSession(int index){
   String[] curr = allData[index++].split(" ");
   
   //create new session number
-  float xVal = distBtwSession * numOfSession + sessionButtonSize * (numOfSession + 1);
-  SessionButton now = new SessionButton(xVal, height/2, 255, sessionButtonSize);
+  float xVal = distBtwButton * numOfSession + buttonSize * (numOfSession + 1);
+  SessionButton now = new SessionButton(xVal, height/2, 255, buttonSize);
   sessions.put(curr[1], now);
   numOfSession++;
   
@@ -96,4 +114,50 @@ void readSession(int index){
   //  println(str);
   //  println(now.stats.get(str));
   //}
+}
+
+void createAllPlayerButtons(){
+  for (int i = 0; i < names.length; i ++){
+    //create new session number
+    float xVal = distBtwButton * numOfPlayer + buttonSize * (numOfPlayer + 1);
+    PlayerButton now = new PlayerButton(xVal, height/2, 255, buttonSize);
+    players.put(names[i], now);
+    numOfPlayer ++;
+  }
+}
+
+void readIndiv(int index){
+  //String[] curr = allData[index++].split(" ");
+  
+  ////create new session number
+  //float xVal = distBtwSession * numOfSession + sessionButtonSize * (numOfSession + 1);
+  //SessionButton now = new SessionButton(xVal, height/2, 255, sessionButtonSize);
+  //sessions.put(curr[1], now);
+  //numOfSession++;
+  
+  ////read team goals
+  //curr = allData[index++].split(" ");
+  //now.teamGoals = new float[curr.length];
+  //for (int i = 0; i < curr.length; i ++){
+  //  now.teamGoals[i] = Float.parseFloat(curr[i]);  
+  //}
+  
+  ////read stats
+  //float[][] holder = new float[statNames.length][names.length];
+  //for (int p = 0; p < holder[0].length; p ++){
+  //  index ++;
+  //  for (int s = 0; s < holder.length; s++){
+  //    curr = allData[index++].split(" ");
+  //    holder[s][p] = Float.parseFloat(curr[0]);  
+  //  }
+  //}
+  
+  //for (int i = 0; i < statNames.length; i ++){
+  //  now.stats.put(statNames[i], holder[i]);
+  //}
+  
+  ////for (String str : now.stats.keySet()){
+  ////  println(str);
+  ////  println(now.stats.get(str));
+  ////}
 }
