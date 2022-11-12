@@ -22,7 +22,7 @@ int font = 12;
 color[] colors = new color[]{color(255, 0, 0), color(0, 255, 0), color(0, 0, 255),
 color(0, 255, 255), color(255, 0, 255), color(255, 255, 0)}; 
  
-void drawGraph(String mode, String stat, String[] xLabel, ArrayList<Float> data){
+void drawGraph(String title, String mode, String stat, String[] xLabel, ArrayList<Float> data){
   xSpaces = xLabel.length;
   
   //calculate y scaling unit
@@ -83,6 +83,11 @@ void drawGraph(String mode, String stat, String[] xLabel, ArrayList<Float> data)
   rotate(radians(270));
   text(stat, 0, 0);
   popMatrix();
+  
+  //title
+  textSize(36);
+  text(title, startX + xlen/2, 50);
+  textSize(font);
 }
 
 void drawScatterPlot(ArrayList<Float> data){
@@ -207,7 +212,7 @@ void drawTeamBarGraph(int barNum, float[] goals, String[] barNames,
   
   //legend
   textAlign(LEFT);
-  float posX = startX + xlen - xunit;
+  float posX = startX + xlen - xunit/2;
   float posY = 50;
   float dy = 25;
   float size = 20;

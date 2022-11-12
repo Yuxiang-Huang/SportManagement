@@ -45,7 +45,7 @@ void mousePressed() {
   else if (screen.equals("Session Selecting")){
     for (String i : sessions.keySet()){
       if (sessions.get(i).over){
-        sessions.get(i).displayGraph();
+        sessions.get(i).displayGraph("Session" + i);
         screen = "Team Display";
         refresh = false;
       }

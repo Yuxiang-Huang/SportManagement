@@ -47,7 +47,7 @@ public class SessionButton{
     }
   }
   
-  void displayGraph(){
+  void displayGraph(String title){
     rectMode(CORNER);
     ArrayList<Float> data = new ArrayList<Float>();
     for (int i = 0; i < names.length; i ++){  
@@ -55,7 +55,7 @@ public class SessionButton{
         data.add(stats.get(statsIncluded[j])[i]);
       }
     }
-    drawGraph("Team Bar", "%", names, data);
+    drawGraph(title, "Team Bar", "%", names, data);
     drawTeamBarGraph(statNames.length, teamGoals, statNames, data);
     rectMode(CENTER);
   }
