@@ -1,7 +1,7 @@
 A, B, C
 Top Speed (m/s), Power Play (J/s), Distance (miles)
 
-Personal Goal:
+Personal Goals:
 A: 11 20 30
 B: 4 9 2
 C: 5 25 23

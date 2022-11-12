@@ -42,7 +42,7 @@ void setup(){
     names[i] = curr[i];
   }
   
-  //stats
+  //stat names
   curr = allData[index++].split(", ");
   statNames = new String[curr.length];
   for (int i = 0; i < statNames.length; i ++){
@@ -67,7 +67,6 @@ void setup(){
   
   //for indiv
   createAllPlayerButtons();
-  
   index = save;
   while (index < allData.length){
     while (index < allData.length && ! curr[0].equals("Session")){
@@ -99,7 +98,7 @@ void readSession(int index){
   
   //read stats
   float[][] holder = new float[statNames.length][names.length];
-  for (int p = 0; p < holder[0].length; p ++){
+  for (int p = 0; p < names.length; p ++){
     curr = allData[index++].split(" ");
     //skip name
     for (int s = 1; s < curr.length; s ++){
@@ -119,33 +118,29 @@ void readSession(int index){
 
 void createAllPlayerButtons(){
   for (int i = 0; i < names.length; i ++){
-    //create new session number
+    //create new player button
     float xVal = distBtwButton * numOfPlayer + buttonSize * (numOfPlayer + 1);
     PlayerButton now = new PlayerButton(xVal, height/2, 255, buttonSize);
     players.put(names[i], now);
+    //set the keys for hashmap
+    for (int j = 0; j < statNames.length; j ++){
+      now.stats.put(statNames[j], new ArrayList<Float>());
+      now.goals.put(statNames[j], new ArrayList<Float>());
+    }
     numOfPlayer ++;
   }
 }
 
 void readIndiv(int index){
-  //index+=2;
+  index+=2;
   
-  ////read stats
-  //float[][] holder = new float[statNames.length][names.length];
-  //for (int p = 0; p < holder[0].length; p ++){
-  //  index ++;
-  //  for (int s = 0; s < holder.length; s++){
-  //    curr = allData[index++].split(" ");
-  //    holder[s][p] = Float.parseFloat(curr[0]);  
-  //  }
-  //}
-  
-  //for (int i = 0; i < statNames.length; i ++){
-  //  now.stats.put(statNames[i], holder[i]);
-  //}
-  
-  //for (String str : now.stats.keySet()){
-  //  println(str);
-  //  println(now.stats.get(str));
-  //}
+  //read stats
+  for (int p = 0; p < statNames.length; p ++){
+    String[] curr = allData[index++].split(" ");
+    PlayerButton now = players.get(curr[0].substring(curr[0].length() - 1));
+    for (int i = 1; i < curr.length; i ++){
+      now.stats.get(statNames[i-1]).add(Float.parseFloat(curr[i]));  
+    }
+    println(now.stats);
+  }
 }

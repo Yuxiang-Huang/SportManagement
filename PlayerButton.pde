@@ -5,8 +5,8 @@ public class PlayerButton{
   color origColor;
   boolean over = false;
 
-  HashMap<String, float[]> stats = new HashMap<String, float[]>();
-  HashMap<String, float[]> goals = new HashMap<String, float[]>();
+  HashMap<String, ArrayList<Float>> stats = new HashMap<String, ArrayList<Float>>();
+  HashMap<String, ArrayList<Float>> goals = new HashMap<String, ArrayList<Float>>();
 
   public PlayerButton(float x, float y, color c, int size) {
     origColor = c;
