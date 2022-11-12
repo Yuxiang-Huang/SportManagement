@@ -66,8 +66,20 @@ void setup(){
   }
   
   //for indiv
-  createAllPlayerButtons();
   index = save;
+  createAllPlayerButtons();
+  //personal goals
+  index += 2;
+  //for each player
+  for (int p = 0; p < names.length; p ++){
+    curr = allData[index++].split(" ");
+    PlayerButton now = players.get(curr[0].substring(0, curr[0].length() - 1));
+    //for each stat
+    for (int i = 1; i < curr.length; i ++){
+      now.goals.get(statNames[i-1]).add(Float.parseFloat(curr[i]));  
+    }
+  }
+  //read data
   while (index < allData.length){
     while (index < allData.length && ! curr[0].equals("Session")){
       curr = allData[index++].split(" ");
@@ -135,14 +147,15 @@ void readIndiv(int index){
   index+=2;
   
   //read stats
-  for (int p = 0; p < statNames.length; p ++){
+  //for each player
+  for (int p = 0; p < names.length; p ++){
     String[] curr = allData[index++].split(" ");
-    println(curr[0].substring(0, curr[0].length() - 1));
     PlayerButton now = players.get(curr[0].substring(0, curr[0].length() - 1));
+    //for each stat
     for (int i = 1; i < curr.length; i ++){
       now.stats.get(statNames[i-1]).add(Float.parseFloat(curr[i]));  
+      now.goals.get(statNames[i-1]).add(Math.max(Float.parseFloat(curr[i]), 
+      now.goals.get(statNames[i-1]).get(now.goals.get(statNames[i-1]).size() - 1)));
     }
-    println(now.stats);
-    println(now.goals);
   }
 }
