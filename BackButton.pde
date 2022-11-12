@@ -4,7 +4,6 @@ public class BackButton{
   int size;
   color origColor;
   boolean over = false;
-  boolean active = true;
 
   public BackButton(color c, int size) {
     origColor = c;
@@ -14,26 +13,24 @@ public class BackButton{
   }
   
   void update() {
-    if (active){
-      //update over
-      if (over()){
-        over = true;
-      } 
-      else {
-        over = false;
-      }
-      
-      if (over) {
-        fill(highlight);
-      } else {
-        fill(origColor);
-      }
-  
-      rect(x, y, size, size);
-      
-      fill(0);
-      text("Back", x, y);
+    //update over
+    if (over()){
+      over = true;
+    } 
+    else {
+      over = false;
     }
+    
+    if (over) {
+      fill(highlight);
+    } else {
+      fill(origColor);
+    }
+
+    rect(x, y, size, size);
+    
+    fill(0);
+    text("Back", x, y);
   }
     
   boolean over()  {

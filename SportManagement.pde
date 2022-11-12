@@ -3,7 +3,7 @@ int index = 0;
 
 String[] names;
 String[] statNames;
-HashMap<Integer, SessionButton> sessions = new HashMap<Integer, SessionButton>();
+HashMap<String, SessionButton> sessions = new HashMap<String, SessionButton>();
 int numOfSession = 0;
 int sessionButtonSize = 100;
 int distBtwSession = 50;
@@ -32,7 +32,6 @@ void setup(){
   indiv = new IndivButton(255, 100);
   team = new TeamButton(255, 100);
   back = new BackButton(255, 30);
-  back.active = false;
   
   //read data
   
@@ -66,9 +65,9 @@ void readSession(int index){
   String[] curr = allData[index++].split(" ");
   
   //create new session number
-  float xVal = distBtwSession * (numOfSession + 1) + sessionButtonSize * numOfSession;
+  float xVal = distBtwSession * numOfSession + sessionButtonSize * (numOfSession + 1);
   SessionButton now = new SessionButton(xVal, height/2, 255, sessionButtonSize);
-  sessions.put(Integer.parseInt(curr[1]), now);
+  sessions.put(curr[1], now);
   numOfSession++;
   
   //read team goals

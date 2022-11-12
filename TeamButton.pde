@@ -4,7 +4,6 @@ public class TeamButton{
   int size;
   color origColor;
   boolean over = false;
-  boolean active = true;
 
   public TeamButton(color c, int size) {
     origColor = c;
@@ -14,7 +13,7 @@ public class TeamButton{
   }
   
   void update() {
-    if (active){
+    
       //update over
       if (over()){
         over = true;
@@ -35,7 +34,7 @@ public class TeamButton{
       textSize(30);
       text("Team", x, y);
       textSize(font);
-    }
+    
   }
     
   boolean over()  {

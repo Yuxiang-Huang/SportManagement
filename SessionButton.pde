@@ -4,8 +4,7 @@ public class SessionButton{
   int size;
   color origColor;
   boolean over = false;
-  boolean active = true;
-  
+
   HashMap<String, float[]> stats = new HashMap<String, float[]>();
   float[] teamGoal;
 
@@ -16,29 +15,27 @@ public class SessionButton{
     this.size = size;
   }
   
-  void update() {
-    if (active){
-      //update over
-      if (over()){
-        over = true;
-      } 
-      else {
-        over = false;
-      }
-      
-      if (over) {
-        fill(highlight);
-      } else {
-        fill(origColor);
-      }
-  
-      rect(x, y, size, size);
-      
-      fill(0);
-      textSize(30);
-      text("Team", x, y);
-      textSize(font);
+  void update(String sessionNum) {
+    //update over
+    if (over()){
+      over = true;
+    } 
+    else {
+      over = false;
     }
+    
+    if (over) {
+      fill(highlight);
+    } else {
+      fill(origColor);
+    }
+
+    rect(x, y, size, size);
+    
+    fill(0);
+    textSize(30);
+    text(sessionNum, x, y);
+    textSize(font);
   }
     
   boolean over()  {

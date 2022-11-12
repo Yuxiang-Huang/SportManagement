@@ -4,7 +4,6 @@ public class IndivButton{
   int size;
   color origColor;
   boolean over = false;
-  boolean active = true;
 
   public IndivButton(color c, int size) {
     origColor = c;
@@ -14,7 +13,7 @@ public class IndivButton{
   }
   
   void update() {
-    if (active){
+    
       //update over
       if (over()){
         over = true;
@@ -35,7 +34,7 @@ public class IndivButton{
       textSize(30);
       text("Player", x, y);
       textSize(font);
-    }
+    
   }
     
   boolean over()  {
