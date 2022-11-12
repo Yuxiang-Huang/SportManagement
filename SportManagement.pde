@@ -30,6 +30,8 @@ void setup(){
   back.active = false;
   
   //read data
+  
+  //names
   String[] curr = allData[index].split(", ");
   names = new String[curr.length];
   for (int i = 0; i < names.length; i ++){
@@ -37,22 +39,14 @@ void setup(){
   }
   index++;
   
+  //stats
   curr = allData[index].split(", ");
   stats = new String[curr.length];
   for (int i = 0; i < stats.length; i ++){
     stats[i] = curr[i];
   }
   index++;
-}
-
-void draw(){
-  indiv.update();
-  team.update();
-  back.update();
-}
-
-void mousePressed() {
-  if (indiv.over) {
-    println("pressed");
-  }
+  
+  //for sessions
+  
 }
