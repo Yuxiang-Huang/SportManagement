@@ -72,9 +72,9 @@ void readSession(int index){
   
   //read team goals
   curr = allData[index++].split(" ");
-  now.teamGoal = new float[curr.length];
+  now.teamGoals = new float[curr.length];
   for (int i = 0; i < curr.length; i ++){
-    now.teamGoal[i] = Float.parseFloat(curr[i]);  
+    now.teamGoals[i] = Float.parseFloat(curr[i]);  
   }
   
   //read stats

@@ -13,28 +13,26 @@ public class TeamButton{
   }
   
   void update() {
+    //update over
+    if (over()){
+      over = true;
+    } 
+    else {
+      over = false;
+    }
     
-      //update over
-      if (over()){
-        over = true;
-      } 
-      else {
-        over = false;
-      }
-      
-      if (over) {
-        fill(highlight);
-      } else {
-        fill(origColor);
-      }
-  
-      rect(x, y, size, size);
-      
-      fill(0);
-      textSize(30);
-      text("Team", x, y);
-      textSize(font);
+    if (over) {
+      fill(highlight);
+    } else {
+      fill(origColor);
+    }
+
+    rect(x, y, size, size);
     
+    fill(0);
+    textSize(30);
+    text("Team", x, y);
+    textSize(font);
   }
     
   boolean over()  {
