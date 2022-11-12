@@ -1,34 +1,15 @@
-float startX = 100;
-float startY = 400;
-float ylen = 300;
-float xlen = 800;
-float yunit;
-float xunit;
-
-int xSpaces;
-int ySpaces = 10;
-float sll = 5; //spacing line length
-float offset = 20; //between spacing line and scale
-float arrowLen = 8;
-
-float yScaleUnit;
-float percent = 15;
-int sizeOfPoint = 5;
-float lenbtwBars = 10;
-
-float lineThickness = 1.2;
-int font = 12;
-
 String[] allData;
-String[] commands;
-String[] xLabel;
-ArrayList<Float> data = new ArrayList<Float>();
-int index = -1;
+int index = 0;
 
-color[] colors = new color[]{color(255, 0, 0), color(0, 255, 0), color(0, 0, 255),
-color(0, 255, 255), color(255, 0, 255), color(255, 255, 0)}; 
+String[] names;
+String[] stats;
+//HashMap<Integer, SessionButton> sessions;
+
+ArrayList<Float> data = new ArrayList<Float>();
 
 IndivButton indiv;
+TeamButton team;
+BackButton back;
  
 void setup(){
   allData = loadStrings("Input.txt");
@@ -42,11 +23,32 @@ void setup(){
   textAlign(CENTER);
   rectMode(CENTER);
   
-  indiv = new IndivButton(width/2, height/2, 0, 100);
+  //set buttons
+  indiv = new IndivButton(255, 100);
+  team = new TeamButton(255, 100);
+  back = new BackButton(255, 30);
+  back.active = false;
+  
+  //read data
+  String[] curr = allData[index].split(", ");
+  names = new String[curr.length];
+  for (int i = 0; i < names.length; i ++){
+    names[i] = curr[i];
+  }
+  index++;
+  
+  curr = allData[index].split(", ");
+  stats = new String[curr.length];
+  for (int i = 0; i < stats.length; i ++){
+    stats[i] = curr[i];
+  }
+  index++;
 }
 
 void draw(){
   indiv.update();
+  team.update();
+  back.update();
 }
 
 void mousePressed() {

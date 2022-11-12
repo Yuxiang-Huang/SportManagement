@@ -7,30 +7,37 @@ public class IndivButton{
   boolean over = false;
   boolean active = true;
 
-  public IndivButton(float x, float y, color c, int size) {
+  public IndivButton(color c, int size) {
     origColor = c;
     highlight = color(51);
-    this.x = x;
-    this.y = y;
+    x = width / 4;
+    y = height / 2;
     this.size = size;
   }
   
   void update() {
-    //update over
-    if (over()){
-      over = true;
-    } 
-    else {
-      over = false;
+    if (active){
+      //update over
+      if (over()){
+        over = true;
+      } 
+      else {
+        over = false;
+      }
+      
+      if (over) {
+        fill(highlight);
+      } else {
+        fill(origColor);
+      }
+  
+      rect(x, y, size, size);
+      
+      fill(0);
+      textSize(30);
+      text("Player", x, y);
+      textSize(font);
     }
-    
-    if (over) {
-      fill(highlight);
-    } else {
-      fill(origColor);
-    }
-
-    rect(x, y, size, size);
   }
     
   boolean over()  {
