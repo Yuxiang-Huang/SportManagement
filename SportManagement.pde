@@ -137,10 +137,12 @@ void readIndiv(int index){
   //read stats
   for (int p = 0; p < statNames.length; p ++){
     String[] curr = allData[index++].split(" ");
-    PlayerButton now = players.get(curr[0].substring(curr[0].length() - 1));
+    println(curr[0].substring(0, curr[0].length() - 1));
+    PlayerButton now = players.get(curr[0].substring(0, curr[0].length() - 1));
     for (int i = 1; i < curr.length; i ++){
       now.stats.get(statNames[i-1]).add(Float.parseFloat(curr[i]));  
     }
     println(now.stats);
+    println(now.goals);
   }
 }
