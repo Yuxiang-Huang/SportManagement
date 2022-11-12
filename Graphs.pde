@@ -19,12 +19,12 @@ float lenbtwBars = 10;
 float lineThickness = 1.2;
 int font = 12;
 
-String[] xLabel;
-
 color[] colors = new color[]{color(255, 0, 0), color(0, 255, 0), color(0, 0, 255),
 color(0, 255, 255), color(255, 0, 255), color(255, 255, 0)}; 
  
-void drawGraph(String mode, String stat){
+void drawGraph(String mode, String stat, String[] xLabel, ArrayList<Float> data){
+  xSpaces = xLabel.length;
+  
   //calculate y scaling unit
   float max = 0;
   for (int i = 0; i < data.size(); i++){
@@ -85,7 +85,7 @@ void drawGraph(String mode, String stat){
   popMatrix();
 }
 
-void drawScatterPlot(){
+void drawScatterPlot(ArrayList<Float> data){
   //lables
   text("Sessions", startX + xlen / 2, startY + 50);
   
@@ -149,7 +149,7 @@ void drawScatterPlot(){
   line(x0, y0, x1, y1);
 }
 
-void drawBarGraph(ArrayList<Float> goals, float teamGoal){
+void drawBarGraph(ArrayList<Float> goals, float teamGoal, ArrayList<Float> data){
   //lable
   text("Players", startX + xlen / 2, startY + 50);
   
@@ -178,7 +178,8 @@ void drawBar(float x, float y, float height, float det){
   fill(0);
 }
 
-void drawTeamBarGraph(int barNum, float[] goals, String[] barNames){
+void drawTeamBarGraph(int barNum, float[] goals, String[] barNames, 
+  ArrayList<Float> data){
   //lable
   text("Players", startX + xlen / 2, startY + 50);
   

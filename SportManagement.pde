@@ -8,8 +8,6 @@ int numOfSession = 0;
 int sessionButtonSize = 100;
 int distBtwSession = 50;
 
-ArrayList<Float> data = new ArrayList<Float>();
-
 IndivButton indiv;
 TeamButton team;
 BackButton back;
@@ -48,6 +46,9 @@ void setup(){
   for (int i = 0; i < statNames.length; i ++){
     statNames[i] = curr[i];
   }
+  
+  //for now include all
+  statsIncluded = statNames;
   
   //for sessions
   while (index < allData.length){

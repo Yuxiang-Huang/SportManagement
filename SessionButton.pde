@@ -46,4 +46,17 @@ public class SessionButton{
       return false;
     }
   }
+  
+  void displayGraph(){
+    //rectMode(LEFT);
+    ArrayList<Float> data = new ArrayList<Float>();
+    for (int i = 0; i < names.length; i ++){  
+      for (int j = 0; j < statsIncluded.length; j++){
+        data.add(stats.get(statsIncluded[j])[i]);
+      }
+    }
+    drawGraph("Team Bar", "%", names, data);
+    drawTeamBarGraph(statNames.length, teamGoals, statNames, data);
+    //rectMode(CENTER);
+  }
 }

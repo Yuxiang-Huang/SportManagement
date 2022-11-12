@@ -1,6 +1,8 @@
 String screen = "Intro";
 boolean refresh = true;
 
+String[] statsIncluded;
+
 void draw(){
   if (refresh){
     background(255);
@@ -13,7 +15,7 @@ void draw(){
     back.update();
   }
   
-  if (screen.equals("Team")){
+  if (screen.equals("Session Selecting")){
     for (String i : sessions.keySet()){
       sessions.get(i).update(i);
     }
@@ -22,11 +24,11 @@ void draw(){
 
 void mousePressed() {
   if (back.over){
-    if (screen.equals("Team")){
+    if (screen.equals("Session Selecting")){
       screen = "Intro";
     }
     else if (screen.equals("Team Display")){
-      screen = "Team";
+      screen = "Session Selecting";
       refresh = true;
     }
     back.over = false;
@@ -37,14 +39,13 @@ void mousePressed() {
       //println("pressed");
     }
     else if (team.over) {
-      screen = "Team";
+      screen = "Session Selecting";
     }
   }
-  else if (screen.equals("Team")){
+  else if (screen.equals("Session Selecting")){
     for (String i : sessions.keySet()){
       if (sessions.get(i).over){
-        drawGraph("Team Bar", "%");
-        drawTeamBarGraph(statNames.length, sessions.get(i).teamGoals, statNames);
+        sessions.get(i).displayGraph();
         screen = "Team Display";
         refresh = false;
       }
