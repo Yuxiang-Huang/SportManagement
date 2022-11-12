@@ -3,13 +3,11 @@ public class TeamButton{
   float y;    
   int size;
   color origColor;
-  color highlight;
   boolean over = false;
   boolean active = true;
 
   public TeamButton(color c, int size) {
     origColor = c;
-    highlight = color(51);
     x = width * 3 / 4;
     y = height / 2;
     this.size = size;

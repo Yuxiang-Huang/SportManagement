@@ -3,7 +3,6 @@ public class SessionButton{
   float y;    
   int size;
   color origColor;
-  color highlight;
   boolean over = false;
   boolean active = true;
   
@@ -12,7 +11,6 @@ public class SessionButton{
 
   public SessionButton(float x, float y, color c, int size) {
     origColor = c;
-    highlight = color(51);
     this.x = x;
     this.y = y;
     this.size = size;

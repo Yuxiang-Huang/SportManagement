@@ -3,13 +3,11 @@ public class BackButton{
   float y;    
   int size;
   color origColor;
-  color highlight;
   boolean over = false;
   boolean active = true;
 
   public BackButton(color c, int size) {
     origColor = c;
-    highlight = color(200);
     this.x = size/2 + 5;
     this.y = size/2 + 5;
     this.size = size;

@@ -3,13 +3,11 @@ public class IndivButton{
   float y;    
   int size;
   color origColor;
-  color highlight;
   boolean over = false;
   boolean active = true;
 
   public IndivButton(color c, int size) {
     origColor = c;
-    highlight = color(51);
     x = width / 4;
     y = height / 2;
     this.size = size;
