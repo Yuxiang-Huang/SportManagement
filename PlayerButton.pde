@@ -7,7 +7,6 @@ public class PlayerButton{
 
   HashMap<String, ArrayList<Float>> stats = new HashMap<String, ArrayList<Float>>();
   HashMap<String, ArrayList<Float>> teamGoals = new HashMap<String, ArrayList<Float>>();
-  HashMap<String, ArrayList<Float>> goals = new HashMap<String, ArrayList<Float>>();
 
   public PlayerButton(float x, float y, color c, int size) {
     origColor = c;

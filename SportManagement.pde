@@ -10,13 +10,14 @@ HashMap<String, SessionButton> sessions = new HashMap<String, SessionButton>();
 int numOfSession = 0;
 int buttonSize = 100;
 int distBtwButton = 50;
+color highlight  = color(200);
 
 IntroButton indiv;
 IntroButton team;
 IntroButton stat;
 BackButton back;
 
-color highlight  = color(200);
+HashMap<String, ArrayList<Float>> personalGoals = new HashMap<String, ArrayList<Float>>();
  
 void setup(){
   allData = loadStrings("Input.txt");
@@ -59,6 +60,21 @@ void setup(){
   
   int save = index;
   
+  //personal goals
+  for (int i = 0; i < statNames.length; i ++){
+    personalGoals.put(statNames[i], new ArrayList<Float>());
+  }
+  
+  index += 2;
+  //for each player
+  for (int p = 0; p < names.length; p ++){
+    curr = allData[index++].split(" ");
+    //for each stat
+    for (int i = 1; i < curr.length; i ++){
+      personalGoals.get(statNames[i-1]).add(Float.parseFloat(curr[i]));  
+    }
+  }
+  
   //for sessions
   while (index < allData.length){
     while (index < allData.length && ! curr[0].equals("Session")){
@@ -73,17 +89,6 @@ void setup(){
   //for indiv
   index = save;
   createAllPlayerButtons();
-  //personal goals
-  index += 2;
-  //for each player
-  for (int p = 0; p < names.length; p ++){
-    curr = allData[index++].split(" ");
-    PlayerButton now = players.get(curr[0].substring(0, curr[0].length() - 1));
-    //for each stat
-    for (int i = 1; i < curr.length; i ++){
-      now.goals.get(statNames[i-1]).add(Float.parseFloat(curr[i]));  
-    }
-  }
   //read data
   while (index < allData.length){
     while (index < allData.length && ! curr[0].equals("Session")){
@@ -105,7 +110,13 @@ void readSession(int index){
   sessions.put(curr[1], now);
   numOfSession++;
   
-  index++;
+  //read team goals
+  curr = allData[index++].split(" ");
+  now.teamGoals = new float[curr.length];
+  //skip words "Team Goals:"
+  for (int i = 2; i < curr.length; i ++){
+    now.teamGoals[i-2] = Float.parseFloat(curr[i]);  
+  }
   
   //read stats
   float[][] holder = new float[statNames.length][names.length];
@@ -119,6 +130,16 @@ void readSession(int index){
   
   for (int i = 0; i < statNames.length; i ++){
     now.stats.put(statNames[i], holder[i]);
+  }
+  
+  //set personal goal
+  for (int i = 0; i < statNames.length; i ++){
+    float[] stats = now.stats.get(statNames[i]);
+    now.goals.put(statNames[i], new ArrayList<Float>());
+    for (int j = 0; j < stats.length; j ++){
+      now.goals.get(statNames[i]).add(Math.max(stats[j], personalGoals.get(statNames[i]).get(j)));
+      personalGoals.get(statNames[i]).set(j, Math.max(stats[j], personalGoals.get(statNames[i]).get(j)));
+    }
   }
   
   //for (String str : now.stats.keySet()){
@@ -137,7 +158,6 @@ void createAllPlayerButtons(){
     for (int j = 0; j < statNames.length; j ++){
       now.stats.put(statNames[j], new ArrayList<Float>());
       now.teamGoals.put(statNames[j], new ArrayList<Float>());
-      now.goals.put(statNames[j], new ArrayList<Float>());
     }
     numOfPlayer ++;
   }
@@ -161,8 +181,8 @@ void readIndiv(int index){
     //for each stat
     for (int i = 1; i < curr.length; i ++){
       now.stats.get(statNames[i-1]).add(Float.parseFloat(curr[i]));  
-      now.goals.get(statNames[i-1]).add(Math.max(Float.parseFloat(curr[i]), 
-      now.goals.get(statNames[i-1]).get(now.goals.get(statNames[i-1]).size() - 1)));
+      //now.goals.get(statNames[i-1]).add(Math.max(Float.parseFloat(curr[i]), 
+      //now.goals.get(statNames[i-1]).get(now.goals.get(statNames[i-1]).size() - 1)));
     }
   }
 }

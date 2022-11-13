@@ -5,8 +5,11 @@ public class SessionButton{
   color origColor;
   boolean over = false;
 
+  //stat to length name
   HashMap<String, float[]> stats = new HashMap<String, float[]>();
   float[] teamGoals;
+  //stat to goals for each player
+  HashMap<String, ArrayList<Float>> goals = new HashMap<String, ArrayList<Float>>();
 
   public SessionButton(float x, float y, color c, int size) {
     origColor = c;

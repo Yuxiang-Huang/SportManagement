@@ -13,7 +13,7 @@ float arrowLen = 8;
 
 float yScaleUnit;
 float percent = 15;
-int sizeOfPoint = 5;
+int sizeOfPoint = 7;
 float lenbtwBars = 10;
 
 float lineThickness = 1.2;
