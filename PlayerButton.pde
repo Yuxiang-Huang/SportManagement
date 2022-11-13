@@ -65,9 +65,14 @@ public class PlayerButton{
     String[] xLabel = new String[stats.get(statNames[0]).size()];
     for (int i = 0; i < xLabel.length; i ++){
       xLabel[i] = (i + 1) + "";
+    }
+    if (legends.size() == 1){
+      drawGraph(title, "Scatter", legends.get(0), xLabel, data);
+      drawScatterPlot(data);
+    } else{
+      drawGraph(title, "Scatter", "%", xLabel, data);
+      drawMultiScatterPlot(data, legends);
     }  
-    drawGraph(title, "Scatter", statNames[0], xLabel, data);
-    drawScatterPlot(data, legends);
     rectMode(CENTER);
   }
 }

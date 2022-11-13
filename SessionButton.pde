@@ -64,7 +64,7 @@ public class SessionButton{
     barNum /= names.length;
     rectMode(CORNER);
     if (barNum > 1){
-      drawGraph(title, "Multi Bar", "%", names, data);
+      drawGraph(title, "Bar", "%", names, data);
       drawMultiBarGraph(barNum, teamGoals, statNames, data);
     } 
     //else{

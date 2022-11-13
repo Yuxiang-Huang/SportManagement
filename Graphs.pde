@@ -61,7 +61,7 @@ void drawGraph(String title, String mode, String stat, String[] xLabel, ArrayLis
   //x
   for (int i = 1; i <= xSpaces; i ++){
     line(startX + i*xunit, startY + sll, startX + i*xunit, startY - sll);
-    if (mode.equals("Bar") || mode.equals("Multi Bar")){
+    if (mode.equals("Bar")){
       text(xLabel[i-1], startX + i*xunit - xunit/2, startY + offset);
     } else{
       text(xLabel[i-1], startX + i*xunit, startY + offset);
@@ -70,7 +70,7 @@ void drawGraph(String title, String mode, String stat, String[] xLabel, ArrayLis
   //y
   for (int i = 1; i <= ySpaces; i ++){
     line(startX - sll, startY - i*yunit, startX + sll, startY - i*yunit);
-    if (mode.equals("Multi Bar")){
+    if (stat.equals("%")){
       text((int) (i * percent), startX - offset, startY - i*yunit + sll);
     } else{
       text((int) (i * yScaleUnit), startX - offset, startY - i*yunit + sll);
@@ -90,7 +90,71 @@ void drawGraph(String title, String mode, String stat, String[] xLabel, ArrayLis
   textSize(font);
 }
 
-void drawScatterPlot(ArrayList<Float> data, ArrayList<String> legends){
+void drawScatterPlot(ArrayList<Float> data){
+  //lables
+  text("Sessions", startX + xlen / 2, startY + 50);
+
+  float lastY = -1;
+  ArrayList<Float> xVal = new ArrayList<Float>();
+  ArrayList<Float> yVal = new ArrayList<Float>();
+  for (int i = 1; i <= xSpaces; i ++){      
+    float yNow = startY - data.get(i-1) / yScaleUnit * yunit;
+    
+    circle(startX + i*xunit, yNow, sizeOfPoint);
+    
+    //line
+    if (lastY > 0){
+      line(startX + i*xunit - xunit, lastY, startX + i*xunit, yNow);
+    }
+    
+    //add for later calculation
+    xVal.add(startX + i*xunit);
+    yVal.add(yNow);
+    
+    //adjust for next loop
+    lastY = yNow;
+    index ++;
+  }
+
+  //line of best fit
+  
+  //Count = the number of points
+  int count = xVal.size();
+  //SumX = sum of all the X values
+  //SumY = sum of all the Y values
+  //SumX2 = sum of the squares of the X values
+  //SumXY = sum of the products X*Y for all the points
+  float sumX = 0;
+  float sumY = 0;
+  float sumX2 = 0;
+  float sumXY = 0;
+  for (int i = 0; i < xVal.size(); i ++){
+    sumX += xVal.get(i);
+    sumY += yVal.get(i);
+    sumX2 += Math.pow(xVal.get(i), 2);
+    sumXY += xVal.get(i) * yVal.get(i);
+  }
+  //XMean = SumX / Count
+  //YMean = SumY / Count
+  float xMean = sumX / count;
+  float yMean = sumY / count;
+  
+  //Slope = (SumXY - SumX * YMean) / (SumX2 - SumX * XMean)
+  float m = (sumXY - sumX * yMean) / (sumX2 - sumX * xMean);
+  //YInt = YMean - Slope * XMean
+  float b = yMean - m * xMean;
+  
+  //start and end point determine a line
+  float x0 = startX + xunit / 2;
+  float y0 = m * x0 + b;
+  
+  float x1 = xlen;
+  float y1 = m * x1 + b;
+  
+  line(x0, y0, x1, y1);
+}
+
+void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<String> legends){
   //lables
   text("Sessions", startX + xlen / 2, startY + 50);
   
@@ -111,11 +175,8 @@ void drawScatterPlot(ArrayList<Float> data, ArrayList<String> legends){
   //loop
   int index = 0;
   for (int x = 0; x < barNum; x ++){
-    //plot
-    if (barNum > 1){
-      fill(palett[x]);
-      stroke(palett[x]);
-    }
+    //fill(palett[x]);
+    stroke(palett[x]);
     
     float lastY = -1;
     ArrayList<Float> xVal = new ArrayList<Float>();
@@ -180,20 +241,18 @@ void drawScatterPlot(ArrayList<Float> data, ArrayList<String> legends){
   stroke(0);
   
   //legend
-  if (barNum > 1){
-    textAlign(LEFT);
-    float posX = startX + xlen - xunit/2;
-    float posY = 50;
-    float dy = 25;
-    float size = 20;
-    for (int i = 0; i < barNum; i ++){
-      fill(palett[i]);
-      rect(posX - 5, posY + i*dy - 15, -size, size);
-      fill(0);
-      text(legends.get(i), posX, posY + i*dy);
-    }
-    textAlign(CENTER);
+  textAlign(LEFT);
+  float posX = startX + xlen - xunit/2;
+  float posY = 50;
+  float dy = 25;
+  float size = 20;
+  for (int i = 0; i < barNum; i ++){
+    fill(palett[i]);
+    rect(posX - 5, posY + i*dy - 15, -size, size);
+    fill(0);
+    text(legends.get(i), posX, posY + i*dy);
   }
+  textAlign(CENTER); 
 }
 
 void drawBarGraph(ArrayList<Float> goals, float teamGoal, ArrayList<Float> data){
