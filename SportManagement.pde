@@ -54,7 +54,7 @@ void setup(){
   
   //stat check boxes
   for (int i = 0; i < statNames.length; i ++){
-    statCheckboxes.put(statNames[i], new StatCheckbox(100, 100 + i * 50, 255, 25, i));
+    statCheckboxes.put(statNames[i], new StatCheckbox(width/2, height/statNames.length * i + 100 / 2, 255, 50, i));
   }
   
   int save = index;

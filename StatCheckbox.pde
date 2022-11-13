@@ -40,7 +40,9 @@ public class StatCheckbox{
     
     fill(0);
     
-    text(statNames[index], x + 75, y);
+    textSize(18);
+    text(statNames[index], x + 100, y);
+    textSize(font);
   }
     
   boolean over()  {

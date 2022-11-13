@@ -27,7 +27,7 @@ void draw(){
     }
   }
   
-  else if (screen.equals("Player Selecting")){
+  else if (screen.equals("Stat Selecting")){
     for (String i : statCheckboxes.keySet()){
       statCheckboxes.get(i).update();
     }
@@ -40,22 +40,18 @@ void mousePressed() {
     if (screen.equals("Session Selecting")){
       screen = "Intro";
     }
-    else if (screen.equals("Session Stat Selecting")){
-      screen = "Session Selecting";
-    }
     else if (screen.equals("Session Display")){
-      screen = "Session Stat Selecting";
+      screen = "Session Selecting";
       refresh = true;
     }
     else if (screen.equals("Player Selecting")){
       screen = "Intro";
     }
-    else if (screen.equals("Player Stat Selecting")){
-      screen = "Player Selecting";
-    }
     else if (screen.equals("Player Display")){
-      screen = "Player Stat Selecting";
+      screen = "Player Selecting";
       refresh = true;
+    } else if (screen.equals("Stat Selecting")){
+      screen = "Intro";
     }
     back.over = false;
   }
@@ -67,6 +63,9 @@ void mousePressed() {
     }
     else if (team.over) {
       screen = "Session Selecting";
+    }
+    else if (stat.over) {
+      screen = "Stat Selecting";
     }
   }
   else if (screen.equals("Session Selecting")){
@@ -84,6 +83,13 @@ void mousePressed() {
         players.get(i).displayGraph(i);
         screen = "Player Display";
         refresh = false;
+      }
+    }
+  }
+  else if (screen.equals("Stat Selecting")){
+    for (String i : statCheckboxes.keySet()){
+      if (statCheckboxes.get(i).over){
+        statCheckboxes.get(i).checked = !statCheckboxes.get(i).checked;
       }
     }
   }
