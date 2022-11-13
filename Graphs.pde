@@ -1,10 +1,4 @@
-float startX = 100;
-float startY = 400;
-float ylen;
-float xlen;
-float yunit;
-float xunit;
-
+float startX;
 int xSpaces;
 int ySpaces = 10;
 float sll = 5; //spacing line length
@@ -18,8 +12,14 @@ float lenbtwBars = 10;
 float barShadingDist = 10;
 
 float lineThickness = 1.2;
-int fontSize = 12;
 int titleFontSize = 36;
+int labelFontSize = 20;
+
+float startY;
+float ylen;
+float xlen;
+float yunit;
+float xunit;
 
 color[] colors = new color[]{color(255, 0, 0), color(0, 255, 0), color(0, 0, 255),
 color(0, 255, 255), color(255, 0, 255), color(255, 255, 0)}; 
@@ -79,6 +79,8 @@ void drawGraph(String title, String mode, String stat, String[] xLabel, ArrayLis
     }
   }
   
+  textSize(labelFontSize);
+  
   //y label
   pushMatrix();
   translate(50, 250);
@@ -86,16 +88,21 @@ void drawGraph(String title, String mode, String stat, String[] xLabel, ArrayLis
   text(stat, 0, 0);
   popMatrix();
   
+  //x lables
+  if (mode.equals("Bar")){
+    text("Players", startX + xlen / 2, startY + 50);
+  } else{
+    text("Sessions", startX + xlen / 2, startY + 50);
+  }
+  
   //title
   textSize(titleFontSize);
   text(title, startX + xlen/2, 50);
+  
   textSize(fontSize);
 }
 
 void drawScatterPlot(ArrayList<Float> data){
-  //lables
-  text("Sessions", startX + xlen / 2, startY + 50);
-
   float lastY = -1;
   ArrayList<Float> xVal = new ArrayList<Float>();
   ArrayList<Float> yVal = new ArrayList<Float>();
@@ -157,9 +164,6 @@ void drawScatterPlot(ArrayList<Float> data){
 }
 
 void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayList<String> legends){
-  //lables
-  text("Sessions", startX + xlen / 2, startY + 50);
-  
   int barNum = legends.size();
   
   //set colors
@@ -259,9 +263,6 @@ void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayLi
 }
 
 void drawBarGraph(ArrayList<Float> goals, float teamGoal, ArrayList<Float> data){  
-  //lable
-  text("Players", startX + xlen / 2, startY + 50);
-  
   //draw bars
   for (int i = 0; i < xSpaces; i ++){
     float yNow = data.get(i) / yScaleUnit * yunit;
@@ -275,8 +276,6 @@ void drawBarGraph(ArrayList<Float> goals, float teamGoal, ArrayList<Float> data)
 
 void drawMultiBarGraph(int barNum, ArrayList<Float> goals, String[] barNames, 
   ArrayList<Float> data, ArrayList<Float> personalGoals){
-  //lable
-  text("Players", startX + xlen / 2, startY + 50);
   
   //set colors
   ArrayList<Integer> allColors = new ArrayList<Integer>();

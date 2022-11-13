@@ -1,3 +1,20 @@
+//default
+int fontSize = 12;
+
+//button setting
+int introButtonSize = 150;
+int buttonSize = 100;
+int buttonFontSize = 26;
+int distBtwButton = 50;
+color highlight  = color(200);
+
+//main buttons
+IntroButton indiv;
+IntroButton session;
+IntroButton stat;
+BackButton back;
+
+//for reading data
 String[] allData;
 int index = 0;
 
@@ -9,18 +26,6 @@ int numOfPlayer = 0;
 HashMap<String, SessionButton> sessions = new HashMap<String, SessionButton>(); //key: sessionNum
 int numOfSession = 0;
 HashMap<String, ArrayList<Float>> indivBest = new HashMap<String, ArrayList<Float>>(); //key: statName
-
-//button setting
-int introButtonSize = 150;
-int buttonSize = 100;
-int buttonFontSize = 26;
-int distBtwButton = 50;
-color highlight  = color(200);
-
-IntroButton indiv;
-IntroButton session;
-IntroButton stat;
-BackButton back;
 
 void setup(){
   allData = loadStrings("Input.txt");
@@ -35,6 +40,8 @@ void setup(){
   rectMode(CENTER);
   
   //set for graph
+  startX = 100;
+  startY = height - 100;
   xlen = width - 100;
   ylen = height - 100;
   
