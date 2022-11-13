@@ -19,8 +19,6 @@ float lenbtwBars = 10;
 float lineThickness = 1.2;
 int font = 12;
 
-float barShadingDist = 20;
-
 color[] colors = new color[]{color(255, 0, 0), color(0, 255, 0), color(0, 0, 255),
 color(0, 255, 255), color(255, 0, 255), color(255, 255, 0)}; 
  
@@ -265,34 +263,12 @@ void drawBarGraph(ArrayList<Float> goals, float teamGoal, ArrayList<Float> data)
   //draw bars
   for (int i = 0; i < xSpaces; i ++){
     float yNow = data.get(i) / yScaleUnit * yunit;
-    drawBar(startX + i*xunit, startY, yNow, data.get(i) - goals.get(i));
+    drawBar(1, 0, startX + i*xunit, startY, yNow, 0, data.get(i) - goals.get(i));
   }
   
   //team goal line
   float teamGoalY = startY - teamGoal / yScaleUnit * yunit;
   line(startX, teamGoalY, startX + xlen - xunit / 2, teamGoalY);
-}
-
-void drawBar(float x, float y, float h, float det){  
-  float adjxUnit = xunit - lenbtwBars * 2;
-  if (det < 0){
-    fill(255);
-    rect(x + lenbtwBars, y, adjxUnit, -h);  
-    fill(0);
-    //shading
-    float i = startY;
-    while (i - barShadingDist > startY - h){
-      line(x + lenbtwBars, i, x + lenbtwBars + adjxUnit, i - barShadingDist);
-      i -= barShadingDist;
-    }
-    i = startY - h;
-    while (i + barShadingDist < startY){
-      line(x + lenbtwBars, i, x + lenbtwBars + adjxUnit, i+barShadingDist);
-      i += barShadingDist;
-    }
-  } else{
-    rect(x + lenbtwBars, y, adjxUnit, -h);  
-  }
 }
 
 void drawMultiBarGraph(int barNum, float[] goals, String[] barNames, 
@@ -317,7 +293,7 @@ void drawMultiBarGraph(int barNum, float[] goals, String[] barNames,
   for (int i = 0; i < xSpaces; i ++){
     for (int j = 0; j < barNum; j ++){
       float yNow = data.get(counter) / goals[j] * 100 / percent * yunit;
-      drawTeamBar(barNum, j, startX + i*xunit, startY, yNow, palett[j], data.get(counter) - personalGoals.get(counter));
+      drawBar(barNum, j, startX + i*xunit, startY, yNow, palett[j], data.get(counter) - personalGoals.get(counter));
       counter ++;
     }
   }
@@ -337,7 +313,7 @@ void drawMultiBarGraph(int barNum, float[] goals, String[] barNames,
   textAlign(CENTER);
 }
 
-void drawTeamBar(int barNum, int index, float x, float y, float h, color c, float det){  
+void drawBar(int barNum, int index, float x, float y, float h, color c, float det){  
   fill(c);
   float adjxUnit = xunit - lenbtwBars * 2;
   if (det < 0){
@@ -345,22 +321,28 @@ void drawTeamBar(int barNum, int index, float x, float y, float h, color c, floa
     rect(x + lenbtwBars + adjxUnit / barNum * index, y, adjxUnit / barNum, -h);
     fill(c);
     stroke(c);
-    //shading
-    float i = startY;
-    while (i - barShadingDist > startY - h){
-      float xVal = x + lenbtwBars + adjxUnit / barNum * index;
-      line(xVal, i, xVal + adjxUnit / barNum, i - barShadingDist);
-      i -= barShadingDist;
-    }
-    i = startY - h;
-    while (i + barShadingDist < startY){
-      float xVal = x + lenbtwBars + adjxUnit / barNum * index;
-      line(xVal, i, xVal + adjxUnit / barNum, i+barShadingDist);
-      i += barShadingDist;
-    }
+    shading(x, adjxUnit, barNum, h, index);
   } else{
     rect(x + lenbtwBars + adjxUnit / barNum * index, y, adjxUnit / barNum, -h);
   }
   fill(0);
   stroke(0);
+}
+
+void shading(float x, float adjxUnit, int barNum, float h, int index){
+  float barShadingDist = adjxUnit / barNum / 7;
+  float i = startY;
+  float xVal = x + lenbtwBars + adjxUnit / barNum * index;
+  while (i - barShadingDist > startY - h){
+    line(xVal, i, xVal + adjxUnit / barNum, i - barShadingDist);
+    i -= barShadingDist;
+  }
+  line(xVal, i, xVal + (i - startY + h) / barShadingDist * (adjxUnit / barNum), startY - h);
+  //other direction
+  i = startY - h;
+  while (i + barShadingDist < startY){
+    line(xVal, i, xVal + adjxUnit / barNum, i+barShadingDist);
+    i += barShadingDist;
+  }
+  line(xVal, i, xVal + (startY - i) / barShadingDist * (adjxUnit / barNum), startY);
 }
