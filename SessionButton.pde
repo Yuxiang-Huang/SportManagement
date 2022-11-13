@@ -62,7 +62,7 @@ public class SessionButton{
       for (int j = 0; j < statNames.length; j++){
         if (statCheckboxes.get(statNames[j]).checked){
           data.add(stats.get(statNames[j])[i]);
-          indivGoalsInput.add(indivBest.get(statNames[j]).get(i));
+          indivGoalsInput.add(indivGoals.get(statNames[j]).get(i));
           teamGoalsInput.add(teamGoals[j]);
           barNum ++;
           stat = statNames[j];

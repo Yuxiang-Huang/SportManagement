@@ -41,6 +41,7 @@ public class StatCheckbox{
     
     fill(0);
     
+    //text
     textAlign(LEFT);
     textSize(buttonFontSize);
     text(statNames[index], x + size/2+5, y+5);

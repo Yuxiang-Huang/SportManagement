@@ -258,7 +258,7 @@ void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayLi
   textAlign(CENTER); 
 }
 
-void drawBarGraph(ArrayList<Float> goals, float teamGoal, ArrayList<Float> data){
+void drawBarGraph(ArrayList<Float> goals, float teamGoal, ArrayList<Float> data){  
   //lable
   text("Players", startX + xlen / 2, startY + 50);
   
