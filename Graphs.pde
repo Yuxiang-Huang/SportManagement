@@ -19,6 +19,8 @@ float lenbtwBars = 10;
 float lineThickness = 1.2;
 int font = 12;
 
+float barShadingDist = 20;
+
 color[] colors = new color[]{color(255, 0, 0), color(0, 255, 0), color(0, 0, 255),
 color(0, 255, 255), color(255, 0, 255), color(255, 255, 0)}; 
  
@@ -271,14 +273,25 @@ void drawBarGraph(ArrayList<Float> goals, float teamGoal, ArrayList<Float> data)
   line(startX, teamGoalY, startX + xlen - xunit / 2, teamGoalY);
 }
 
-void drawBar(float x, float y, float height, float det){  
+void drawBar(float x, float y, float h, float det){  
   float adjxUnit = xunit - lenbtwBars * 2;
   if (det < 0){
     fill(255);
-    rect(x + lenbtwBars, y, adjxUnit, -height);  
+    rect(x + lenbtwBars, y, adjxUnit, -h);  
     fill(0);
+    //shading
+    float i = startY;
+    while (i - barShadingDist > startY - h){
+      line(x + lenbtwBars, i, x + lenbtwBars + adjxUnit, i - barShadingDist);
+      i -= barShadingDist;
+    }
+    i = startY - h;
+    while (i + barShadingDist < startY){
+      line(x + lenbtwBars, i, x + lenbtwBars + adjxUnit, i+barShadingDist);
+      i += barShadingDist;
+    }
   } else{
-    rect(x + lenbtwBars, y, adjxUnit, -height);  
+    rect(x + lenbtwBars, y, adjxUnit, -h);  
   }
 }
 
@@ -324,15 +337,30 @@ void drawMultiBarGraph(int barNum, float[] goals, String[] barNames,
   textAlign(CENTER);
 }
 
-void drawTeamBar(int barNum, int index, float x, float y, float height, color c, float det){  
+void drawTeamBar(int barNum, int index, float x, float y, float h, color c, float det){  
   fill(c);
   float adjxUnit = xunit - lenbtwBars * 2;
   if (det < 0){
     fill(255);
-    rect(x + lenbtwBars + adjxUnit / barNum * index, y, adjxUnit / barNum, -height);
-    fill(0);
+    rect(x + lenbtwBars + adjxUnit / barNum * index, y, adjxUnit / barNum, -h);
+    fill(c);
+    stroke(c);
+    //shading
+    float i = startY;
+    while (i - barShadingDist > startY - h){
+      float xVal = x + lenbtwBars + adjxUnit / barNum * index;
+      line(xVal, i, xVal + adjxUnit / barNum, i - barShadingDist);
+      i -= barShadingDist;
+    }
+    i = startY - h;
+    while (i + barShadingDist < startY){
+      float xVal = x + lenbtwBars + adjxUnit / barNum * index;
+      line(xVal, i, xVal + adjxUnit / barNum, i+barShadingDist);
+      i += barShadingDist;
+    }
   } else{
-    rect(x + lenbtwBars + adjxUnit / barNum * index, y, adjxUnit / barNum, -height);
+    rect(x + lenbtwBars + adjxUnit / barNum * index, y, adjxUnit / barNum, -h);
   }
   fill(0);
+  stroke(0);
 }
