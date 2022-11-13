@@ -19,6 +19,8 @@ float lenbtwBars = 10;
 float lineThickness = 1.2;
 int font = 12;
 
+float barShadingDist = 10;
+
 color[] colors = new color[]{color(255, 0, 0), color(0, 255, 0), color(0, 0, 255),
 color(0, 255, 255), color(255, 0, 255), color(255, 255, 0)}; 
  
@@ -330,7 +332,6 @@ void drawBar(int barNum, int index, float x, float y, float h, color c, float de
 }
 
 void shading(float x, float adjxUnit, int barNum, float h, int index){
-  float barShadingDist = adjxUnit / barNum / 8;
   float i = startY - barShadingDist / 2;
   float xVal = x + lenbtwBars + adjxUnit / barNum * index;
   while (i - barShadingDist > startY - h){
