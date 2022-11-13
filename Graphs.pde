@@ -154,7 +154,7 @@ void drawScatterPlot(ArrayList<Float> data){
   line(x0, y0, x1, y1);
 }
 
-void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<String> legends){
+void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayList<String> legends){
   //lables
   text("Sessions", startX + xlen / 2, startY + 50);
   
@@ -175,14 +175,15 @@ void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<String> legends){
   //loop
   int index = 0;
   for (int x = 0; x < barNum; x ++){
-    //fill(palett[x]);
+    fill(palett[x]);
     stroke(palett[x]);
     
     float lastY = -1;
     ArrayList<Float> xVal = new ArrayList<Float>();
     ArrayList<Float> yVal = new ArrayList<Float>();
-    for (int i = 1; i <= xSpaces; i ++){      
-      float yNow = startY - data.get(index) / yScaleUnit * yunit;
+    for (int i = 1; i <= xSpaces; i ++){     
+      float yNow = startY - 
+      data.get(index) / goals.get(i) * 100 / percent * yunit;
       
       circle(startX + i*xunit, yNow, sizeOfPoint);
       

@@ -6,6 +6,7 @@ public class PlayerButton{
   boolean over = false;
 
   HashMap<String, ArrayList<Float>> stats = new HashMap<String, ArrayList<Float>>();
+  HashMap<String, ArrayList<Float>> teamGoals = new HashMap<String, ArrayList<Float>>();
   HashMap<String, ArrayList<Float>> goals = new HashMap<String, ArrayList<Float>>();
 
   public PlayerButton(float x, float y, color c, int size) {
@@ -51,13 +52,22 @@ public class PlayerButton{
     rectMode(CORNER);
     //get data
     ArrayList<Float> data = new ArrayList<Float>();
+    ArrayList<Float> goals = new ArrayList<Float>();
     ArrayList<String> legends = new ArrayList<String>();
+    
     for (int i = 0; i < statNames.length; i++){
       if (statCheckboxes.get(statNames[i]).checked){
+        //legend
         legends.add(statNames[i]);
+        //data
         ArrayList<Float> curr = stats.get(statNames[i]);
         for (int j = 0; j < curr.size(); j ++){
           data.add(curr.get(j));
+        }
+        //goal
+        curr = teamGoals.get(statNames[i]);
+        for (int j = 0; j < curr.size(); j ++){
+          goals.add(curr.get(j));
         }
       }
     }
@@ -71,7 +81,7 @@ public class PlayerButton{
       drawScatterPlot(data);
     } else{
       drawGraph(title, "Scatter", "%", xLabel, data);
-      drawMultiScatterPlot(data, legends);
+      drawMultiScatterPlot(data, goals, legends);
     }  
     rectMode(CENTER);
   }
