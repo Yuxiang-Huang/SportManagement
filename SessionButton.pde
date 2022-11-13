@@ -49,10 +49,13 @@ public class SessionButton{
   
   void displayGraph(String title){
     rectMode(CORNER);
+    //get data
     ArrayList<Float> data = new ArrayList<Float>();
     for (int i = 0; i < names.length; i ++){  
-      for (int j = 0; j < statsIncluded.length; j++){
-        data.add(stats.get(statsIncluded[j])[i]);
+      for (int j = 0; j < statNames.length; j++){
+        if (statCheckboxes.get(statNames[j]).checked){
+          data.add(stats.get(statNames[j])[i]);
+        }
       }
     }
     drawGraph(title, "Team Bar", "%", names, data);

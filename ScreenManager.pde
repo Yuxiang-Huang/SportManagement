@@ -1,15 +1,11 @@
 String screen = "Intro";
 boolean refresh = true;
 
-String[] statsIncluded;
-
 void draw(){  
   //for graphs
   if (refresh){
     background(255);
   }
-  
-  test.update();
   
   if (screen.equals("Intro")){
     indiv.update();
@@ -31,12 +27,7 @@ void draw(){
   }
 }
 
-void mousePressed() {
-  if (test.over){
-    test.checked = !test.checked;
-    statStatus[test.index] = test.checked;
-  }
-  
+void mousePressed() {  
   //back button
   if (back.over){
     if (screen.equals("Session Selecting")){
