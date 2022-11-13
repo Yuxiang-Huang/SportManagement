@@ -53,12 +53,14 @@ public class SessionButton{
   void displayGraph(String title){
     //get data depending on selected stats
     ArrayList<Float> data = new ArrayList<Float>();
+    ArrayList<Float> indivGoals = new ArrayList<Float>();
     int barNum = 0;
     String stat = "";
     for (int i = 0; i < names.length; i ++){  
       for (int j = 0; j < statNames.length; j++){
         if (statCheckboxes.get(statNames[j]).checked){
           data.add(stats.get(statNames[j])[i]);
+          indivGoals.add(goals.get(statNames[j]).get(i));
           barNum ++;
           stat = statNames[j];
         }
@@ -70,10 +72,10 @@ public class SessionButton{
       drawGraph(title, "Bar", "%", names, data);
       drawMultiBarGraph(barNum, teamGoals, statNames, data);
     } 
-    //else{
-    //  drawGraph(title, "Bar", stat, names, data);
-    //  drawBarGraph();
-    //}
+    else{
+      drawGraph(title, "Bar", stat, names, data);
+      drawBarGraph(indivGoals, teamGoals[(statCheckboxes.get(stat).index)], data);
+    }
     rectMode(CENTER);
   }
 }
