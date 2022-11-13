@@ -1,7 +1,7 @@
 float startX = 100;
 float startY = 400;
-float ylen = 300;
-float xlen = 800;
+float ylen;
+float xlen;
 float yunit;
 float xunit;
 
@@ -315,7 +315,7 @@ void drawMultiBarGraph(int barNum, ArrayList<Float> goals, String[] barNames,
   textAlign(CENTER);
 }
 
-void drawBar(int barNum, int index, float x, float y, float h, color c, float det){  
+void drawBar(int barNum, int index, float x, float y, float h, color c, float det){ 
   fill(c);
   float adjxUnit = xunit - lenbtwBars * 2;
   if (det < 0){

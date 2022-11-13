@@ -34,6 +34,10 @@ void setup(){
   textAlign(CENTER);
   rectMode(CENTER);
   
+  //set for graph
+  xlen = width - 100;
+  ylen = height - 100;
+  
   //set main buttons
   indiv = new IntroButton(255, 1, "Player");
   session = new IntroButton(255, 2, "Session");
