@@ -60,7 +60,7 @@ void drawGraph(String title, String mode, String stat, String[] xLabel, ArrayLis
   
   //scales
   text(0, startX - 5, startY + 10);
-  //x
+  //x scale
   for (int i = 1; i <= xSpaces; i ++){
     line(startX + i*xunit, startY + sll, startX + i*xunit, startY - sll);
     if (mode.equals("Bar")){
@@ -69,7 +69,7 @@ void drawGraph(String title, String mode, String stat, String[] xLabel, ArrayLis
       text(xLabel[i-1], startX + i*xunit, startY + offset);
     }
   }
-  //y
+  //y scale
   for (int i = 1; i <= ySpaces; i ++){
     line(startX - sll, startY - i*yunit, startX + sll, startY - i*yunit);
     if (stat.equals("%")){
@@ -79,6 +79,7 @@ void drawGraph(String title, String mode, String stat, String[] xLabel, ArrayLis
     }
   }
   
+  //lables
   textSize(labelFontSize);
   
   //y label
@@ -125,8 +126,73 @@ void drawScatterPlot(ArrayList<Float> data){
     index ++;
   }
 
-  //line of best fit
+  lineOfBestFit(xVal, yVal);
+}
+
+void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayList<String> legends){
+  int barNum = legends.size();
   
+  //set colors
+  ArrayList<Integer> allColors = new ArrayList<Integer>();
+  for (int i = 0; i < colors.length; i ++){
+    allColors.add(colors[i]);
+  }
+  color[] palett = new color[barNum];
+  for (int i = 0; i < palett.length; i ++){
+    int ran = (int) random(allColors.size());
+    palett[i] = allColors.get(ran);
+    allColors.remove(ran);
+  }
+  
+  //loop
+  int index = 0;
+  for (int x = 0; x < barNum; x ++){
+    fill(palett[x]);
+    stroke(palett[x]);
+    
+    float lastY = -1;
+    ArrayList<Float> xVal = new ArrayList<Float>();
+    ArrayList<Float> yVal = new ArrayList<Float>();
+    for (int i = 1; i <= xSpaces; i ++){     
+      float yNow = startY - data.get(index) / goals.get(index) * 100 / percent * yunit;
+      
+      circle(startX + i*xunit, yNow, sizeOfPoint);
+      
+      //line
+      if (lastY > 0){
+        line(startX + i*xunit - xunit, lastY, startX + i*xunit, yNow);
+      }
+      
+      //add for later calculation
+      xVal.add(startX + i*xunit);
+      yVal.add(yNow);
+      
+      //adjust for next loop
+      lastY = yNow;
+      index ++;
+    }
+  
+    lineOfBestFit(xVal, yVal);
+  }
+  
+  stroke(0);
+  
+  //legend
+  textAlign(LEFT);
+  float posX = startX + xlen - xunit/2;
+  float posY = 50;
+  float dy = 25;
+  float size = 20;
+  for (int i = 0; i < barNum; i ++){
+    fill(palett[i]);
+    rect(posX - 5, posY + i*dy - 15, -size, size);
+    fill(0);
+    text(legends.get(i), posX, posY + i*dy);
+  }
+  textAlign(CENTER); 
+}
+
+void lineOfBestFit(ArrayList<Float> xVal, ArrayList<Float> yVal){
   //Count = the number of points
   int count = xVal.size();
   //SumX = sum of all the X values
@@ -161,105 +227,6 @@ void drawScatterPlot(ArrayList<Float> data){
   float y1 = m * x1 + b;
   
   line(x0, y0, x1, y1);
-}
-
-void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayList<String> legends){
-  int barNum = legends.size();
-  
-  //set colors
-  ArrayList<Integer> allColors = new ArrayList<Integer>();
-  for (int i = 0; i < colors.length; i ++){
-    allColors.add(colors[i]);
-  }
-  color[] palett = new color[barNum];
-  for (int i = 0; i < palett.length; i ++){
-    int ran = (int) random(allColors.size());
-    palett[i] = allColors.get(ran);
-    allColors.remove(ran);
-  }
-  
-  //loop
-  int index = 0;
-  for (int x = 0; x < barNum; x ++){
-    fill(palett[x]);
-    stroke(palett[x]);
-    
-    float lastY = -1;
-    ArrayList<Float> xVal = new ArrayList<Float>();
-    ArrayList<Float> yVal = new ArrayList<Float>();
-    for (int i = 1; i <= xSpaces; i ++){     
-      float yNow = startY - 
-      data.get(index) / goals.get(index) * 100 / percent * yunit;
-      
-      circle(startX + i*xunit, yNow, sizeOfPoint);
-      
-      //line
-      if (lastY > 0){
-        line(startX + i*xunit - xunit, lastY, startX + i*xunit, yNow);
-      }
-      
-      //add for later calculation
-      xVal.add(startX + i*xunit);
-      yVal.add(yNow);
-      
-      //adjust for next loop
-      lastY = yNow;
-      index ++;
-    }
-  
-    //line of best fit
-    
-    //Count = the number of points
-    int count = xVal.size();
-    //SumX = sum of all the X values
-    //SumY = sum of all the Y values
-    //SumX2 = sum of the squares of the X values
-    //SumXY = sum of the products X*Y for all the points
-    float sumX = 0;
-    float sumY = 0;
-    float sumX2 = 0;
-    float sumXY = 0;
-    for (int i = 0; i < xVal.size(); i ++){
-      sumX += xVal.get(i);
-      sumY += yVal.get(i);
-      sumX2 += Math.pow(xVal.get(i), 2);
-      sumXY += xVal.get(i) * yVal.get(i);
-    }
-    //XMean = SumX / Count
-    //YMean = SumY / Count
-    float xMean = sumX / count;
-    float yMean = sumY / count;
-    
-    //Slope = (SumXY - SumX * YMean) / (SumX2 - SumX * XMean)
-    float m = (sumXY - sumX * yMean) / (sumX2 - sumX * xMean);
-    //YInt = YMean - Slope * XMean
-    float b = yMean - m * xMean;
-    
-    //start and end point determine a line
-    float x0 = startX + xunit / 2;
-    float y0 = m * x0 + b;
-    
-    float x1 = xlen;
-    float y1 = m * x1 + b;
-    
-    line(x0, y0, x1, y1);
-  }
-  
-  stroke(0);
-  
-  //legend
-  textAlign(LEFT);
-  float posX = startX + xlen - xunit/2;
-  float posY = 50;
-  float dy = 25;
-  float size = 20;
-  for (int i = 0; i < barNum; i ++){
-    fill(palett[i]);
-    rect(posX - 5, posY + i*dy - 15, -size, size);
-    fill(0);
-    text(legends.get(i), posX, posY + i*dy);
-  }
-  textAlign(CENTER); 
 }
 
 void drawBarGraph(ArrayList<Float> goals, float teamGoal, ArrayList<Float> data){  

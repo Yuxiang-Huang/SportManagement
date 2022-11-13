@@ -53,9 +53,10 @@ public class PlayerButton{
     rectMode(CORNER);
     //get data
     ArrayList<Float> data = new ArrayList<Float>();
-    ArrayList<Float> goals = new ArrayList<Float>();
+    ArrayList<Float> goalsInput = new ArrayList<Float>();
     ArrayList<String> legends = new ArrayList<String>();
     
+    //for each stat
     for (int i = 0; i < statNames.length; i++){
       if (statCheckboxes.get(statNames[i]).checked){
         //legend
@@ -68,7 +69,7 @@ public class PlayerButton{
         //goal
         curr = teamGoals.get(statNames[i]);
         for (int j = 0; j < curr.size(); j ++){
-          goals.add(curr.get(j));
+          goalsInput.add(curr.get(j));
         }
       }
     }
@@ -82,7 +83,7 @@ public class PlayerButton{
       drawScatterPlot(data);
     } else{
       drawGraph(title, "Scatter", "%", xLabel, data);
-      drawMultiScatterPlot(data, goals, legends);
+      drawMultiScatterPlot(data, goalsInput, legends);
     }  
     rectMode(CENTER);
   }
