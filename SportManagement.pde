@@ -3,6 +3,7 @@ int index = 0;
 
 String[] names;
 String[] statNames;
+boolean[] statStatus;
 HashMap<String, PlayerButton> players = new HashMap<String, PlayerButton>();
 int numOfPlayer = 0;
 HashMap<String, SessionButton> sessions = new HashMap<String, SessionButton>();
@@ -13,6 +14,8 @@ int distBtwButton = 50;
 IndivButton indiv;
 TeamButton team;
 BackButton back;
+
+StatCheckbox test;
 
 color highlight  = color(200);
  
@@ -33,6 +36,9 @@ void setup(){
   team = new TeamButton(255, 100);
   back = new BackButton(255, 30);
   
+  ////testing
+  test = new StatCheckbox(100, 100, 255, 25, 1);
+  
   //read data
   
   //names
@@ -45,10 +51,11 @@ void setup(){
   //stat names
   curr = allData[index++].split(", ");
   statNames = new String[curr.length];
+  statStatus = new boolean[curr.length];
   for (int i = 0; i < statNames.length; i ++){
     statNames[i] = curr[i];
   }
-  
+
   //for now include all
   statsIncluded = statNames;
   
