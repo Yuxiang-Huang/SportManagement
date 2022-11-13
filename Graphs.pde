@@ -183,7 +183,7 @@ void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayLi
     ArrayList<Float> yVal = new ArrayList<Float>();
     for (int i = 1; i <= xSpaces; i ++){     
       float yNow = startY - 
-      data.get(index) / goals.get(i) * 100 / percent * yunit;
+      data.get(index) / goals.get(index) * 100 / percent * yunit;
       
       circle(startX + i*xunit, yNow, sizeOfPoint);
       
