@@ -49,13 +49,23 @@ public class PlayerButton{
   
   void displayGraph(String title){
     rectMode(CORNER);
-    //just first stat for now
+    //get data
+    ArrayList<Float> data = new ArrayList<Float>();
+    for (int i = 0; i < statNames.length; i++){
+      if (statCheckboxes.get(statNames[i]).checked){
+        ArrayList<Float> curr = stats.get(statNames[i]);
+        for (int j = 0; j < curr.size(); j ++){
+          data.add(curr.get(j));
+        }
+      }
+    }
+    //xlabel
     String[] xLabel = new String[stats.get(statNames[0]).size()];
     for (int i = 0; i < xLabel.length; i ++){
       xLabel[i] = (i + 1) + "";
     }  
-    drawGraph(title, "Scatter", statNames[0], xLabel, stats.get(statNames[0]));
-    drawScatterPlot(stats.get(statNames[0]));
+    drawGraph(title, "Scatter", statNames[0], xLabel, data);
+    drawScatterPlot(data);
     rectMode(CENTER);
   }
 }

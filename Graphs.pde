@@ -61,7 +61,7 @@ void drawGraph(String title, String mode, String stat, String[] xLabel, ArrayLis
   //x
   for (int i = 1; i <= xSpaces; i ++){
     line(startX + i*xunit, startY + sll, startX + i*xunit, startY - sll);
-    if (mode.equals("Bar") || mode.equals("Team Bar")){
+    if (mode.equals("Bar") || mode.equals("Multi Bar")){
       text(xLabel[i-1], startX + i*xunit - xunit/2, startY + offset);
     } else{
       text(xLabel[i-1], startX + i*xunit, startY + offset);
@@ -70,7 +70,7 @@ void drawGraph(String title, String mode, String stat, String[] xLabel, ArrayLis
   //y
   for (int i = 1; i <= ySpaces; i ++){
     line(startX - sll, startY - i*yunit, startX + sll, startY - i*yunit);
-    if (mode.equals("Team Bar")){
+    if (mode.equals("Multi Bar")){
       text((int) (i * percent), startX - offset, startY - i*yunit + sll);
     } else{
       text((int) (i * yScaleUnit), startX - offset, startY - i*yunit + sll);
@@ -183,7 +183,7 @@ void drawBar(float x, float y, float height, float det){
   fill(0);
 }
 
-void drawTeamBarGraph(int barNum, float[] goals, String[] barNames, 
+void drawMultiBarGraph(int barNum, float[] goals, String[] barNames, 
   ArrayList<Float> data){
   //lable
   text("Players", startX + xlen / 2, startY + 50);

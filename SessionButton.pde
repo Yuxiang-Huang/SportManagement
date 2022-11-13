@@ -48,18 +48,29 @@ public class SessionButton{
   }
   
   void displayGraph(String title){
-    rectMode(CORNER);
     //get data depending on selected stats
     ArrayList<Float> data = new ArrayList<Float>();
+    int barNum = 0;
+    String stat = "";
     for (int i = 0; i < names.length; i ++){  
       for (int j = 0; j < statNames.length; j++){
         if (statCheckboxes.get(statNames[j]).checked){
           data.add(stats.get(statNames[j])[i]);
+          barNum ++;
+          stat = statNames[j];
         }
       }
     }
-    drawGraph(title, "Team Bar", "%", names, data);
-    drawTeamBarGraph(statNames.length, teamGoals, statNames, data);
+    barNum /= names.length;
+    rectMode(CORNER);
+    if (barNum > 1){
+      drawGraph(title, "Multi Bar", "%", names, data);
+      drawMultiBarGraph(barNum, teamGoals, statNames, data);
+    } 
+    //else{
+    //  drawGraph(title, "Bar", stat, names, data);
+    //  drawBarGraph();
+    //}
     rectMode(CENTER);
   }
 }
