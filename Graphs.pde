@@ -216,7 +216,7 @@ void lineOfBestFit(ArrayList<Float> xVal, ArrayList<Float> yVal){
   line(x0, y0, x1, y1);
 }
 
-void drawBarGraph(ArrayList<Float> goals, float teamGoal, ArrayList<Float> data){  
+void drawBarGraph(ArrayList<Float> data, ArrayList<Float> goals, float teamGoal){  
   //draw bars
   for (int i = 0; i < xSpaces; i ++){
     float h = data.get(i) / yScaleUnit * yunit;

@@ -52,33 +52,35 @@ public class SessionButton{
   }
   
   void displayGraph(String title){
+    int barNum = 0;
+    String stat = "";
+    
     //get data depending on selected stats
     ArrayList<Float> data = new ArrayList<Float>();
     ArrayList<Float> indivGoalsInput = new ArrayList<Float>();
-    ArrayList<Float> teamGoalsInput = new ArrayList<Float>();
-    ArrayList<String> legends = new ArrayList<String>();
-    
-    int barNum = 0;
-    String stat = "";
     for (int i = 0; i < names.length; i ++){  
       for (int j = 0; j < statNames.length; j++){
         if (statCheckboxes.get(statNames[j]).checked){
           data.add(stats.get(statNames[j]).get(i));
           indivGoalsInput.add(indivGoals.get(statNames[j]).get(i));
-          teamGoalsInput.add(teamGoals[j]);
           barNum ++;
-          stat = statNames[j];
         }
       }
     }
     
+    ArrayList<Float> teamGoalsInput = new ArrayList<Float>();
+    ArrayList<String> legends = new ArrayList<String>();
     for (int i = 0; i < statNames.length; i ++){
       if (statCheckboxes.get(statNames[i]).checked){
         legends.add(statNames[i]);
+        teamGoalsInput.add(teamGoals[i]);
+        stat = statNames[i];
       }
     }
+    
     barNum /= names.length;
         
+    //draw graph
     rectMode(CORNER);
     if (barNum > 1){      
       drawGraph(title, "Bar", "%", names, data);
@@ -86,7 +88,7 @@ public class SessionButton{
     } 
     else{
       drawGraph(title, "Bar", stat, names, data);
-      drawBarGraph(indivGoalsInput, teamGoals[(statCheckboxes.get(stat).index)], data);
+      drawBarGraph(data, indivGoalsInput, teamGoals[(statCheckboxes.get(stat).index)]);
     }
     rectMode(CENTER);
   }

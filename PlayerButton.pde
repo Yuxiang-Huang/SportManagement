@@ -50,13 +50,10 @@ public class PlayerButton{
   }
   
   void displayGraph(String title){
-    rectMode(CORNER);
-    //get data
+    //get data depending on selected stats
     ArrayList<Float> data = new ArrayList<Float>();
     ArrayList<Float> goalsInput = new ArrayList<Float>();
     ArrayList<String> legends = new ArrayList<String>();
-    
-    //for each stat
     for (int i = 0; i < statNames.length; i++){
       if (statCheckboxes.get(statNames[i]).checked){
         //legend
@@ -73,11 +70,15 @@ public class PlayerButton{
         }
       }
     }
+    
     //xlabel
     String[] xLabel = new String[stats.get(statNames[0]).size()];
     for (int i = 0; i < xLabel.length; i ++){
       xLabel[i] = (i + 1) + "";
     }
+    
+    //draw graph
+    rectMode(CORNER);
     if (legends.size() == 1){
       drawGraph(title, "Scatter", legends.get(0), xLabel, data);
       drawScatterPlot(data);
