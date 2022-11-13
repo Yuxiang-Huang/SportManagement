@@ -11,8 +11,9 @@ int numOfSession = 0;
 int buttonSize = 100;
 int distBtwButton = 50;
 
-IndivButton indiv;
-TeamButton team;
+IntroButton indiv;
+IntroButton team;
+IntroButton stat;
 BackButton back;
 
 color highlight  = color(200);
@@ -29,9 +30,10 @@ void setup(){
   textAlign(CENTER);
   rectMode(CENTER);
   
-  //set buttons
-  indiv = new IndivButton(255, 100);
-  team = new TeamButton(255, 100);
+  //set main buttons
+  indiv = new IntroButton(255, 1, "Player");
+  team = new IntroButton(255, 2, "Team");
+  stat = new IntroButton(255, 3, "Stats");
   back = new BackButton(255, 30);
   
   //read data

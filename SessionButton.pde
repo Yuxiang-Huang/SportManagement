@@ -49,7 +49,7 @@ public class SessionButton{
   
   void displayGraph(String title){
     rectMode(CORNER);
-    //get data
+    //get data depending on selected stats
     ArrayList<Float> data = new ArrayList<Float>();
     for (int i = 0; i < names.length; i ++){  
       for (int j = 0; j < statNames.length; j++){

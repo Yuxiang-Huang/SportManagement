@@ -10,6 +10,7 @@ void draw(){
   if (screen.equals("Intro")){
     indiv.update();
     team.update();
+    stat.update();
   } else{
     back.update();
   }
@@ -25,6 +26,12 @@ void draw(){
       players.get(i).update(i);
     }
   }
+  
+  else if (screen.equals("Player Selecting")){
+    for (String i : statCheckboxes.keySet()){
+      statCheckboxes.get(i).update();
+    }
+  }
 }
 
 void mousePressed() {  
@@ -33,15 +40,21 @@ void mousePressed() {
     if (screen.equals("Session Selecting")){
       screen = "Intro";
     }
-    else if (screen.equals("Session Display")){
+    else if (screen.equals("Session Stat Selecting")){
       screen = "Session Selecting";
+    }
+    else if (screen.equals("Session Display")){
+      screen = "Session Stat Selecting";
       refresh = true;
     }
     else if (screen.equals("Player Selecting")){
       screen = "Intro";
     }
-    else if (screen.equals("Player Display")){
+    else if (screen.equals("Player Stat Selecting")){
       screen = "Player Selecting";
+    }
+    else if (screen.equals("Player Display")){
+      screen = "Player Stat Selecting";
       refresh = true;
     }
     back.over = false;

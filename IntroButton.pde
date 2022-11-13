@@ -1,15 +1,17 @@
-public class TeamButton{
+public class IntroButton{
   float x; 
   float y;    
   int size;
   color origColor;
   boolean over = false;
+  String text;
 
-  public TeamButton(color c, int size) {
+  public IntroButton(color c, int num, String text) {
     origColor = c;
-    x = width * 3 / 4;
+    x = num * width / 4;
     y = height / 2;
-    this.size = size;
+    size = 100;
+    this.text = text;
   }
   
   void update() {
@@ -31,7 +33,7 @@ public class TeamButton{
     
     fill(0);
     textSize(30);
-    text("Team", x, y);
+    text(text, x, y);
     textSize(font);
   }
     
