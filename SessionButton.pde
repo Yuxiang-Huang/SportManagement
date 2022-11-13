@@ -6,7 +6,7 @@ public class SessionButton{
   boolean over = false;
 
   //stat for all players in order of names for each stat
-  HashMap<String, float[]> stats = new HashMap<String, float[]>(); 
+  HashMap<String, ArrayList<Float>> stats = new HashMap<String, ArrayList<Float>>(); 
   //team goals for this session
   float[] teamGoals;
   //indiv goal for all players in order of session for each stat
@@ -61,7 +61,7 @@ public class SessionButton{
     for (int i = 0; i < names.length; i ++){  
       for (int j = 0; j < statNames.length; j++){
         if (statCheckboxes.get(statNames[j]).checked){
-          data.add(stats.get(statNames[j])[i]);
+          data.add(stats.get(statNames[j]).get(i));
           indivGoalsInput.add(indivGoals.get(statNames[j]).get(i));
           teamGoalsInput.add(teamGoals[j]);
           barNum ++;
