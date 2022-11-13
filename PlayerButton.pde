@@ -5,7 +5,9 @@ public class PlayerButton{
   color origColor;
   boolean over = false;
 
+  //each stat in order of session
   HashMap<String, ArrayList<Float>> stats = new HashMap<String, ArrayList<Float>>();
+  //team goals in order of session
   HashMap<String, ArrayList<Float>> teamGoals = new HashMap<String, ArrayList<Float>>();
 
   public PlayerButton(float x, float y, color c, int size) {

@@ -5,7 +5,7 @@ public class SessionButton{
   color origColor;
   boolean over = false;
 
-  //stat for all players in order of session for each stat
+  //stat for all players in order of names for each stat
   HashMap<String, float[]> stats = new HashMap<String, float[]>(); 
   //team goals for this session
   float[] teamGoals;

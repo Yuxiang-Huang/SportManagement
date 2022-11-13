@@ -105,9 +105,8 @@ void setup(){
 }
 
 void readSession(int index){
+  //create new session button
   String[] curr = allData[index++].split(" ");
-  
-  //create new session number
   float xVal = distBtwButton * numOfSession + buttonSize * (numOfSession + 1);
   SessionButton now = new SessionButton(xVal, height/2, 255, buttonSize);
   sessions.put(curr[1], now);
@@ -118,7 +117,7 @@ void readSession(int index){
   now.teamGoals = new float[curr.length];
   //skip words "Team Goals:"
   for (int i = 2; i < curr.length; i ++){
-    now.teamGoals[i-2] = Float.parseFloat(curr[i]);  
+    now.teamGoals[i-2] = Float.parseFloat(curr[i]);
   }
   
   //read stats
@@ -130,7 +129,6 @@ void readSession(int index){
       holder[s-1][p] = Float.parseFloat(curr[s]);  
     }
   }
-  
   for (int i = 0; i < statNames.length; i ++){
     now.stats.put(statNames[i], holder[i]);
   }
