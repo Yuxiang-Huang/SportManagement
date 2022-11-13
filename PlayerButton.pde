@@ -51,8 +51,10 @@ public class PlayerButton{
     rectMode(CORNER);
     //get data
     ArrayList<Float> data = new ArrayList<Float>();
+    ArrayList<String> legends = new ArrayList<String>();
     for (int i = 0; i < statNames.length; i++){
       if (statCheckboxes.get(statNames[i]).checked){
+        legends.add(statNames[i]);
         ArrayList<Float> curr = stats.get(statNames[i]);
         for (int j = 0; j < curr.size(); j ++){
           data.add(curr.get(j));
@@ -65,7 +67,7 @@ public class PlayerButton{
       xLabel[i] = (i + 1) + "";
     }  
     drawGraph(title, "Scatter", statNames[0], xLabel, data);
-    drawScatterPlot(data);
+    drawScatterPlot(data, legends);
     rectMode(CENTER);
   }
 }

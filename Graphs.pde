@@ -90,68 +90,110 @@ void drawGraph(String title, String mode, String stat, String[] xLabel, ArrayLis
   textSize(font);
 }
 
-void drawScatterPlot(ArrayList<Float> data){
+void drawScatterPlot(ArrayList<Float> data, ArrayList<String> legends){
   //lables
   text("Sessions", startX + xlen / 2, startY + 50);
   
-  //plot
-  float lastY = -1;
-  ArrayList<Float> xVal = new ArrayList<Float>();
-  ArrayList<Float> yVal = new ArrayList<Float>();
-  for (int i = 1; i <= xSpaces; i ++){      
-    float yNow = startY - data.get(i-1) / yScaleUnit * yunit;
-    
-    circle(startX + i*xunit, yNow, sizeOfPoint);
-    
-    //line
-    if (lastY > 0){
-      line(startX + i*xunit - xunit, lastY, startX + i*xunit, yNow);
+  int barNum = legends.size();
+  
+  //set colors
+  ArrayList<Integer> allColors = new ArrayList<Integer>();
+  for (int i = 0; i < colors.length; i ++){
+    allColors.add(colors[i]);
+  }
+  color[] palett = new color[barNum];
+  for (int i = 0; i < palett.length; i ++){
+    int ran = (int) random(allColors.size());
+    palett[i] = allColors.get(ran);
+    allColors.remove(ran);
+  }
+  
+  //loop
+  int index = 0;
+  for (int x = 0; x < barNum; x ++){
+    //plot
+    if (barNum > 1){
+      fill(palett[x]);
+      stroke(palett[x]);
     }
     
-    //add for later calculation
-    xVal.add(startX + i*xunit);
-    yVal.add(yNow);
+    float lastY = -1;
+    ArrayList<Float> xVal = new ArrayList<Float>();
+    ArrayList<Float> yVal = new ArrayList<Float>();
+    for (int i = 1; i <= xSpaces; i ++){      
+      float yNow = startY - data.get(index) / yScaleUnit * yunit;
+      
+      circle(startX + i*xunit, yNow, sizeOfPoint);
+      
+      //line
+      if (lastY > 0){
+        line(startX + i*xunit - xunit, lastY, startX + i*xunit, yNow);
+      }
+      
+      //add for later calculation
+      xVal.add(startX + i*xunit);
+      yVal.add(yNow);
+      
+      //adjust for next loop
+      lastY = yNow;
+      index ++;
+    }
+  
+    //line of best fit
     
-    //adjust for next loop
-    lastY = yNow;
+    //Count = the number of points
+    int count = xVal.size();
+    //SumX = sum of all the X values
+    //SumY = sum of all the Y values
+    //SumX2 = sum of the squares of the X values
+    //SumXY = sum of the products X*Y for all the points
+    float sumX = 0;
+    float sumY = 0;
+    float sumX2 = 0;
+    float sumXY = 0;
+    for (int i = 0; i < xVal.size(); i ++){
+      sumX += xVal.get(i);
+      sumY += yVal.get(i);
+      sumX2 += Math.pow(xVal.get(i), 2);
+      sumXY += xVal.get(i) * yVal.get(i);
+    }
+    //XMean = SumX / Count
+    //YMean = SumY / Count
+    float xMean = sumX / count;
+    float yMean = sumY / count;
+    
+    //Slope = (SumXY - SumX * YMean) / (SumX2 - SumX * XMean)
+    float m = (sumXY - sumX * yMean) / (sumX2 - sumX * xMean);
+    //YInt = YMean - Slope * XMean
+    float b = yMean - m * xMean;
+    
+    //start and end point determine a line
+    float x0 = startX + xunit / 2;
+    float y0 = m * x0 + b;
+    
+    float x1 = xlen;
+    float y1 = m * x1 + b;
+    
+    line(x0, y0, x1, y1);
   }
-
-  //line of best fit
   
-  //Count = the number of points
-  int count = xVal.size();
-  //SumX = sum of all the X values
-  //SumY = sum of all the Y values
-  //SumX2 = sum of the squares of the X values
-  //SumXY = sum of the products X*Y for all the points
-  float sumX = 0;
-  float sumY = 0;
-  float sumX2 = 0;
-  float sumXY = 0;
-  for (int i = 0; i < xVal.size(); i ++){
-    sumX += xVal.get(i);
-    sumY += yVal.get(i);
-    sumX2 += Math.pow(xVal.get(i), 2);
-    sumXY += xVal.get(i) * yVal.get(i);
+  stroke(0);
+  
+  //legend
+  if (barNum > 1){
+    textAlign(LEFT);
+    float posX = startX + xlen - xunit/2;
+    float posY = 50;
+    float dy = 25;
+    float size = 20;
+    for (int i = 0; i < barNum; i ++){
+      fill(palett[i]);
+      rect(posX - 5, posY + i*dy - 15, -size, size);
+      fill(0);
+      text(legends.get(i), posX, posY + i*dy);
+    }
+    textAlign(CENTER);
   }
-  //XMean = SumX / Count
-  //YMean = SumY / Count
-  float xMean = sumX / count;
-  float yMean = sumY / count;
-  
-  //Slope = (SumXY - SumX * YMean) / (SumX2 - SumX * XMean)
-  float m = (sumXY - sumX * yMean) / (sumX2 - sumX * xMean);
-  //YInt = YMean - Slope * XMean
-  float b = yMean - m * xMean;
-  
-  //start and end point determine a line
-  float x0 = startX + xunit / 2;
-  float y0 = m * x0 + b;
-  
-  float x1 = xlen;
-  float y1 = m * x1 + b;
-  
-  line(x0, y0, x1, y1);
 }
 
 void drawBarGraph(ArrayList<Float> goals, float teamGoal, ArrayList<Float> data){
