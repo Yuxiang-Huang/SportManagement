@@ -8,6 +8,7 @@ HashMap<String, PlayerButton> players = new HashMap<String, PlayerButton>();
 int numOfPlayer = 0;
 HashMap<String, SessionButton> sessions = new HashMap<String, SessionButton>();
 int numOfSession = 0;
+HashMap<String, ArrayList<Float>> personalGoals = new HashMap<String, ArrayList<Float>>();
 int buttonSize = 100;
 int distBtwButton = 50;
 color highlight  = color(200);
@@ -17,8 +18,6 @@ IntroButton team;
 IntroButton stat;
 BackButton back;
 
-HashMap<String, ArrayList<Float>> personalGoals = new HashMap<String, ArrayList<Float>>();
- 
 void setup(){
   allData = loadStrings("Input.txt");
   

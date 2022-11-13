@@ -273,7 +273,7 @@ void drawBarGraph(ArrayList<Float> goals, float teamGoal, ArrayList<Float> data)
   line(startX, teamGoalY, startX + xlen - xunit / 2, teamGoalY);
 }
 
-void drawMultiBarGraph(int barNum, float[] goals, String[] barNames, 
+void drawMultiBarGraph(int barNum, ArrayList<Float> goals, String[] barNames, 
   ArrayList<Float> data, ArrayList<Float> personalGoals){
   //lable
   text("Players", startX + xlen / 2, startY + 50);
@@ -294,7 +294,7 @@ void drawMultiBarGraph(int barNum, float[] goals, String[] barNames,
   int counter = 0;
   for (int i = 0; i < xSpaces; i ++){
     for (int j = 0; j < barNum; j ++){
-      float yNow = data.get(counter) / goals[j] * 100 / percent * yunit;
+      float yNow = data.get(counter) / goals.get(j) * 100 / percent * yunit;
       drawBar(barNum, j, startX + i*xunit, startY, yNow, palett[j], data.get(counter) - personalGoals.get(counter));
       counter ++;
     }
@@ -323,7 +323,9 @@ void drawBar(int barNum, int index, float x, float y, float h, color c, float de
     rect(x + lenbtwBars + adjxUnit / barNum * index, y, adjxUnit / barNum, -h);
     fill(c);
     stroke(c);
-    shading(x, adjxUnit, barNum, h, index);
+    if (h != 0){
+      shading(x, adjxUnit, barNum, h, index);
+    }
   } else{
     rect(x + lenbtwBars + adjxUnit / barNum * index, y, adjxUnit / barNum, -h);
   }

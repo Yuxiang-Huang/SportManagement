@@ -1,4 +1,5 @@
 public class StatCheckbox{
+  //index in the statNames
   int index;
   float x; 
   float y;    
@@ -29,7 +30,8 @@ public class StatCheckbox{
     } else {
       fill(origColor);
     }
-
+    
+    //display
     rect(x, y, size, size);
     
     //check mark
