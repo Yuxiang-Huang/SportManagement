@@ -108,8 +108,8 @@ void drawScatterPlot(ArrayList<Float> data){
   ArrayList<Float> xVal = new ArrayList<Float>();
   ArrayList<Float> yVal = new ArrayList<Float>();
   for (int i = 1; i <= xSpaces; i ++){      
+    //point
     float yNow = startY - data.get(i-1) / yScaleUnit * yunit;
-    
     circle(startX + i*xunit, yNow, sizeOfPoint);
     
     //line
@@ -130,14 +130,14 @@ void drawScatterPlot(ArrayList<Float> data){
 }
 
 void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayList<String> legends){
-  int barNum = legends.size();
+  int numOfPlayer = legends.size();
   
   //set colors
   ArrayList<Integer> allColors = new ArrayList<Integer>();
   for (int i = 0; i < colors.length; i ++){
     allColors.add(colors[i]);
   }
-  color[] palett = new color[barNum];
+  color[] palett = new color[numOfPlayer];
   for (int i = 0; i < palett.length; i ++){
     int ran = (int) random(allColors.size());
     palett[i] = allColors.get(ran);
@@ -146,7 +146,7 @@ void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayLi
   
   //loop
   int index = 0;
-  for (int x = 0; x < barNum; x ++){
+  for (int x = 0; x < numOfPlayer; x ++){
     fill(palett[x]);
     stroke(palett[x]);
     
@@ -154,8 +154,8 @@ void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayLi
     ArrayList<Float> xVal = new ArrayList<Float>();
     ArrayList<Float> yVal = new ArrayList<Float>();
     for (int i = 1; i <= xSpaces; i ++){     
+      //point
       float yNow = startY - data.get(index) / goals.get(index) * 100 / percent * yunit;
-      
       circle(startX + i*xunit, yNow, sizeOfPoint);
       
       //line
@@ -171,25 +171,12 @@ void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayLi
       lastY = yNow;
       index ++;
     }
-  
     lineOfBestFit(xVal, yVal);
   }
   
   stroke(0);
   
-  //legend
-  textAlign(LEFT);
-  float posX = startX + xlen - xunit/2;
-  float posY = 50;
-  float dy = 25;
-  float size = 20;
-  for (int i = 0; i < barNum; i ++){
-    fill(palett[i]);
-    rect(posX - 5, posY + i*dy - 15, -size, size);
-    fill(0);
-    text(legends.get(i), posX, posY + i*dy);
-  }
-  textAlign(CENTER); 
+  legend(palett, legends);
 }
 
 void lineOfBestFit(ArrayList<Float> xVal, ArrayList<Float> yVal){
@@ -232,8 +219,8 @@ void lineOfBestFit(ArrayList<Float> xVal, ArrayList<Float> yVal){
 void drawBarGraph(ArrayList<Float> goals, float teamGoal, ArrayList<Float> data){  
   //draw bars
   for (int i = 0; i < xSpaces; i ++){
-    float yNow = data.get(i) / yScaleUnit * yunit;
-    drawBar(1, 0, startX + i*xunit, startY, yNow, 0, data.get(i) - goals.get(i));
+    float h = data.get(i) / yScaleUnit * yunit;
+    drawBar(1, 0, startX + i*xunit, startY, h, color(0), data.get(i) - goals.get(i));
   }
   
   //team goal line
@@ -241,8 +228,8 @@ void drawBarGraph(ArrayList<Float> goals, float teamGoal, ArrayList<Float> data)
   line(startX, teamGoalY, startX + xlen - xunit / 2, teamGoalY);
 }
 
-void drawMultiBarGraph(int barNum, ArrayList<Float> goals, String[] barNames, 
-  ArrayList<Float> data, ArrayList<Float> personalGoals){
+void drawMultiBarGraph(int barNum, ArrayList<Float> goals, ArrayList<String> legends, 
+ArrayList<Float> data, ArrayList<Float> personalGoals){
   
   //set colors
   ArrayList<Integer> allColors = new ArrayList<Integer>();
@@ -266,19 +253,7 @@ void drawMultiBarGraph(int barNum, ArrayList<Float> goals, String[] barNames,
     }
   }
   
-  //legend
-  textAlign(LEFT);
-  float posX = startX + xlen - xunit/2;
-  float posY = 50;
-  float dy = 25;
-  float size = 20;
-  for (int i = 0; i < barNum; i ++){
-    fill(palett[i]);
-    rect(posX - 5, posY + i*dy - 15, -size, size);
-    fill(0);
-    text(barNames[i], posX, posY + i*dy);
-  }
-  textAlign(CENTER);
+  legend(palett, legends);
 }
 
 void drawBar(int barNum, int index, float x, float y, float h, color c, float det){ 
@@ -310,4 +285,19 @@ void shading(float x, float adjxUnit, int barNum, float h, int index){
   line(xVal, i, xVal + (i - startY + h) / barShadingDist * (adjxUnit / barNum), startY - h);
   //bot line
   line(xVal + 1/2 * (adjxUnit / barNum), startY, xVal + adjxUnit / barNum, startY - barShadingDist / 2);
+}
+
+void legend(color[] palett, ArrayList<String> legends){
+  textAlign(LEFT);
+  float posX = startX + xlen - xunit/2;
+  float posY = 50;
+  float dy = 25;
+  float size = 20;
+  for (int i = 0; i < palett.length; i ++){
+    fill(palett[i]);
+    rect(posX - 5, posY + i*dy - 15, -size, size);
+    fill(0);
+    text(legends.get(i), posX, posY + i*dy);
+  }
+  textAlign(CENTER); 
 }

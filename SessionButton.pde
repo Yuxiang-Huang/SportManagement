@@ -56,6 +56,8 @@ public class SessionButton{
     ArrayList<Float> data = new ArrayList<Float>();
     ArrayList<Float> indivGoalsInput = new ArrayList<Float>();
     ArrayList<Float> teamGoalsInput = new ArrayList<Float>();
+    ArrayList<String> legends = new ArrayList<String>();
+    
     int barNum = 0;
     String stat = "";
     for (int i = 0; i < names.length; i ++){  
@@ -69,12 +71,18 @@ public class SessionButton{
         }
       }
     }
+    
+    for (int i = 0; i < statNames.length; i ++){
+      if (statCheckboxes.get(statNames[i]).checked){
+        legends.add(statNames[i]);
+      }
+    }
     barNum /= names.length;
         
     rectMode(CORNER);
     if (barNum > 1){      
       drawGraph(title, "Bar", "%", names, data);
-      drawMultiBarGraph(barNum, teamGoalsInput, statNames, data, indivGoalsInput);
+      drawMultiBarGraph(barNum, teamGoalsInput, legends, data, indivGoalsInput);
     } 
     else{
       drawGraph(title, "Bar", stat, names, data);
