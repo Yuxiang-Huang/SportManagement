@@ -70,7 +70,7 @@ public class SessionButton{
     rectMode(CORNER);
     if (barNum > 1){
       drawGraph(title, "Bar", "%", names, data);
-      drawMultiBarGraph(barNum, teamGoals, statNames, data);
+      drawMultiBarGraph(barNum, teamGoals, statNames, data, indivGoals);
     } 
     else{
       drawGraph(title, "Bar", stat, names, data);
