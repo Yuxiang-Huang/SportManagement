@@ -17,7 +17,6 @@ BackButton back;
 //for reading data
 String[] allData;
 int index = 0;
-
 String[] names;
 String[] statNames;
 HashMap<String, StatCheckbox> statCheckboxes = new HashMap<String, StatCheckbox>(); //key: statNames
@@ -72,15 +71,12 @@ void setup(){
     statCheckboxes.put(statNames[i], new StatCheckbox(width/2, height/statNames.length * i + 100 / 2, 255, 50, i));
   }
   
-  int save = index;
-  
-  //personal goals
+  //indiv best
   for (int i = 0; i < statNames.length; i ++){
     indivBest.put(statNames[i], new ArrayList<Float>());
   }
-  
   index += 2;
-  //for each player
+  //for each player line
   for (int p = 0; p < names.length; p ++){
     curr = allData[index++].split(" ");
     //for each stat
@@ -89,28 +85,21 @@ void setup(){
     }
   }
   
-  //for sessions
-  while (index < allData.length){
-    while (index < allData.length && ! curr[0].equals("Session")){
-      curr = allData[index++].split(" ");
-    }
-    if (index < allData.length){
-      readSession(index-1);
-      curr = allData[index++].split(" ");
-    }
-  }
-  
-  //for indiv
-  index = save;
   createAllPlayerButtons();
-  //read data
+      
+  //for each session
   while (index < allData.length){
-    while (index < allData.length && ! curr[0].equals("Session")){
-      curr = allData[index++].split(" ");
+    //find next session
+    while (index < allData.length && ! allData[index].split(" ")[0].equals("Session")){
+      index++;
     }
     if (index < allData.length){
+      //read session
+      int save = index;
+      readSession(save);
+      //read indiv
       readIndiv(index);
-      curr = allData[index++].split(" ");
+      index ++;
     }
   }
 }
@@ -174,6 +163,7 @@ void createAllPlayerButtons(){
 
 void readIndiv(int index){
   //read team goals
+  index ++;
   String[] curr = allData[index++].split(" ");
   //skip words "Team Goals:"
   for (int i = 2; i < curr.length; i ++){
