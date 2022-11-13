@@ -9,7 +9,7 @@ void draw(){
   
   if (screen.equals("Intro")){
     indiv.update();
-    team.update();
+    session.update();
     stat.update();
   } else{
     back.update();
@@ -61,7 +61,7 @@ void mousePressed() {
     if (indiv.over) {
       screen = "Player Selecting";
     }
-    else if (team.over) {
+    else if (session.over) {
       screen = "Session Selecting";
     }
     else if (stat.over) {

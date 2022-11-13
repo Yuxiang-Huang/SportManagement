@@ -10,7 +10,7 @@ public class IntroButton{
     origColor = c;
     x = num * width / 4;
     y = height / 2;
-    size = 100;
+    size = introButtonSize;
     this.text = text;
   }
   
@@ -32,9 +32,9 @@ public class IntroButton{
     rect(x, y, size, size);
     
     fill(0);
-    textSize(30);
+    textSize(buttonFontSize);
     text(text, x, y);
-    textSize(font);
+    textSize(fontSize);
   }
     
   boolean over()  {

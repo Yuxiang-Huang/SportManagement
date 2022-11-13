@@ -5,11 +5,12 @@ public class SessionButton{
   color origColor;
   boolean over = false;
 
-  //stat to length name
-  HashMap<String, float[]> stats = new HashMap<String, float[]>();
+  //stat for all players in order of session for each stat
+  HashMap<String, float[]> stats = new HashMap<String, float[]>(); 
+  //team goals for this session
   float[] teamGoals;
-  //stat to goals for each player
-  HashMap<String, ArrayList<Float>> goals = new HashMap<String, ArrayList<Float>>();
+  //indiv goal for all players in order of session for each stat
+  HashMap<String, ArrayList<Float>> indivGoals = new HashMap<String, ArrayList<Float>>(); 
 
   public SessionButton(float x, float y, color c, int size) {
     origColor = c;
@@ -36,9 +37,9 @@ public class SessionButton{
     rect(x, y, size, size);
     
     fill(0);
-    textSize(30);
+    textSize(buttonFontSize);
     text(sessionNum, x, y);
-    textSize(font);
+    textSize(fontSize);
   }
     
   boolean over()  {
@@ -53,7 +54,7 @@ public class SessionButton{
   void displayGraph(String title){
     //get data depending on selected stats
     ArrayList<Float> data = new ArrayList<Float>();
-    ArrayList<Float> indivGoals = new ArrayList<Float>();
+    ArrayList<Float> indivGoalsInput = new ArrayList<Float>();
     ArrayList<Float> teamGoalsInput = new ArrayList<Float>();
     int barNum = 0;
     String stat = "";
@@ -61,7 +62,7 @@ public class SessionButton{
       for (int j = 0; j < statNames.length; j++){
         if (statCheckboxes.get(statNames[j]).checked){
           data.add(stats.get(statNames[j])[i]);
-          indivGoals.add(goals.get(statNames[j]).get(i));
+          indivGoalsInput.add(indivBest.get(statNames[j]).get(i));
           teamGoalsInput.add(teamGoals[j]);
           barNum ++;
           stat = statNames[j];
@@ -73,11 +74,11 @@ public class SessionButton{
     rectMode(CORNER);
     if (barNum > 1){      
       drawGraph(title, "Bar", "%", names, data);
-      drawMultiBarGraph(barNum, teamGoalsInput, statNames, data, indivGoals);
+      drawMultiBarGraph(barNum, teamGoalsInput, statNames, data, indivGoalsInput);
     } 
     else{
       drawGraph(title, "Bar", stat, names, data);
-      drawBarGraph(indivGoals, teamGoals[(statCheckboxes.get(stat).index)], data);
+      drawBarGraph(indivGoalsInput, teamGoals[(statCheckboxes.get(stat).index)], data);
     }
     rectMode(CENTER);
   }

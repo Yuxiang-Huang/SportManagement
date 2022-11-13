@@ -1,6 +1,5 @@
 public class StatCheckbox{
-  //index in the statNames
-  int index;
+  int index; //index in the statNames
   float x; 
   float y;    
   int size;
@@ -42,9 +41,9 @@ public class StatCheckbox{
     
     fill(0);
     
-    textSize(18);
+    textSize(buttonFontSize);
     text(statNames[index], x + 100, y);
-    textSize(font);
+    textSize(fontSize);
   }
     
   boolean over()  {

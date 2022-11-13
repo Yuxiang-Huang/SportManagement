@@ -3,18 +3,22 @@ int index = 0;
 
 String[] names;
 String[] statNames;
-HashMap<String, StatCheckbox> statCheckboxes = new HashMap<String, StatCheckbox>();
-HashMap<String, PlayerButton> players = new HashMap<String, PlayerButton>();
+HashMap<String, StatCheckbox> statCheckboxes = new HashMap<String, StatCheckbox>(); //key: statNames
+HashMap<String, PlayerButton> players = new HashMap<String, PlayerButton>(); //key: playerNames
 int numOfPlayer = 0;
-HashMap<String, SessionButton> sessions = new HashMap<String, SessionButton>();
+HashMap<String, SessionButton> sessions = new HashMap<String, SessionButton>(); //key: sessionNum
 int numOfSession = 0;
-HashMap<String, ArrayList<Float>> personalGoals = new HashMap<String, ArrayList<Float>>();
+HashMap<String, ArrayList<Float>> indivBest = new HashMap<String, ArrayList<Float>>(); //key: statName
+
+//button setting
+int introButtonSize = 150;
 int buttonSize = 100;
+int buttonFontSize = 26;
 int distBtwButton = 50;
 color highlight  = color(200);
 
 IntroButton indiv;
-IntroButton team;
+IntroButton session;
 IntroButton stat;
 BackButton back;
 
@@ -26,13 +30,13 @@ void setup(){
   size(900, 500);
   fill(0);
   stroke(lineThickness);
-  textSize(font);
+  textSize(fontSize);
   textAlign(CENTER);
   rectMode(CENTER);
   
   //set main buttons
   indiv = new IntroButton(255, 1, "Player");
-  team = new IntroButton(255, 2, "Team");
+  session = new IntroButton(255, 2, "Session");
   stat = new IntroButton(255, 3, "Stats");
   back = new BackButton(255, 30);
   
@@ -61,7 +65,7 @@ void setup(){
   
   //personal goals
   for (int i = 0; i < statNames.length; i ++){
-    personalGoals.put(statNames[i], new ArrayList<Float>());
+    indivBest.put(statNames[i], new ArrayList<Float>());
   }
   
   index += 2;
@@ -70,7 +74,7 @@ void setup(){
     curr = allData[index++].split(" ");
     //for each stat
     for (int i = 1; i < curr.length; i ++){
-      personalGoals.get(statNames[i-1]).add(Float.parseFloat(curr[i]));  
+      indivBest.get(statNames[i-1]).add(Float.parseFloat(curr[i]));  
     }
   }
   
@@ -134,17 +138,12 @@ void readSession(int index){
   //set personal goal
   for (int i = 0; i < statNames.length; i ++){
     float[] stats = now.stats.get(statNames[i]);
-    now.goals.put(statNames[i], new ArrayList<Float>());
+    now.indivGoals.put(statNames[i], new ArrayList<Float>());
     for (int j = 0; j < stats.length; j ++){
-      now.goals.get(statNames[i]).add(Math.max(stats[j], personalGoals.get(statNames[i]).get(j)));
-      personalGoals.get(statNames[i]).set(j, Math.max(stats[j], personalGoals.get(statNames[i]).get(j)));
+      now.indivGoals.get(statNames[i]).add(Math.max(stats[j], indivBest.get(statNames[i]).get(j)));
+      indivBest.get(statNames[i]).set(j, Math.max(stats[j], indivBest.get(statNames[i]).get(j)));
     }
   }
-  
-  //for (String str : now.stats.keySet()){
-  //  println(str);
-  //  println(now.stats.get(str));
-  //}
 }
 
 void createAllPlayerButtons(){
@@ -180,8 +179,6 @@ void readIndiv(int index){
     //for each stat
     for (int i = 1; i < curr.length; i ++){
       now.stats.get(statNames[i-1]).add(Float.parseFloat(curr[i]));  
-      //now.goals.get(statNames[i-1]).add(Math.max(Float.parseFloat(curr[i]), 
-      //now.goals.get(statNames[i-1]).get(now.goals.get(statNames[i-1]).size() - 1)));
     }
   }
 }

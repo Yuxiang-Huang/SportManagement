@@ -15,7 +15,7 @@ public class PlayerButton{
     this.size = size;
   }
   
-  void update(String sessionNum) {
+  void update(String name) {
     //update over
     if (over()){
       over = true;
@@ -33,9 +33,9 @@ public class PlayerButton{
     rect(x, y, size, size);
     
     fill(0);
-    textSize(30);
-    text(sessionNum, x, y);
-    textSize(font);
+    textSize(buttonFontSize);
+    text(name, x, y);
+    textSize(fontSize);
   }
     
   boolean over()  {

@@ -15,11 +15,11 @@ float yScaleUnit;
 float percent = 15;
 int sizeOfPoint = 7;
 float lenbtwBars = 10;
+float barShadingDist = 10;
 
 float lineThickness = 1.2;
-int font = 12;
-
-float barShadingDist = 10;
+int fontSize = 12;
+int titleFontSize = 36;
 
 color[] colors = new color[]{color(255, 0, 0), color(0, 255, 0), color(0, 0, 255),
 color(0, 255, 255), color(255, 0, 255), color(255, 255, 0)}; 
@@ -87,9 +87,9 @@ void drawGraph(String title, String mode, String stat, String[] xLabel, ArrayLis
   popMatrix();
   
   //title
-  textSize(36);
+  textSize(titleFontSize);
   text(title, startX + xlen/2, 50);
-  textSize(font);
+  textSize(fontSize);
 }
 
 void drawScatterPlot(ArrayList<Float> data){
