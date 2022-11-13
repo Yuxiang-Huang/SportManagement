@@ -330,19 +330,15 @@ void drawBar(int barNum, int index, float x, float y, float h, color c, float de
 }
 
 void shading(float x, float adjxUnit, int barNum, float h, int index){
-  float barShadingDist = adjxUnit / barNum / 7;
-  float i = startY;
+  float barShadingDist = adjxUnit / barNum / 8;
+  float i = startY - barShadingDist / 2;
   float xVal = x + lenbtwBars + adjxUnit / barNum * index;
   while (i - barShadingDist > startY - h){
     line(xVal, i, xVal + adjxUnit / barNum, i - barShadingDist);
     i -= barShadingDist;
   }
+  //top line
   line(xVal, i, xVal + (i - startY + h) / barShadingDist * (adjxUnit / barNum), startY - h);
-  //other direction
-  i = startY - h;
-  while (i + barShadingDist < startY){
-    line(xVal, i, xVal + adjxUnit / barNum, i+barShadingDist);
-    i += barShadingDist;
-  }
-  line(xVal, i, xVal + (startY - i) / barShadingDist * (adjxUnit / barNum), startY);
+  //bot line
+  line(xVal + 1/2 * (adjxUnit / barNum), startY, xVal + adjxUnit / barNum, startY - barShadingDist / 2);
 }
