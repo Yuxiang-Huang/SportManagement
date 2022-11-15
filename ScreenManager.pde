@@ -1,18 +1,12 @@
 String screen = "Intro";
 boolean refresh = true;
 
+PImage SoccerField;
+
 void draw(){  
   //for graphs
   if (refresh){
     background(255);
-  }
-  
-  if (screen.equals("Intro")){
-    indiv.update();
-    session.update();
-    stat.update();
-  } else{
-    back.update();
   }
   
   if (screen.equals("Session Selecting")){
@@ -22,6 +16,7 @@ void draw(){
   }
   
   else if (screen.equals("Player Selecting")){
+    image(SoccerField, 0, 0, width, height);
     for (String i : players.keySet()){
       players.get(i).update(i);
     }
@@ -31,6 +26,14 @@ void draw(){
     for (String i : statCheckboxes.keySet()){
       statCheckboxes.get(i).update();
     }
+  }
+  
+  if (screen.equals("Intro")){
+    indiv.update();
+    session.update();
+    stat.update();
+  } else{
+    back.update();
   }
 }
 

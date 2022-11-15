@@ -98,6 +98,9 @@ void setup(){
       index++;
     }
   }
+  
+  //images
+  SoccerField = loadImage("SoccerField.png");
 }
 
 void readSession(int index){
