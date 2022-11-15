@@ -74,7 +74,7 @@ void mousePressed() {
   else if (screen.equals("Session Selecting")){
     for (String i : sessions.keySet()){
       if (sessions.get(i).over){
-        sessions.get(i).displayGraph("Session" + i);
+        sessions.get(i).displayGraph("Session " + i);
         screen = "Session Display";
         refresh = false;
       }
