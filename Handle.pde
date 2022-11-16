@@ -6,24 +6,35 @@ public class Handle {
   boolean over;
   boolean press;
   boolean locked = false;
-  boolean mousePress;
 
   Handle(int x, int y, int l, int s) {
     this.x = x;
     this.y = y;
     this.stretch = l;
     this.size = s;
-    boxx = x+stretch - size/2;
-    boxy = y - size/2;
+    boxx = x+stretch;
+    boxy = y;
   }
 
-  void update() {
-    boxx = x+stretch;
-    boxy = y - size/2;
-
-    if (press) {
-      stretch = lock(mouseX-width/2-size/2, 0, width/2-size-1);
+  void update() {    
+    if (! press){
+      locked = false;
     }
+    
+    if (over && press || locked) {
+      press = true;
+      locked = true;
+    } else {
+      press = false;
+    }
+    
+    if (press) {
+      stretch = lock(mouseX-width/2, 0, width/2-size);
+    }
+    
+    //display
+    boxx = x+stretch;
+    boxy = y;
     
     overEvent();
     display();
@@ -37,27 +48,14 @@ public class Handle {
     }
   }
 
-  void pressEvent() {
-    if (over && mousePress || locked) {
-      press = true;
-      locked = true;
-    } else {
-      press = false;
-    }
-  }
-
-  void releaseEvent() {
-    locked = false;
-  }
-
   void display() {
     line(x, y, x+stretch, y);
     fill(255);
     stroke(0);
     rect(boxx, boxy, size, size);
     if (over || press) {
-      line(boxx, boxy, boxx+size, boxy+size);
-      line(boxx, boxy+size, boxx+size, boxy);
+      line(boxx-size/2, boxy-size/2, boxx+size/2, boxy+size/2);
+      line(boxx+size/2, boxy-size/2, boxx-size/2, boxy+size/2);
     }
   }
 

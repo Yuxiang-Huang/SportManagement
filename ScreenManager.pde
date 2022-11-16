@@ -99,10 +99,9 @@ void mousePressed() {
   //    }
   //  }
   //}
-  
-  sessionHandle.pressEvent();
+  sessionHandle.press = true;
 }
 
 void mouseReleased() {
-  sessionHandle.releaseEvent();
+  sessionHandle.press = false;
 }
