@@ -16,7 +16,7 @@ void draw(){
   }
   
   else if (screen.equals("Player Selecting")){
-    image(SoccerField, 0, 0, width, height);
+    image(SoccerField, 0, 0, width, height-200);
     for (String i : players.keySet()){
       players.get(i).update(i);
     }

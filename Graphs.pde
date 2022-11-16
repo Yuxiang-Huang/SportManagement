@@ -81,7 +81,7 @@ void drawGraph(String title, String mode, String stat, String[] xLabel, ArrayLis
   
   //lables
   textSize(labelFontSize);
-  textAlign(CENTER);
+  //textAlign(CENTER);
   
   //y label
   pushMatrix();
@@ -102,7 +102,7 @@ void drawGraph(String title, String mode, String stat, String[] xLabel, ArrayLis
   text(title, startX + xlen/2, 50);
   
   textSize(fontSize);
-  textAlign(LEFT);
+  //textAlign(LEFT);
 }
 
 void drawScatterPlot(ArrayList<Float> data){

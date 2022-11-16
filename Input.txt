@@ -1,29 +1,29 @@
-Mitch, Giles, Anselm, Aden
+CenterBack, Giles, Anselm, Aden
 Sprint speed, Distance, Power Plays
 
 Personal Goals:
-Mitch: 16.42 4.19 28
+CenterBack: 16.42 4.19 28
 Giles: 15.06 2.9 11
 Anselm: 14.63 3.03 17
 Aden: 15.27 2.59 21
 
 Session 1
 Team Goals: 15 3 20
-Mitch: 16.42 4.19 28
+CenterBack: 16.42 4.19 28
 Giles: 15.06 2.9 11
 Anselm: 14.63 3.03 17
 Aden: 15.27 2.59 21
 
 Session 2
 Team Goals: 15.5 3.5 20
-Mitch: 15.77 3.67 20
+CenterBack: 15.77 3.67 20
 Giles: 15.17 3.01 16
 Anselm: 17.31 3.87 12
 Aden: 16.56 3.97 21
 
 Session 3
 Team Goals: 16 5 45
-Mitch: 17.48 6.37 77
+CenterBack: 17.48 6.37 77
 Giles: 0 0 0
 Anselm: 16.07 5.2 40
 Aden: 18.39 4.96 62
