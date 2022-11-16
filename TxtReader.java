@@ -3,7 +3,7 @@ import java.io.*;
 
 public class TxtReader{
   public static void main(String[] args) {
-    File file = new File("9_15_2022.txt");
+    File file = new File("Raw_9_15_2022.txt");
     try {
       //set up
       Scanner s = new Scanner(file);
@@ -13,8 +13,9 @@ public class TxtReader{
       ArrayList<Integer> indices = new ArrayList<Integer>();
       statNames.add("distance covered");
       indices.add(8);
+      statNames.add("power plays");
+      indices.add(10);
       // statNames.add("top speed");
-      // statNames.add("power plays");
       // statNames.add("player load");
       // statNames.add("work ratio");
       // statNames.add("distance/min");
@@ -31,11 +32,11 @@ public class TxtReader{
       }
 
       //output
-      for (int i = 0; i < statNames.size(); i ++){
+      for (int i = 0; i < statNames.size() - 1; i ++){
         System.out.print(statNames.get(i) + ", ");
       }
 
-      System.out.println("");
+      System.out.println(statNames.get(statNames.size() - 1));
 
       for (int i = 0; i < playerName.size(); i ++){
         System.out.print(playerName.get(i) + ": ");
@@ -50,13 +51,21 @@ public class TxtReader{
         e.printStackTrace();
     }
   }
+
   public static void read(String str, ArrayList<ArrayList<String>> data,
   ArrayList<Integer> indices, ArrayList<String> playerName){
     //System.out.println(Arrays.toString(str.split("	")));
     String[] arr = str.split("	");
-    playerName.add(arr[2]);
+    playerName.add(trimSpace(arr[2]));
     for (int i = 0; i < indices.size(); i ++){
       data.get(i).add(arr[indices.get(i)]);
     }
+  }
+
+  public static String trimSpace(String str){
+    if (str.charAt(str.length()-1) == ' ') {
+      return str.substring(0, str.length() - 1);
+    }
+    return str;
   }
 }
