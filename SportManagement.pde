@@ -63,12 +63,14 @@ void setup(){
     statCheckboxes.put(statNames[i], new StatCheckbox(width/2, height/statNames.length * i + 100 / 2, 255, 50, i));
   }
   
+  index ++;
+  
   //names
   //hard number 3 for 4-3-3 position
   for (int times = 0; times < 3; times ++){
     String pos = allData[index++]; //position name
-    curr = allData[index++].split(" ");
-    for (int i = 1; i < curr.length; i ++){ 
+    curr = allData[index++].split(", ");
+    for (int i = 0; i < curr.length; i ++){ 
       //create new player button
       names.add(curr[i]);
       PlayerButton now = new PlayerButton(i-1, 255, buttonSize, pos);
