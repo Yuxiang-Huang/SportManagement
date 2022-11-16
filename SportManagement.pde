@@ -4,7 +4,7 @@ int fontSize = 12;
 //button setting
 int introButtonSize = 150;
 int buttonSize = 100;
-int buttonFontSize = 26;
+int buttonFontSize = 25;
 int distBtwButton = 50; //take out later
 color highlight  = color(200);
 
@@ -73,7 +73,7 @@ void setup(){
     for (int i = 0; i < curr.length; i ++){ 
       //create new player button
       names.add(curr[i]);
-      PlayerButton now = new PlayerButton(i-1, 255, buttonSize, pos);
+      PlayerButton now = new PlayerButton(i, 255, buttonSize, pos);
       players.put(curr[i], now);
       //set the keys for hashmap
       for (int j = 0; j < statNames.length; j ++){
@@ -90,25 +90,25 @@ void setup(){
   }
   index += 2;
   //for each player line
-  for (int p = 0; p < names.size(); p ++){
-    curr = allData[index++].split(" ");
-    //for each stat
-    for (int i = 1; i < curr.length; i ++){
-      indivBest.get(statNames[i-1]).add(Float.parseFloat(curr[i]));  
-    }
-  }
+  //for (int p = 0; p < names.size(); p ++){
+  //  curr = allData[index++].split(" ");
+  //  //for each stat
+  //  for (int i = 1; i < curr.length; i ++){
+  //    indivBest.get(statNames[i-1]).add(Float.parseFloat(curr[i]));  
+  //  }
+  //}
       
-  //for each session
-  while (index < allData.length){
-    //find next session
-    while (index < allData.length && ! allData[index].split(" ")[0].equals("Session")){
-      index++;
-    }
-    if (index < allData.length){
-      readSession(index);
-      index++;
-    }
-  }
+  ////for each session
+  //while (index < allData.length){
+  //  //find next session
+  //  while (index < allData.length && ! allData[index].split(" ")[0].equals("Session")){
+  //    index++;
+  //  }
+  //  if (index < allData.length){
+  //    readSession(index);
+  //    index++;
+  //  }
+  //}
   
   //images
   SoccerField = loadImage("SoccerField.png");

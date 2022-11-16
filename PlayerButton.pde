@@ -36,7 +36,9 @@ public class PlayerButton{
       }
     }
     
-    this.y = yIndex * height / num;
+    this.y = yIndex * height / num + height / num / 2;
+    //println(yIndex);
+    //println(y);
     this.size = size;
     this.position = pos;
   }

@@ -1,7 +1,7 @@
 Sprint speed, Distance, Power Plays
 
 Offense
-Aden, Jack, Mitch
+Jack, Aden, Mitch
 
 Center
 Stefan, Ryan, Eben
