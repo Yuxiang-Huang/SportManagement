@@ -1,19 +1,21 @@
 public class Handle {
   int x, y;
-  int boxx, boxy;
   int stretch;
   int size;
   boolean over;
   boolean press;
   boolean locked = false;
+  
+  int minX;
+  int maxX;
 
-  Handle(int x, int y, int l, int s) {
+  Handle(int x, int y, int minX, int l, int s) {
     this.x = x;
     this.y = y;
+    this.minX = minX;
+    this.maxX = width - minX;
     this.stretch = l;
     this.size = s;
-    boxx = x+stretch;
-    boxy = y;
   }
 
   void update() {    
@@ -29,19 +31,17 @@ public class Handle {
     }
     
     if (press) {
-      stretch = lock(mouseX-width/2, 0, width/2-size);
+      x = lock(mouseX);
     }
     
     //display
-    boxx = x+stretch;
-    boxy = y;
     
     overEvent();
     display();
   }
 
   void overEvent() {
-    if (overRect(boxx, boxy, size, size)) {
+    if (overRect(x, y, size, size)) {
       over = true;
     } else {
       over = false;
@@ -49,13 +49,13 @@ public class Handle {
   }
 
   void display() {
-    line(x, y, x+stretch, y);
+    line(minX, y, maxX, y);
     fill(255);
     stroke(0);
-    rect(boxx, boxy, size, size);
+    rect(x, y, size, size);
     if (over || press) {
-      line(boxx-size/2, boxy-size/2, boxx+size/2, boxy+size/2);
-      line(boxx+size/2, boxy-size/2, boxx-size/2, boxy+size/2);
+      line(x-size/2, y-size/2, x+size/2, y+size/2);
+      line(x+size/2, y-size/2, x-size/2, y+size/2);
     }
   }
 
@@ -68,7 +68,7 @@ public class Handle {
     }
   }
 
-  int lock(int val, int minv, int maxv) {
-    return  min(max(val, minv), maxv);
+  int lock(int val) {
+    return min(max(val, minX), maxX);
   }
 }
