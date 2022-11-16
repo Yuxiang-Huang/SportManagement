@@ -1,4 +1,12 @@
-CenterBack, Giles, Anselm, Aden
+Offense
+Aden, Jack, Mitch
+
+Center
+Stefan, Ryan, Eben
+
+Defense
+Nicholas, Giles, Anselm, Soham
+
 Sprint speed, Distance, Power Plays
 
 Personal Goals:

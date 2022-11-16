@@ -17,13 +17,12 @@ BackButton back;
 //for reading data
 String[] allData;
 int index = 0;
-String[] names;
+ArrayList<String> names = new ArrayList<String>();
 String[] statNames;
 HashMap<String, StatCheckbox> statCheckboxes = new HashMap<String, StatCheckbox>(); //key: statNames
 HashMap<String, PlayerButton> players = new HashMap<String, PlayerButton>(); //key: playerNames
-int numOfPlayer = 0;
 HashMap<String, SessionButton> sessions = new HashMap<String, SessionButton>(); //key: sessionNum
-int numOfSession = 0;
+int numOfSession = 0; //will take out later
 HashMap<String, ArrayList<Float>> indivBest = new HashMap<String, ArrayList<Float>>(); //key: statName
 
 void setup(){
@@ -53,10 +52,22 @@ void setup(){
   //read data
   
   //names
-  String[] curr = allData[index++].split(", ");
-  names = new String[curr.length];
-  for (int i = 0; i < names.length; i ++){
-    names[i] = curr[i];
+  //hard number 3 for 4-3-3 position
+  for (int times = 0; times < 3; times ++){
+    String pos = allData[index++];
+    String[] curr = allData[index++].split(" ");
+    for (int i = 1; i < curr.length; i ++){ 
+      //create new player button
+      float xVal = distBtwButton * numOfPlayer + buttonSize * (numOfPlayer + 1);
+      PlayerButton now = new PlayerButton(xVal, height/2, 255, buttonSize);
+      players.put(names[i], now);
+      //set the keys for hashmap
+      for (int j = 0; j < statNames.length; j ++){
+        now.stats.put(statNames[j], new ArrayList<Float>());
+        now.teamGoals.put(statNames[j], new ArrayList<Float>());
+      }
+    }
+    index ++; //skip an empty line
   }
   
   //stat names
@@ -84,8 +95,6 @@ void setup(){
       indivBest.get(statNames[i-1]).add(Float.parseFloat(curr[i]));  
     }
   }
-  
-  createAllPlayerButtons();
       
   //for each session
   while (index < allData.length){
@@ -147,20 +156,5 @@ void readSession(int index){
       sb.indivGoals.get(statNames[i]).add(Math.max(stats.get(j), indivBest.get(statNames[i]).get(j)));
       indivBest.get(statNames[i]).set(j, Math.max(stats.get(j), indivBest.get(statNames[i]).get(j)));
     }
-  }
-}
-
-void createAllPlayerButtons(){
-  for (int i = 0; i < names.length; i ++){  
-    //create new player button
-    float xVal = distBtwButton * numOfPlayer + buttonSize * (numOfPlayer + 1);
-    PlayerButton now = new PlayerButton(xVal, height/2, 255, buttonSize);
-    players.put(names[i], now);
-    //set the keys for hashmap
-    for (int j = 0; j < statNames.length; j ++){
-      now.stats.put(statNames[j], new ArrayList<Float>());
-      now.teamGoals.put(statNames[j], new ArrayList<Float>());
-    }
-    numOfPlayer ++;
   }
 }

@@ -4,17 +4,27 @@ public class PlayerButton{
   int size;
   color origColor;
   boolean over = false;
+  
+  String position;
 
   //each stat in order of session
   HashMap<String, ArrayList<Float>> stats = new HashMap<String, ArrayList<Float>>();
   //team goals in order of session
   HashMap<String, ArrayList<Float>> teamGoals = new HashMap<String, ArrayList<Float>>();
 
-  public PlayerButton(float x, float y, color c, int size) {
+  public PlayerButton(float x, float y, color c, int size, String pos) {
+    int num;
+    //find number of button in a column
+    if (pos.equals("Defense")){
+      num = 4;
+    } else{
+      num = 3;
+    }
     origColor = c;
     this.x = x;
-    this.y = y;
+    this.y = y * height / num;
     this.size = size;
+    this.position = pos;
   }
   
   void update(String name) {
