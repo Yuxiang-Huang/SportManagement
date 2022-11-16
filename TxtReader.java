@@ -25,14 +25,25 @@ public class TxtReader{
       }
 
       //read
+      ArrayList<String> playerName = new ArrayList<String> ();
       while (s.hasNextLine()){
-        read(s.nextLine(), data, indices);
+        read(s.nextLine(), data, indices, playerName);
       }
 
       //output
       for (int i = 0; i < statNames.size(); i ++){
-        System.out.println(statNames.get(i));
-        System.out.println(data.get(i));
+        System.out.print(statNames.get(i) + ", ");
+      }
+
+      System.out.println("");
+
+      for (int i = 0; i < playerName.size(); i ++){
+        System.out.print(playerName.get(i) + ": ");
+        for (int j = 0; j < data.size(); j ++){
+          System.out.print(data.get(j).get(i) + " ");
+        }
+
+        System.out.println("");
       }
     }
     catch (FileNotFoundException e) {
@@ -40,9 +51,10 @@ public class TxtReader{
     }
   }
   public static void read(String str, ArrayList<ArrayList<String>> data,
-  ArrayList<Integer> indices){
+  ArrayList<Integer> indices, ArrayList<String> playerName){
     //System.out.println(Arrays.toString(str.split("	")));
     String[] arr = str.split("	");
+    playerName.add(arr[2]);
     for (int i = 0; i < indices.size(); i ++){
       data.get(i).add(arr[indices.get(i)]);
     }
