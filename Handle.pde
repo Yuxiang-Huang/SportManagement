@@ -1,41 +1,26 @@
 public class Handle {
   int x, y;
-  int stretch;
   int size;
   boolean over;
-  boolean press;
-  boolean locked = false;
+  boolean hold = false;
   
   int minX;
   int maxX;
 
-  Handle(int x, int y, int minX, int l, int s) {
+  Handle(int x, int y, int minX, int s) {
     this.x = x;
     this.y = y;
     this.minX = minX;
     this.maxX = width - minX;
-    this.stretch = l;
     this.size = s;
   }
 
   void update() {    
-    if (! press){
-      locked = false;
-    }
-    
-    if (over && press || locked) {
-      press = true;
-      locked = true;
-    } else {
-      press = false;
-    }
-    
-    if (press) {
+    if (hold) {
       x = lock(mouseX);
     }
     
     //display
-    
     overEvent();
     display();
   }
@@ -53,7 +38,7 @@ public class Handle {
     fill(255);
     stroke(0);
     rect(x, y, size, size);
-    if (over || press) {
+    if (over || hold) {
       line(x-size/2, y-size/2, x+size/2, y+size/2);
       line(x+size/2, y-size/2, x-size/2, y+size/2);
     }
@@ -70,5 +55,15 @@ public class Handle {
 
   int lock(int val) {
     return min(max(val, minX), maxX);
+  }
+  
+  void pressEvent(){
+    if (over){
+      hold = true;
+    }
+  }
+  
+  void releaseEvent(){
+    hold = false;
   }
 }

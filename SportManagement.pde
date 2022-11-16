@@ -39,7 +39,7 @@ void setup(){
   textAlign(CENTER);
   rectMode(CENTER);
   
-  sessionHandle = new Handle(width/2, height/2, width/4, 100, 100);
+  sessionHandle = new Handle(width/2, height/2, width/4, 50);
   
   ////set for graph
   //startX = 100;
