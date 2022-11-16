@@ -1,5 +1,7 @@
 public class Handle {
-  int x, y;
+  int x;
+  int y;
+  
   int size;
   boolean over;
   boolean hold = false;
@@ -42,6 +44,11 @@ public class Handle {
       line(x-size/2, y-size/2, x+size/2, y+size/2);
       line(x+size/2, y-size/2, x-size/2, y+size/2);
     }
+    
+    fill(0);
+    int output = 5 * (x - minX) / (maxX - minX) + 1;
+    text(x, width/2, height/3);
+    text(output, width/2, height/4);
   }
 
   boolean overRect(int x, int y, int width, int height) {
@@ -54,7 +61,7 @@ public class Handle {
   }
 
   int lock(int val) {
-    return min(max(val, minX), maxX);
+    return min(max(val, minX), maxX-1);
   }
   
   void pressEvent(){
