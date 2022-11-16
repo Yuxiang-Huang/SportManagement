@@ -24,8 +24,8 @@ float xunit;
 color[] colors = new color[]{color(255, 0, 0), color(0, 255, 0), color(0, 0, 255),
 color(0, 255, 255), color(255, 0, 255)}; 
  
-void drawGraph(String title, String mode, String stat, String[] xLabel, ArrayList<Float> data){
-  xSpaces = xLabel.length;
+void drawGraph(String title, String mode, String stat, ArrayList<String> xLabel, ArrayList<Float> data){
+  xSpaces = xLabel.size();
   
   //calculate y scaling unit
   float max = 0;
@@ -64,9 +64,9 @@ void drawGraph(String title, String mode, String stat, String[] xLabel, ArrayLis
   for (int i = 1; i <= xSpaces; i ++){
     line(startX + i*xunit, startY + sll, startX + i*xunit, startY - sll);
     if (mode.equals("Bar")){
-      text(xLabel[i-1], startX + i*xunit - xunit/2, startY + offset);
+      text(xLabel.get(i-1), startX + i*xunit - xunit/2, startY + offset);
     } else{
-      text(xLabel[i-1], startX + i*xunit, startY + offset);
+      text(xLabel.get(i-1), startX + i*xunit, startY + offset);
     }
   }
   //y scale

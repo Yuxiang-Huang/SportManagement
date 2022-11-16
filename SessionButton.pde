@@ -58,7 +58,7 @@ public class SessionButton{
     //get data depending on selected stats
     ArrayList<Float> data = new ArrayList<Float>();
     ArrayList<Float> indivGoalsInput = new ArrayList<Float>();
-    for (int i = 0; i < names.length; i ++){  
+    for (int i = 0; i < names.size(); i ++){  
       for (int j = 0; j < statNames.length; j++){
         if (statCheckboxes.get(statNames[j]).checked){
           data.add(stats.get(statNames[j]).get(i));
@@ -78,7 +78,7 @@ public class SessionButton{
       }
     }
     
-    barNum /= names.length;
+    barNum /= names.size();
         
     //draw graph
     rectMode(CORNER);

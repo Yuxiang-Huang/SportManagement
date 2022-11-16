@@ -1,3 +1,5 @@
+Sprint speed, Distance, Power Plays
+
 Offense
 Aden, Jack, Mitch
 
@@ -6,8 +8,6 @@ Stefan, Ryan, Eben
 
 Defense
 Nicholas, Giles, Anselm, Soham
-
-Sprint speed, Distance, Power Plays
 
 Personal Goals:
 CenterBack: 16.42 4.19 28

@@ -5,7 +5,7 @@ int fontSize = 12;
 int introButtonSize = 150;
 int buttonSize = 100;
 int buttonFontSize = 26;
-int distBtwButton = 50;
+int distBtwButton = 50; //take out later
 color highlight  = color(200);
 
 //main buttons
@@ -51,27 +51,8 @@ void setup(){
   
   //read data
   
-  //names
-  //hard number 3 for 4-3-3 position
-  for (int times = 0; times < 3; times ++){
-    String pos = allData[index++];
-    String[] curr = allData[index++].split(" ");
-    for (int i = 1; i < curr.length; i ++){ 
-      //create new player button
-      float xVal = distBtwButton * numOfPlayer + buttonSize * (numOfPlayer + 1);
-      PlayerButton now = new PlayerButton(xVal, height/2, 255, buttonSize);
-      players.put(names[i], now);
-      //set the keys for hashmap
-      for (int j = 0; j < statNames.length; j ++){
-        now.stats.put(statNames[j], new ArrayList<Float>());
-        now.teamGoals.put(statNames[j], new ArrayList<Float>());
-      }
-    }
-    index ++; //skip an empty line
-  }
-  
   //stat names
-  curr = allData[index++].split(", ");
+  String[] curr = allData[index++].split(", ");
   statNames = new String[curr.length];
   for (int i = 0; i < statNames.length; i ++){
     statNames[i] = curr[i];
@@ -82,13 +63,32 @@ void setup(){
     statCheckboxes.put(statNames[i], new StatCheckbox(width/2, height/statNames.length * i + 100 / 2, 255, 50, i));
   }
   
+  //names
+  //hard number 3 for 4-3-3 position
+  for (int times = 0; times < 3; times ++){
+    String pos = allData[index++]; //position name
+    curr = allData[index++].split(" ");
+    for (int i = 1; i < curr.length; i ++){ 
+      //create new player button
+      names.add(curr[i]);
+      PlayerButton now = new PlayerButton(i-1, 255, buttonSize, pos);
+      players.put(curr[i], now);
+      //set the keys for hashmap
+      for (int j = 0; j < statNames.length; j ++){
+        now.stats.put(statNames[j], new ArrayList<Float>());
+        now.teamGoals.put(statNames[j], new ArrayList<Float>());
+      }
+    }
+    index ++; //skip an empty line
+  }
+  
   //indiv best
   for (int i = 0; i < statNames.length; i ++){
     indivBest.put(statNames[i], new ArrayList<Float>());
   }
   index += 2;
   //for each player line
-  for (int p = 0; p < names.length; p ++){
+  for (int p = 0; p < names.size(); p ++){
     curr = allData[index++].split(" ");
     //for each stat
     for (int i = 1; i < curr.length; i ++){
@@ -137,9 +137,9 @@ void readSession(int index){
   }
   
   //read stats
-  for (int p = 0; p < names.length; p ++){
+  for (int p = 0; p < names.size(); p ++){
     curr = allData[index++].split(" ");
-    PlayerButton pb = players.get(names[p]);
+    PlayerButton pb = players.get(names.get(p));
     //skip name
     for (int s = 1; s < curr.length; s ++){
       Float now = Float.parseFloat(curr[s]);  
