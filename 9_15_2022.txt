@@ -1,18 +1,18 @@
-distance covered, power plays
-Anselm: 3.8749 12 
-Farzad Hoque: 4.3941 18 
-Giles El-Assal: 3.0117 6 
-Stefan Broge: 3.9013 18 
-Rafael Zornoza: 0.9441 0 
-Nicholas Jung: 3.0852 13 
-Kaeden Ruparel: 5.2182 33 
-Mitchell Deutsch: 3.6749 20 
-Eben Eichenwald: 4.9137 15 
-Martin I: 4.0701 10 
-Duncan: 4.3489 14 
-Aden: 3.9672 21 
-Ryan Petrauskas: 4.3415 24 
-Gabriel: 2.9438 10 
-Frederik: 3.8186 24 
-Michael: 4.0131 23 
-Soham Mukherjee: 2.8423 20 
+distance covered, top speed, power plays, player load, work ratio, distance/min
+Anselm: 3.8749 17.3141 12 311.072 12.0929 35.442 
+Farzad Hoque: 4.3941 15.102 18 366.5374 14.3978 39.3848 
+Giles El-Assal: 3.0117 15.1715 6 272.0918 11.1196 29.993 
+Stefan Broge: 3.9013 13.3919 18 328.8414 13.9843 34.9875 
+Rafael Zornoza: 0.9441 5.0804 0 48.2204 13.452 21.0398 
+Nicholas Jung: 3.0852 14.9131 13 230.002 15.4063 48.166 
+Kaeden Ruparel: 5.2182 16.3845 33 439.4535 18.6942 46.9151 
+Mitchell Deutsch: 3.6749 15.7681 20 292.4688 17.8901 58.9163 
+Eben Eichenwald: 4.9137 14.3265 15 356.9068 19.3095 44.1282 
+Martin I: 4.0701 14.0183 10 297.1909 12.2742 37.7821 
+Duncan: 4.3489 17.2445 14 349.2578 17.3375 39.3158 
+Aden: 3.9672 16.5634 21 312.1876 12.4992 36.6963 
+Ryan Petrauskas: 4.3415 15.3406 24 305.8053 14.7905 39.3743 
+Gabriel: 2.9438 14.8932 10 266.7607 15.6902 46.8603 
+Frederik: 3.8186 16.7623 24 270.5695 21.932 60.9061 
+Michael: 4.0131 17.0357 23 357.5732 21.8657 63.0805 
+Soham Mukherjee: 2.8423 15.1218 20 226.3237 12.9182 48.2002 

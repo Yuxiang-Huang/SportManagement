@@ -13,12 +13,16 @@ public class TxtReader{
       ArrayList<Integer> indices = new ArrayList<Integer>();
       statNames.add("distance covered");
       indices.add(8);
+      statNames.add("top speed");
+      indices.add(16);
       statNames.add("power plays");
       indices.add(10);
-      // statNames.add("top speed");
-      // statNames.add("player load");
-      // statNames.add("work ratio");
-      // statNames.add("distance/min");
+      statNames.add("player load");
+      indices.add(15);
+      statNames.add("work ratio");
+      indices.add(19);
+      statNames.add("distance/min");
+      indices.add(17);
 
       ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
       for (int i = 0; i < statNames.size(); i ++){
@@ -62,6 +66,7 @@ public class TxtReader{
     }
   }
 
+  //take out space in end
   public static String trimSpace(String str){
     if (str.charAt(str.length()-1) == ' ') {
       return str.substring(0, str.length() - 1);
