@@ -57,7 +57,7 @@ public class TxtReader{
       System.out.println(statNames.get(statNames.size() - 1));
 
       for (int i = 0; i < playerName.size(); i ++){
-        System.out.print(playerName.get(i) + ": ");
+        System.out.println(playerName.get(i));
         for (int j = 0; j < data.size(); j ++){
           System.out.print(data.get(j).get(i) + " ");
         }

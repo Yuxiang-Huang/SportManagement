@@ -41,78 +41,78 @@ void setup(){
   
   sessionHandle = new Handle(width/2, height/2, width/4, 50);
   
-  ////set for graph
-  //startX = 100;
-  //startY = height - 100;
-  //xlen = width - 100;
-  //ylen = height - 100;
+  //set for graph
+  startX = 100;
+  startY = height - 100;
+  xlen = width - 100;
+  ylen = height - 100;
   
-  ////set main buttons
-  //indiv = new IntroButton(255, 1, "Player");
-  //session = new IntroButton(255, 2, "Session");
-  //stat = new IntroButton(255, 3, "Stats");
-  //back = new BackButton(255, 30);
+  //set main buttons
+  indiv = new IntroButton(255, 1, "Player");
+  session = new IntroButton(255, 2, "Session");
+  stat = new IntroButton(255, 3, "Stats");
+  back = new BackButton(255, 30);
   
-  ////read data
+  //read data
   
-  ////stat names
-  //String[] curr = allData[index++].split(", ");
-  //statNames = new String[curr.length];
-  //for (int i = 0; i < statNames.length; i ++){
-  //  statNames[i] = curr[i];
-  //}
+  //stat names
+  String[] curr = allData[index++].split(", ");
+  statNames = new String[curr.length];
+  for (int i = 0; i < statNames.length; i ++){
+    statNames[i] = curr[i];
+  }
   
-  ////stat check boxes
-  //for (int i = 0; i < statNames.length; i ++){
-  //  statCheckboxes.put(statNames[i], new StatCheckbox(width/2, height/statNames.length * i + 100 / 2, 255, 50, i));
-  //}
+  //stat check boxes
+  for (int i = 0; i < statNames.length; i ++){
+    statCheckboxes.put(statNames[i], new StatCheckbox(width/2, height/statNames.length * i + 100 / 2, 255, 50, i));
+  }
   
-  //index ++;
+  index ++;
   
-  ////names
-  ////hard number 3 for 4-3-3 position
-  //for (int times = 0; times < 3; times ++){
-  //  String pos = allData[index++]; //position name
-  //  curr = allData[index++].split(", ");
-  //  for (int i = 0; i < curr.length; i ++){ 
-  //    //create new player button
-  //    names.add(curr[i]);
-  //    PlayerButton now = new PlayerButton(i, 255, buttonSize, pos);
-  //    players.put(curr[i], now);
-  //    //set the keys for hashmap
-  //    for (int j = 0; j < statNames.length; j ++){
-  //      now.stats.put(statNames[j], new ArrayList<Float>());
-  //      now.teamGoals.put(statNames[j], new ArrayList<Float>());
-  //    }
-  //  }
-  //  index ++; //skip an empty line
-  //}
+  //names
+  //hard number 3 for 4-3-3 position
+  for (int times = 0; times < 3; times ++){
+    String pos = allData[index++]; //position name
+    curr = allData[index++].split(", ");
+    for (int i = 0; i < curr.length; i ++){ 
+      //create new player button
+      names.add(curr[i]);
+      PlayerButton now = new PlayerButton(i, 255, buttonSize, pos);
+      players.put(curr[i], now);
+      //set the keys for hashmap
+      for (int j = 0; j < statNames.length; j ++){
+        now.stats.put(statNames[j], new ArrayList<Float>());
+        now.teamGoals.put(statNames[j], new ArrayList<Float>());
+      }
+    }
+    index ++; //skip an empty line
+  }
   
-  ////indiv best
-  //for (int i = 0; i < statNames.length; i ++){
-  //  indivBest.put(statNames[i], new ArrayList<Float>());
-  //}
-  //index += 2;
+  //indiv best
+  for (int i = 0; i < statNames.length; i ++){
+    indivBest.put(statNames[i], new ArrayList<Float>());
+  }
+  index += 2;
   //for each player line
-  //for (int p = 0; p < names.size(); p ++){
-  //  curr = allData[index++].split(" ");
-  //  //for each stat
-  //  for (int i = 1; i < curr.length; i ++){
-  //    indivBest.get(statNames[i-1]).add(Float.parseFloat(curr[i]));  
-  //  }
-  //}
+  for (int p = 0; p < names.size(); p ++){
+    curr = allData[index++].split(" ");
+    //for each stat
+    for (int i = 1; i < curr.length; i ++){
+      indivBest.get(statNames[i-1]).add(Float.parseFloat(curr[i]));  
+    }
+  }
       
-  ////for each session
-  //while (index < allData.length){
-  //  //find next session
-  //  while (index < allData.length && ! allData[index].split(" ")[0].equals("Session")){
-  //    index++;
-  //  }
-  //  if (index < allData.length){
-  //    readSession(index);
-  //    index++;
-  //  }
-  //}
+  //for each session
+  while (index < allData.length){
+    //find next session
+    while (index < allData.length && ! allData[index].split(" ")[0].equals("Session")){
+      index++;
+    }
+    if (index < allData.length){
+      readSession(index);
+      index++;
+    }
+  }
   
   //images
   SoccerField = loadImage("SoccerField.png");
