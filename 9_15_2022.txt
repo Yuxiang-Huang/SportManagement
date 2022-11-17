@@ -1,4 +1,4 @@
-distance covered, top speed, power plays, player load, work ratio, distance/min
+Distance Covered, Top Speed, Power Plays, Player Load, Work Ratio, Distance/min
 Anselm
 3.8749 17.3141 12 311.072 12.0929 35.442 
 Giles El-Assal
@@ -17,3 +17,4 @@ Ryan Petrauskas
 4.3415 15.3406 24 305.8053 14.7905 39.3743 
 Soham Mukherjee
 2.8423 15.1218 20 226.3237 12.9182 48.2002 
+End

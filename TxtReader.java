@@ -64,6 +64,7 @@ public class TxtReader{
 
         System.out.println("");
       }
+      System.out.println("End");
     }
     catch (FileNotFoundException e) {
         e.printStackTrace();

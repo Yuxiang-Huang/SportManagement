@@ -17,7 +17,7 @@ BackButton back;
 //for reading data
 String[] allData;
 int index = 0;
-ArrayList<String> names = new ArrayList<String>();
+ArrayList<String> playerNames = new ArrayList<String>();
 String[] statNames;
 HashMap<String, StatCheckbox> statCheckboxes = new HashMap<String, StatCheckbox>(); //key: statNames
 HashMap<String, PlayerButton> players = new HashMap<String, PlayerButton>(); //key: playerNames
@@ -76,7 +76,7 @@ void setup(){
     curr = allData[index++].split(", ");
     for (int i = 0; i < curr.length; i ++){ 
       //create new player button
-      names.add(curr[i]);
+      playerNames.add(curr[i]);
       PlayerButton now = new PlayerButton(i, 255, buttonSize, pos);
       players.put(curr[i], now);
       //set the keys for hashmap
@@ -94,7 +94,7 @@ void setup(){
   }
   index ++; //skip empty line
   //for each player line
-  for (int p = 0; p < names.size(); p ++){
+  for (int p = 0; p < playerNames.size(); p ++){
     index ++; //skip name line
     curr = allData[index++].split(" ");
     //for each stat
@@ -131,14 +131,30 @@ void readSession(int index){
   }
   
   //read stats
-  for (int p = 0; p < names.size(); p ++){
+  ArrayList<String> tempPlayerName = new ArrayList<String>(playerNames);
+  while (!allData[index].equals("End")){
+    
+    //process the line with player name
     String name = allData[index++];
-    PlayerButton pb = players.get(name); //get player button
+    tempPlayerName.remove(name);
+    PlayerButton pb = players.get(name); 
     curr = allData[index++].split(" ");
-    for (int s = 0; s < curr.length; s ++){
-      Float now = Float.parseFloat(curr[s]);  
+    
+    for (int s = 0; s < statNames.length; s ++){
+      //process the line with data
+      Float now = Float.parseFloat(curr[s]);
       pb.stats.get(statNames[s]).add(now);
       sb.stats.get(statNames[s]).add(now);
+    }
+  }
+  
+  //absent player 
+  for (int i = 0; i < tempPlayerName.size(); i++){
+    PlayerButton pb = players.get(tempPlayerName.get(i));
+    for (int s = 0; s < statNames.length; s ++){
+      Float now = Float.parseFloat(curr[s]);
+      pb.stats.get(statNames[s]).add(-1f);
+      sb.stats.get(statNames[s]).add(-1f);
     }
   }
   
