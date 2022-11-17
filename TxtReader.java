@@ -3,7 +3,21 @@ import java.io.*;
 
 public class TxtReader{
   public static void main(String[] args) {
+    //names to include
+    ArrayList<String> allNames = new ArrayList<String>();
+    allNames.add("Jack");
+    allNames.add("Aden");
+    allNames.add("Mitchell Deutsch");
+    allNames.add("Stefan Broge");
+    allNames.add("Ryan Petrauskas");
+    allNames.add("Eben Eichenwald");
+    allNames.add("Nicholas Jung");
+    allNames.add("Giles El-Assal");
+    allNames.add("Anselm");
+    allNames.add("Soham Mukherjee");
+
     File file = new File("Raw_9_15_2022.txt");
+
     try {
       //set up
       Scanner s = new Scanner(file);
@@ -32,7 +46,7 @@ public class TxtReader{
       //read
       ArrayList<String> playerName = new ArrayList<String> ();
       while (s.hasNextLine()){
-        read(s.nextLine(), data, indices, playerName);
+        read(s.nextLine(), data, indices, playerName, allNames);
       }
 
       //output
@@ -57,12 +71,14 @@ public class TxtReader{
   }
 
   public static void read(String str, ArrayList<ArrayList<String>> data,
-  ArrayList<Integer> indices, ArrayList<String> playerName){
+  ArrayList<Integer> indices, ArrayList<String> playerName, ArrayList<String> allNames){
     //System.out.println(Arrays.toString(str.split("	")));
     String[] arr = str.split("	");
-    playerName.add(trimSpace(arr[2]));
-    for (int i = 0; i < indices.size(); i ++){
-      data.get(i).add(arr[indices.get(i)]);
+    if (allNames.contains(trimSpace(arr[2]))){
+      playerName.add(trimSpace(arr[2]));
+      for (int i = 0; i < indices.size(); i ++){
+        data.get(i).add(arr[indices.get(i)]);
+      }
     }
   }
 
