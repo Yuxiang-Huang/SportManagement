@@ -33,6 +33,7 @@ void draw(){
     for (String i : statCheckboxes.keySet()){
       statCheckboxes.get(i).update();
     }
+    ascb.update();
   }
   
   if (screen.equals("Intro")){
@@ -106,6 +107,12 @@ void mousePressed() {
     for (String i : statCheckboxes.keySet()){
       if (statCheckboxes.get(i).over){
         statCheckboxes.get(i).checked = !statCheckboxes.get(i).checked;
+      }
+    }
+    if (ascb.over){
+      ascb.allOff = ! ascb.allOff;
+      for (String i : statCheckboxes.keySet()){
+        statCheckboxes.get(i).checked = ascb.allOff;
       }
     }
   }

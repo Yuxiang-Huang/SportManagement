@@ -8,13 +8,15 @@ int buttonFontSize = 25;
 int distBtwButton = 50; //take out later
 color highlight  = color(200);
 
-//main buttons
+//special buttons
 IntroButton indiv;
 IntroButton session;
 IntroButton stat;
 BackButton back;
 
 PlayerButton team;
+
+AllStatChangeButton ascb;
 
 //for reading data
 String[] allData;
@@ -54,6 +56,7 @@ void setup(){
   session = new IntroButton(255, 2, "Session");
   stat = new IntroButton(255, 3, "Stats");
   back = new BackButton(255, 30);
+  ascb = new AllStatChangeButton(255, 50);
   
   //read data
   
