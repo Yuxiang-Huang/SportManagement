@@ -49,7 +49,7 @@ void setup(){
   startX = 100;
   startY = height - 100;
   xlen = width - 100;
-  ylen = height - 100;
+  ylen = height - 150;
   
   //set main buttons
   indiv = new IntroButton(255, 1, "Player");
