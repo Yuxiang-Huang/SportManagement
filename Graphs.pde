@@ -22,7 +22,7 @@ float yunit;
 float xunit;
 
 color[] colors = new color[]{color(255, 0, 0), color(0, 255, 0), color(0, 0, 255),
-color(0, 255, 255), color(255, 0, 255)}; 
+color(0, 255, 255), color(255, 0, 255), color(255, 102, 0)}; 
  
 void drawGraph(String title, String mode, String stat, ArrayList<String> xLabel, ArrayList<Float> data){
   xSpaces = xLabel.size();

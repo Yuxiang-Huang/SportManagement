@@ -115,12 +115,14 @@ void setup(){
     }
   }
   
+  //checkAllData();
+  
   //images
   SoccerField = loadImage("SoccerField.png");
 }
 
 void readSession(int index){
-  //create new session button
+  //create new session button; will replace later
   String[] curr = allData[index++].split(" ");
   float xVal = distBtwButton * numOfSession + buttonSize * (numOfSession + 1);
   SessionButton sb = new SessionButton(xVal, height/2, 255, buttonSize);
@@ -133,13 +135,11 @@ void readSession(int index){
   //read stats
   ArrayList<String> tempPlayerName = new ArrayList<String>(playerNames);
   while (!allData[index].equals("End")){
-    
     //process the line with player name
     String name = allData[index++];
     tempPlayerName.remove(name);
     PlayerButton pb = players.get(name); 
     curr = allData[index++].split(" ");
-    
     for (int s = 0; s < statNames.length; s ++){
       //process the line with data
       Float now = Float.parseFloat(curr[s]);
@@ -190,5 +190,18 @@ void readSession(int index){
       sb.indivGoals.get(statNames[i]).add(Math.max(stats.get(j), indivBest.get(statNames[i]).get(j)));
       indivBest.get(statNames[i]).set(j, Math.max(stats.get(j), indivBest.get(statNames[i]).get(j)));
     }
+  }
+}
+
+void checkAllData(){
+  for (String str : players.keySet()){
+    println(str);
+    println(players.get(str).stats);
+    println();
+  }
+  for (String str : sessions.keySet()){
+    println(str);
+    println(sessions.get(str).stats);
+    println();
   }
 }
