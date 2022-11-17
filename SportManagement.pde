@@ -115,7 +115,7 @@ void setup(){
     }
   }
   
-  //checkAllData();
+  checkAllData();
   
   //images
   SoccerField = loadImage("SoccerField.png");
@@ -132,7 +132,7 @@ void readSession(int index){
     sb.stats.put(statNames[i], new ArrayList<Float>());
   }
   
-  //read stats
+  //read stats for playerButton
   ArrayList<String> tempPlayerName = new ArrayList<String>(playerNames);
   while (!allData[index].equals("End")){
     //process the line with player name
@@ -140,11 +140,9 @@ void readSession(int index){
     tempPlayerName.remove(name);
     PlayerButton pb = players.get(name); 
     curr = allData[index++].split(" ");
+    //process data
     for (int s = 0; s < statNames.length; s ++){
-      //process the line with data
-      Float now = Float.parseFloat(curr[s]);
-      pb.stats.get(statNames[s]).add(now);
-      sb.stats.get(statNames[s]).add(now);
+      pb.stats.get(statNames[s]).add(Float.parseFloat(curr[s]));
     }
   }
   
@@ -154,7 +152,17 @@ void readSession(int index){
     for (int s = 0; s < statNames.length; s ++){
       Float now = Float.parseFloat(curr[s]);
       pb.stats.get(statNames[s]).add(-1f);
-      sb.stats.get(statNames[s]).add(-1f);
+    }
+  }
+  
+  checkAllData();
+  
+  //data for team
+  for (int i = 0; i < playerNames.size(); i ++){
+    PlayerButton pb = players.get(playerNames.get(i)); 
+    for (int s = 0; s < statNames.length; s ++){
+      ArrayList<Float> now = pb.stats.get(statNames[s]);
+      sb.stats.get(statNames[s]).add(now.get(now.size()-1));
     }
   }
   
@@ -197,11 +205,14 @@ void checkAllData(){
   for (String str : players.keySet()){
     println(str);
     println(players.get(str).stats);
+    println(players.get(str).teamGoals);
     println();
   }
   for (String str : sessions.keySet()){
     println(str);
     println(sessions.get(str).stats);
+    println(sessions.get(str).teamGoals);
+    println(sessions.get(str).indivGoals);
     println();
   }
 }
