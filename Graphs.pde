@@ -295,8 +295,8 @@ void shading(float x, float adjxUnit, int barNum, float h, int index){
 
 void legend(color[] palett, ArrayList<String> legends){
   textAlign(LEFT);
-  float posX = startX + xlen - xunit/2;
-  float posY = 50;
+  float posX = width - 125;
+  float posY = 25;
   float dy = 25;
   float size = 20;
   for (int i = 0; i < palett.length; i ++){

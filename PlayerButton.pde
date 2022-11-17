@@ -71,7 +71,7 @@ public class PlayerButton{
     
     fill(0);
     textSize(buttonFontSize);
-    text(name.split(" ")[0], x, y);
+    text(name, x, y);
     textSize(fontSize);
   }
     

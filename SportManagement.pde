@@ -48,7 +48,7 @@ void setup(){
   //set for graph
   startX = 100;
   startY = height - 100;
-  xlen = width - 100;
+  xlen = width - 200;
   ylen = height - 150;
   
   //set main buttons
@@ -81,9 +81,10 @@ void setup(){
     curr = allData[index++].split(", ");
     for (int i = 0; i < curr.length; i ++){ 
       //create new player button
-      playerNames.add(curr[i]);
+      String name = curr[i].split(" ")[0]; //take first name
+      playerNames.add(name); 
       PlayerButton now = new PlayerButton(i, 255, buttonSize, pos);
-      players.put(curr[i], now);
+      players.put(name, now);
       //set the keys for hashmap
       for (int j = 0; j < statNames.length; j ++){
         now.stats.put(statNames[j], new ArrayList<Float>());
@@ -149,7 +150,7 @@ void readSession(int index){
   ArrayList<String> tempPlayerName = new ArrayList<String>(playerNames);
   while (!allData[index].equals("End")){
     //process the line with player name
-    String name = allData[index++];
+    String name = allData[index++].split(" ")[0];
     tempPlayerName.remove(name);
     PlayerButton pb = players.get(name); 
     curr = allData[index++].split(" ");

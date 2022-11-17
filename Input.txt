@@ -1,4 +1,4 @@
-Distance Covered (miles), Top Speed (mph), Power Plays (times), Player Load, Work Ratio, Distance/min (m/min)
+Distance Covered, Top Speed, Power Plays, Player Load, Work Ratio, Distance/min
 
 Offense
 Jack, Aden, Mitchell Deutsch
