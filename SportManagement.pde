@@ -115,7 +115,7 @@ void setup(){
     }
   }
   
-  checkAllData();
+  //checkAllData();
   
   //images
   SoccerField = loadImage("SoccerField.png");
@@ -154,8 +154,6 @@ void readSession(int index){
       pb.stats.get(statNames[s]).add(-1f);
     }
   }
-  
-  checkAllData();
   
   //data for team
   for (int i = 0; i < playerNames.size(); i ++){

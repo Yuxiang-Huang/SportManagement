@@ -107,22 +107,24 @@ void drawScatterPlot(ArrayList<Float> data){
   float lastY = -1;
   ArrayList<Float> xVal = new ArrayList<Float>();
   ArrayList<Float> yVal = new ArrayList<Float>();
-  for (int i = 1; i <= xSpaces; i ++){      
-    //point
-    float yNow = startY - data.get(i-1) / yScaleUnit * yunit;
-    circle(startX + i*xunit, yNow, sizeOfPoint);
-    
-    //line
-    if (lastY > 0){
-      line(startX + i*xunit - xunit, lastY, startX + i*xunit, yNow);
+  for (int i = 1; i <= xSpaces; i ++){ 
+    if (data.get(i-1) != -1){ //absent player
+      //point
+      float yNow = startY - data.get(i-1) / yScaleUnit * yunit;
+      circle(startX + i*xunit, yNow, sizeOfPoint);
+      
+      //line
+      if (lastY > 0){
+        line(startX + i*xunit - xunit, lastY, startX + i*xunit, yNow);
+      }
+      
+      //add for later calculation
+      xVal.add(startX + i*xunit);
+      yVal.add(yNow);
+      
+      //adjust for next loop
+      lastY = yNow;
     }
-    
-    //add for later calculation
-    xVal.add(startX + i*xunit);
-    yVal.add(yNow);
-    
-    //adjust for next loop
-    lastY = yNow;
     index ++;
   }
 
@@ -153,22 +155,24 @@ void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayLi
     float lastY = -1;
     ArrayList<Float> xVal = new ArrayList<Float>();
     ArrayList<Float> yVal = new ArrayList<Float>();
-    for (int i = 1; i <= xSpaces; i ++){     
-      //point
-      float yNow = startY - data.get(index) / goals.get(index) * 100 / percent * yunit;
-      circle(startX + i*xunit, yNow, sizeOfPoint);
-      
-      //line
-      if (lastY > 0){
-        line(startX + i*xunit - xunit, lastY, startX + i*xunit, yNow);
+    for (int i = 1; i <= xSpaces; i ++){  
+      if (data.get(index) != -1){ //absent player
+        //point
+        float yNow = startY - data.get(index) / goals.get(index) * 100 / percent * yunit;
+        circle(startX + i*xunit, yNow, sizeOfPoint);
+        
+        //line
+        if (lastY > 0){
+          line(startX + i*xunit - xunit, lastY, startX + i*xunit, yNow);
+        }
+        
+        //add for later calculation
+        xVal.add(startX + i*xunit);
+        yVal.add(yNow);
+        
+        //adjust for next loop
+        lastY = yNow;
       }
-      
-      //add for later calculation
-      xVal.add(startX + i*xunit);
-      yVal.add(yNow);
-      
-      //adjust for next loop
-      lastY = yNow;
       index ++;
     }
     lineOfBestFit(xVal, yVal);
@@ -219,8 +223,10 @@ void lineOfBestFit(ArrayList<Float> xVal, ArrayList<Float> yVal){
 void drawBarGraph(ArrayList<Float> data, ArrayList<Float> goals, float teamGoal){  
   //draw bars
   for (int i = 0; i < xSpaces; i ++){
-    float h = data.get(i) / yScaleUnit * yunit;
-    drawBar(1, 0, startX + i*xunit, startY, h, color(0), data.get(i) - goals.get(i));
+    if (data.get(i) != -1){ //absent player
+      float h = data.get(i) / yScaleUnit * yunit;
+      drawBar(1, 0, startX + i*xunit, startY, h, color(0), data.get(i) - goals.get(i));
+    }
   }
   
   //team goal line
@@ -247,8 +253,10 @@ ArrayList<Float> data, ArrayList<Float> personalGoals){
   int counter = 0;
   for (int i = 0; i < xSpaces; i ++){
     for (int j = 0; j < barNum; j ++){
-      float yNow = data.get(counter) / goals.get(j) * 100 / percent * yunit;
-      drawBar(barNum, j, startX + i*xunit, startY, yNow, palett[j], data.get(counter) - personalGoals.get(counter));
+      if (data.get(counter) != -1){ //absent player
+        float yNow = data.get(counter) / goals.get(j) * 100 / percent * yunit;
+        drawBar(barNum, j, startX + i*xunit, startY, yNow, palett[j], data.get(counter) - personalGoals.get(counter));
+      }
       counter ++;
     }
   }
@@ -264,9 +272,7 @@ void drawBar(int barNum, int index, float x, float y, float h, color c, float de
     rect(x + lenbtwBars + adjxUnit / barNum * index, y, adjxUnit / barNum, -h);
     fill(c);
     stroke(c);
-    if (h != 0){
-      shading(x, adjxUnit, barNum, h, index);
-    }
+    shading(x, adjxUnit, barNum, h, index); 
   } else{
     rect(x + lenbtwBars + adjxUnit / barNum * index, y, adjxUnit / barNum, -h);
   }
