@@ -25,17 +25,17 @@ public class TxtReader{
 
       ArrayList<String> statNames = new ArrayList<String>();
       ArrayList<Integer> indices = new ArrayList<Integer>();
-      statNames.add("distance covered");
+      statNames.add("Distance Covered");
       indices.add(8);
-      statNames.add("top speed");
+      statNames.add("Top Speed");
       indices.add(16);
-      statNames.add("power plays");
+      statNames.add("Power Plays");
       indices.add(10);
-      statNames.add("player load");
+      statNames.add("Player Load");
       indices.add(15);
-      statNames.add("work ratio");
+      statNames.add("Work Ratio");
       indices.add(19);
-      statNames.add("distance/min");
+      statNames.add("Distance/min");
       indices.add(17);
 
       ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();

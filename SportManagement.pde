@@ -103,7 +103,7 @@ void setup(){
     }
   }
       
-  //for each session
+  //read each session
   while (index < allData.length){
     //find next session
     while (index < allData.length && ! allData[index].split(" ")[0].equals("Session:")){

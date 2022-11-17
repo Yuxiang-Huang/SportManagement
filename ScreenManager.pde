@@ -9,7 +9,7 @@ void draw(){
     background(255);
   }
   
-  sessionHandle.update();
+  //sessionHandle.update();
   
   if (screen.equals("Session Selecting")){
     for (String i : sessions.keySet()){
@@ -31,78 +31,78 @@ void draw(){
     }
   }
   
-  //if (screen.equals("Intro")){
-  //  indiv.update();
-  //  session.update();
-  //  stat.update();
-  //} else{
-  //  back.update();
-  //}
+  if (screen.equals("Intro")){
+    indiv.update();
+    session.update();
+    stat.update();
+  } else{
+    back.update();
+  }
 }
 
 void mousePressed() {  
   //back button
-  //if (back.over){
-  //  if (screen.equals("Session Selecting")){
-  //    screen = "Intro";
-  //  }
-  //  else if (screen.equals("Session Display")){
-  //    screen = "Session Selecting";
-  //    refresh = true;
-  //  }
-  //  else if (screen.equals("Player Selecting")){
-  //    screen = "Intro";
-  //  }
-  //  else if (screen.equals("Player Display")){
-  //    screen = "Player Selecting";
-  //    refresh = true;
-  //  } else if (screen.equals("Stat Selecting")){
-  //    screen = "Intro";
-  //  }
-  //  back.over = false;
-  //}
+  if (back.over){
+    if (screen.equals("Session Selecting")){
+      screen = "Intro";
+    }
+    else if (screen.equals("Session Display")){
+      screen = "Session Selecting";
+      refresh = true;
+    }
+    else if (screen.equals("Player Selecting")){
+      screen = "Intro";
+    }
+    else if (screen.equals("Player Display")){
+      screen = "Player Selecting";
+      refresh = true;
+    } else if (screen.equals("Stat Selecting")){
+      screen = "Intro";
+    }
+    back.over = false;
+  }
   
-  ////other buttons
-  //else if (screen.equals("Intro")){
-  //  if (indiv.over) {
-  //    screen = "Player Selecting";
-  //  }
-  //  else if (session.over) {
-  //    screen = "Session Selecting";
-  //  }
-  //  else if (stat.over) {
-  //    screen = "Stat Selecting";
-  //  }
-  //}
-  //else if (screen.equals("Session Selecting")){
-  //  for (String i : sessions.keySet()){
-  //    if (sessions.get(i).over){
-  //      sessions.get(i).displayGraph("Session " + i);
-  //      screen = "Session Display";
-  //      refresh = false;
-  //    }
-  //  }
-  //}
-  //else if (screen.equals("Player Selecting")){
-  //  for (String i : players.keySet()){
-  //    if (players.get(i).over){
-  //      players.get(i).displayGraph(i);
-  //      screen = "Player Display";
-  //      refresh = false;
-  //    }
-  //  }
-  //}
-  //else if (screen.equals("Stat Selecting")){
-  //  for (String i : statCheckboxes.keySet()){
-  //    if (statCheckboxes.get(i).over){
-  //      statCheckboxes.get(i).checked = !statCheckboxes.get(i).checked;
-  //    }
-  //  }
-  //}
+  //other buttons
+  else if (screen.equals("Intro")){
+    if (indiv.over) {
+      screen = "Player Selecting";
+    }
+    else if (session.over) {
+      screen = "Session Selecting";
+    }
+    else if (stat.over) {
+      screen = "Stat Selecting";
+    }
+  }
+  else if (screen.equals("Session Selecting")){
+    for (String i : sessions.keySet()){
+      if (sessions.get(i).over){
+        sessions.get(i).displayGraph("Session " + i);
+        screen = "Session Display";
+        refresh = false;
+      }
+    }
+  }
+  else if (screen.equals("Player Selecting")){
+    for (String i : players.keySet()){
+      if (players.get(i).over){
+        players.get(i).displayGraph(i);
+        screen = "Player Display";
+        refresh = false;
+      }
+    }
+  }
+  else if (screen.equals("Stat Selecting")){
+    for (String i : statCheckboxes.keySet()){
+      if (statCheckboxes.get(i).over){
+        statCheckboxes.get(i).checked = !statCheckboxes.get(i).checked;
+      }
+    }
+  }
   
-  sessionHandle.pressEvent();
+  //sessionHandle.pressEvent();
 }
 
 void mouseReleased() {
-  sessionHandle.releaseEvent();
+  //sessionHandle.releaseEvent();
 }
