@@ -14,7 +14,7 @@ public class PlayerButton{
 
   public PlayerButton(float yIndex, color c, int size, String pos) {
     //team button
-    if (pos.equals("Team")){
+    if (pos.equals("Average")){
       this.y = height/2;
       this.size = size;
       x = size/2;

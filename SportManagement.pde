@@ -91,7 +91,7 @@ void setup(){
   }
   
   //team player button
-  team = new PlayerButton(-1, 255, buttonSize, "Team");
+  team = new PlayerButton(-1, 255, buttonSize, "Average");
   //set the keys for hashmap
   for (int j = 0; j < statNames.length; j ++){
     team.stats.put(statNames[j], new ArrayList<Float>());
@@ -196,6 +196,9 @@ void readSession(int index){
     for (String now : players.keySet()){
       players.get(now).teamGoals.get(statNames[i]).add(teamGoal);
     }
+    //for average
+    team.stats.get(statNames[i]).add(teamGoal);
+    team.teamGoals.get(statNames[i]).add(1f); //to not change
   }
   
   //set personal goal

@@ -20,9 +20,12 @@ void draw(){
   else if (screen.equals("Player Selecting")){
     //soccer field image
     image(SoccerField, 0, 0, width, height);
-    team.update("Team");
     for (String i : players.keySet()){
       players.get(i).update(i);
+    }
+    
+    if (numOfStatOn() == 1){ //only display if one stat is on
+      team.update("Average");
     }
   }
   
@@ -112,4 +115,14 @@ void mousePressed() {
 
 void mouseReleased() {
   //sessionHandle.releaseEvent();
+}
+
+int numOfStatOn(){
+  int ans = 0;
+  for (int i = 0; i < statNames.length; i++){
+      if (statCheckboxes.get(statNames[i]).checked){
+        ans ++;
+      }
+  }
+  return ans;
 }
