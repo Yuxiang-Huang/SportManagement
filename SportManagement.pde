@@ -92,20 +92,21 @@ void setup(){
   for (int i = 0; i < statNames.length; i ++){
     indivBest.put(statNames[i], new ArrayList<Float>());
   }
-  index += 2;
+  index ++; //skip empty line
   //for each player line
   for (int p = 0; p < names.size(); p ++){
+    index ++; //skip name line
     curr = allData[index++].split(" ");
     //for each stat
-    for (int i = 1; i < curr.length; i ++){
-      indivBest.get(statNames[i-1]).add(Float.parseFloat(curr[i]));  
+    for (int i = 0; i < curr.length; i ++){
+      indivBest.get(statNames[i]).add(Float.parseFloat(curr[i]));  
     }
   }
       
   //for each session
   while (index < allData.length){
     //find next session
-    while (index < allData.length && ! allData[index].split(" ")[0].equals("Session")){
+    while (index < allData.length && ! allData[index].split(" ")[0].equals("Session:")){
       index++;
     }
     if (index < allData.length){
@@ -129,30 +130,30 @@ void readSession(int index){
     sb.stats.put(statNames[i], new ArrayList<Float>());
   }
   
-  //read team goals
-  curr = allData[index++].split(" ");
-  sb.teamGoals = new float[curr.length];
-  //skip words "Team Goals:"
-  for (int i = 2; i < curr.length; i ++){
-    //for session
-    sb.teamGoals[i-2] = Float.parseFloat(curr[i]);
-    //for indiv
-    for (String now : players.keySet()){
-      players.get(now).teamGoals.get(statNames[i-2]).add(Float.parseFloat(curr[i]));
+  //read stats
+  for (int p = 0; p < names.size(); p ++){
+    String name = allData[index++];
+    PlayerButton pb = players.get(name); //get player button
+    curr = allData[index++].split(" ");
+    for (int s = 0; s < curr.length; s ++){
+      Float now = Float.parseFloat(curr[s]);  
+      pb.stats.get(statNames[s]).add(now);
+      sb.stats.get(statNames[s]).add(now);
     }
   }
   
-  //read stats
-  for (int p = 0; p < names.size(); p ++){
-    curr = allData[index++].split(" ");
-    PlayerButton pb = players.get(names.get(p));
-    //skip name
-    for (int s = 1; s < curr.length; s ++){
-      Float now = Float.parseFloat(curr[s]);  
-      pb.stats.get(statNames[s-1]).add(now);
-      sb.stats.get(statNames[s-1]).add(now);
-    }
-  }
+  ////read team goals
+  //curr = allData[index++].split(" ");
+  //sb.teamGoals = new float[curr.length];
+  ////skip words "Team Goals:"
+  //for (int i = 2; i < curr.length; i ++){
+  //  //for session
+  //  sb.teamGoals[i-2] = Float.parseFloat(curr[i]);
+  //  //for indiv
+  //  for (String now : players.keySet()){
+  //    players.get(now).teamGoals.get(statNames[i-2]).add(Float.parseFloat(curr[i]));
+  //  }
+  //}
   
   //set personal goal
   for (int i = 0; i < statNames.length; i ++){
