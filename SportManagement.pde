@@ -142,24 +142,35 @@ void readSession(int index){
     }
   }
   
-  ////read team goals
-  //curr = allData[index++].split(" ");
-  //sb.teamGoals = new float[curr.length];
-  ////skip words "Team Goals:"
-  //for (int i = 2; i < curr.length; i ++){
-  //  //for session
-  //  sb.teamGoals[i-2] = Float.parseFloat(curr[i]);
-  //  //for indiv
-  //  for (String now : players.keySet()){
-  //    players.get(now).teamGoals.get(statNames[i-2]).add(Float.parseFloat(curr[i]));
-  //  }
-  //}
+  //calculat team goals
+  sb.teamGoals = new float[statNames.length];
+  for (int i = 0; i < statNames.length; i++){ //for each stat
+    ArrayList<Float> statNow = sb.stats.get(statNames[i]);
+    
+    //calculate average
+    float sum = 0;
+    int num = 0;
+    for (int j = 0; j < statNow.size(); j ++){
+      if (statNow.get(j) != -1){ //skip absent
+        sum += statNow.get(j);
+        num++;
+      }
+    }
+    float teamGoal = sum / num;
+    
+    //for session
+    sb.teamGoals[i] = teamGoal;
+    //for indiv
+    for (String now : players.keySet()){
+      players.get(now).teamGoals.get(statNames[i]).add(teamGoal);
+    }
+  }
   
   //set personal goal
-  for (int i = 0; i < statNames.length; i ++){
+  for (int i = 0; i < statNames.length; i ++){ //for each stat
     ArrayList<Float> stats = sb.stats.get(statNames[i]);
     sb.indivGoals.put(statNames[i], new ArrayList<Float>());
-    for (int j = 0; j < stats.size(); j ++){
+    for (int j = 0; j < stats.size(); j ++){ //for each session put the greater
       sb.indivGoals.get(statNames[i]).add(Math.max(stats.get(j), indivBest.get(statNames[i]).get(j)));
       indivBest.get(statNames[i]).set(j, Math.max(stats.get(j), indivBest.get(statNames[i]).get(j)));
     }
