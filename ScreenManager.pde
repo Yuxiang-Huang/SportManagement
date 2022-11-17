@@ -20,6 +20,7 @@ void draw(){
   else if (screen.equals("Player Selecting")){
     //soccer field image
     image(SoccerField, 0, 0, width, height);
+    team.update("Team");
     for (String i : players.keySet()){
       players.get(i).update(i);
     }
@@ -90,6 +91,12 @@ void mousePressed() {
         screen = "Player Display";
         refresh = false;
       }
+    }
+    //team button
+    if (team.over){
+        team.displayGraph("Team");
+        screen = "Player Display";
+        refresh = false;
     }
   }
   else if (screen.equals("Stat Selecting")){

@@ -14,6 +14,8 @@ IntroButton session;
 IntroButton stat;
 BackButton back;
 
+PlayerButton team;
+
 //for reading data
 String[] allData;
 int index = 0;
@@ -86,6 +88,14 @@ void setup(){
       }
     }
     index ++; //skip an empty line
+  }
+  
+  //team player button
+  team = new PlayerButton(-1, 255, buttonSize, "Team");
+  //set the keys for hashmap
+  for (int j = 0; j < statNames.length; j ++){
+    team.stats.put(statNames[j], new ArrayList<Float>());
+    team.teamGoals.put(statNames[j], new ArrayList<Float>());
   }
   
   //indiv best
