@@ -97,11 +97,6 @@ public class GraphButton{
         xLabel.add(sessionDates.get(i));
       }
       
-      println(data.size());
-      println(data);
-      println(teamGoalsInput);
-      println();
-      
       //draw graph
       String title = "From " + sessionDates.get(sessionIndexBegin) + " to " + sessionDates.get(sessionIndexEnd);
       rectMode(CORNER);

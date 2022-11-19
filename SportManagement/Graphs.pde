@@ -72,7 +72,7 @@ void drawGraph(String title, String mode, ArrayList<String> xLabel, String yLabe
   //y scale
   for (int i = 1; i <= ySpaces; i ++){
     line(startX - sll, startY - i*yunit, startX + sll, startY - i*yunit);
-    if (stat.equals("%")){
+    if (yLabel.equals("%")){
       text((int) (i * percent), startX - offset, startY - i*yunit + sll);
     } else{
       text((int) (i * yScaleUnit), startX - offset, startY - i*yunit + sll);
@@ -158,7 +158,7 @@ void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayLi
     for (int i = 1; i <= xSpaces; i ++){  
       if (data.get(index) != -1){ //absent player
         //point
-        float yNow = startY - data.get(index) / goals.get(index) * 100 / yScaleUnit * yunit;
+        float yNow = startY - data.get(index) / goals.get(index) * 100 / percent * yunit;
         circle(startX + i*xunit, yNow, sizeOfPoint);
         
         //line
