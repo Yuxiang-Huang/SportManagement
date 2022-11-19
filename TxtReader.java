@@ -17,10 +17,10 @@ public class TxtReader{
     allNames.add("Soham");
 
     //data
-    HashMap<String, ArrayList<ArrayList<String>>> data =
-    new HashMap<String, ArrayList<ArrayList<String>>>();
+    HashMap<String, ArrayList<String>> data =
+    new HashMap<String, ArrayList<String>>();
     for (int i = 0; i < allNames.size(); i ++){
-      data.put(allNames.get(i), new ArrayList<ArrayList<String>>());
+      data.put(allNames.get(i), new ArrayList<String>());
     }
 
     File file = new File("Raw_9_15_2022.txt");
@@ -45,13 +45,6 @@ public class TxtReader{
       statNames.add("Distance/min");
       indices.add(17);
 
-      //set up data
-      for (String str : data.keySet()){
-        for (int i = 0; i < statNames.size(); i ++){
-          data.get(str).add(new ArrayList<String>());
-        }
-      }
-
       //read
       while (s.hasNextLine()){
         read(s.nextLine(), indices, data);
@@ -68,11 +61,14 @@ public class TxtReader{
 
       //data
       for (String str : allNames){
-        System.out.println(str);
-        for (int i = 0; i < statNames.size(); i ++){
-          System.out.print(data.get(str).get(i) + " ");
+        //not abset
+        if (data.get(str).size() > 0){
+          System.out.println(str);
+          for (int i = 0; i < statNames.size(); i ++){
+            System.out.print(data.get(str).get(i) + " ");
+          }
+          System.out.println("");
         }
-        System.out.println("");
       }
       System.out.println("End");
     }
@@ -82,13 +78,13 @@ public class TxtReader{
   }
 
   public static void read(String str, ArrayList<Integer> indices,
-  HashMap<String, ArrayList<ArrayList<String>>> allNames){
+  HashMap<String, ArrayList<String>> allNames){
     //System.out.println(Arrays.toString(str.split("	")));
     String[] arr = str.split("	");
     String name = trimSpace(arr[2].split(" ")[0]);
     if (allNames.containsKey(name)){
       for (int i = 0; i < indices.size(); i ++){
-        allNames.get(name).get(i).add(arr[indices.get(i)]);
+        allNames.get(name).add(arr[indices.get(i)]);
       }
     }
   }
