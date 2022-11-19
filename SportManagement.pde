@@ -129,7 +129,7 @@ void setup(){
     }
   }
   
-  //checkAllData();
+  checkAllData();
   
   //images
   SoccerField = loadImage("SoccerField.png");
@@ -219,14 +219,17 @@ void readSession(int index){
 void checkAllData(){
   for (String str : players.keySet()){
     println(str);
+    print("stats: ");
     println(players.get(str).stats);
-    println(players.get(str).teamGoals);
     println();
   }
   for (String str : sessions.keySet()){
     println(str);
+    print("stats: ");
     println(sessions.get(str).stats);
+    print("teamGoals: ");
     println(sessions.get(str).teamGoals);
+    print("indivGoals: ");
     println(sessions.get(str).indivGoals);
     println();
   }

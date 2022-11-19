@@ -4,17 +4,18 @@ import java.io.*;
 public class TxtReader{
   public static void main(String[] args) {
     //names to include
-    ArrayList<String> allNames = new ArrayList<String>();
-    allNames.add("Jack");
-    allNames.add("Aden");
-    allNames.add("Mitchell Deutsch");
-    allNames.add("Stefan Broge");
-    allNames.add("Ryan Petrauskas");
-    allNames.add("Eben Eichenwald");
-    allNames.add("Nicholas Jung");
-    allNames.add("Giles El-Assal");
-    allNames.add("Anselm");
-    allNames.add("Soham Mukherjee");
+    HashMap<String, ArrayList<ArrayList<String>>> allNames =
+    new HashMap<String, ArrayList<ArrayList<String>>>();
+    allNames.put("Jack", new ArrayList<ArrayList<String>>());
+    allNames.put("Aden", new ArrayList<ArrayList<String>>());
+    allNames.put("Mitchell", new ArrayList<ArrayList<String>>());
+    allNames.put("Stefan", new ArrayList<ArrayList<String>>());
+    allNames.put("Ryan", new ArrayList<ArrayList<String>>());
+    allNames.put("Eben", new ArrayList<ArrayList<String>>());
+    allNames.put("Nicholas", new ArrayList<ArrayList<String>>());
+    allNames.put("Giles", new ArrayList<ArrayList<String>>());
+    allNames.put("Anselm", new ArrayList<ArrayList<String>>());
+    allNames.put("Soham Mukherjee", new ArrayList<ArrayList<String>>());
 
     File file = new File("Raw_9_15_2022.txt");
 
@@ -38,15 +39,16 @@ public class TxtReader{
       statNames.add("Distance/min");
       indices.add(17);
 
-      ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
-      for (int i = 0; i < statNames.size(); i ++){
-        data.add(new ArrayList<String>());
+      for (String str : allNames.keySet()){
+        for (int i = 0; i < statNames.size(); i ++){
+          allNames.get(str).add(new ArrayList<String>());
+        }
       }
 
       //read
       ArrayList<String> playerName = new ArrayList<String> ();
       while (s.hasNextLine()){
-        read(s.nextLine(), data, indices, playerName, allNames);
+        read(s.nextLine(), indices, playerName, allNames);
       }
 
       //output
@@ -61,7 +63,6 @@ public class TxtReader{
         for (int j = 0; j < data.size(); j ++){
           System.out.print(data.get(j).get(i) + " ");
         }
-
         System.out.println("");
       }
       System.out.println("End");
@@ -72,10 +73,12 @@ public class TxtReader{
   }
 
   public static void read(String str, ArrayList<ArrayList<String>> data,
-  ArrayList<Integer> indices, ArrayList<String> playerName, ArrayList<String> allNames){
+  ArrayList<Integer> indices, ArrayList<String> playerName,
+  HashMap<String, ArrayList<ArrayList<String>>> allNames){
     //System.out.println(Arrays.toString(str.split("	")));
     String[] arr = str.split("	");
-    if (allNames.contains(trimSpace(arr[2]))){
+    String name = trimSpace(arr[2].split(" ")[0]);
+    if (allNames.containsKey(name)){
       playerName.add(trimSpace(arr[2]));
       for (int i = 0; i < indices.size(); i ++){
         data.get(i).add(arr[indices.get(i)]);

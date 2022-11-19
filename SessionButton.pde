@@ -80,6 +80,9 @@ public class SessionButton{
     
     barNum /= playerNames.size();
         
+    println(data);    
+    println(indivGoalsInput);    
+        
     //draw graph
     rectMode(CORNER);
     if (barNum > 1){      
