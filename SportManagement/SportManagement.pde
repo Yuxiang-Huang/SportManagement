@@ -1,3 +1,5 @@
+import java.util.*;
+
 //default
 int fontSize = 12;
 
@@ -35,6 +37,8 @@ ArrayList<String> sessionDates = new ArrayList<String>(); //will take out later
 HashMap<String, SessionData> sessions = new HashMap<String, SessionData>(); //key: sessionNum
 
 HashMap<String, ArrayList<Float>> indivBest = new HashMap<String, ArrayList<Float>>(); //key: statName
+
+HashMap<String, ArrayList<Float>> teamGoals = new HashMap<String, ArrayList<Float>>(); //team goals in order of session
 
 void setup(){
   allData = loadStrings("Input.txt");
@@ -88,6 +92,11 @@ void setup(){
     statCheckboxes.put(statNames[i], new StatCheckbox(width/2, height/statNames.length * i + 100 / 2, 255, 50, i));
   }
   
+  //team goals
+  for (int i = 0; i < statNames.length; i ++){
+    teamGoals.put(statNames[i], new ArrayList<Float>());
+  }
+  
   index ++;
   
   //names
@@ -104,7 +113,6 @@ void setup(){
       //set the keys for hashmap
       for (int j = 0; j < statNames.length; j ++){
         now.stats.put(statNames[j], new ArrayList<Float>());
-        now.teamGoals.put(statNames[j], new ArrayList<Float>());
       }
     }
     index ++; //skip an empty line
@@ -136,6 +144,8 @@ void setup(){
       index++;
     }
   }
+  
+  sessionIndexEnd = sessionDates.size() - 1;
   
   //checkAllData();
   
@@ -203,9 +213,7 @@ void readSession(int index){
     //for session
     sb.teamGoals[i] = teamGoal;
     //for indiv
-    for (String now : players.keySet()){
-      players.get(now).teamGoals.get(statNames[i]).add(teamGoal);
-    }
+    teamGoals.get(statNames[i]).add(teamGoal);
   }
   
   //set personal goal

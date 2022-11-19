@@ -13,8 +13,6 @@ public class PlayerButton{
 
   //each stat in order of session
   HashMap<String, ArrayList<Float>> stats = new HashMap<String, ArrayList<Float>>();
-  //team goals in order of session
-  HashMap<String, ArrayList<Float>> teamGoals = new HashMap<String, ArrayList<Float>>();
 
   public PlayerButton(float yIndex, color c, int size, String name, String pos) {
     int num;
@@ -84,44 +82,4 @@ public class PlayerButton{
       return false;
     }
   }
-  
-  //void displayGraph(String title){
-  //  //get data depending on selected stats
-  //  ArrayList<Float> data = new ArrayList<Float>();
-  //  ArrayList<Float> goalsInput = new ArrayList<Float>();
-  //  ArrayList<String> legends = new ArrayList<String>();
-  //  for (int i = 0; i < statNames.length; i++){
-  //    if (statCheckboxes.get(statNames[i]).checked){
-  //      //legend
-  //      legends.add(statNames[i]);
-  //      //data
-  //      ArrayList<Float> curr = stats.get(statNames[i]);
-  //      for (int j = 0; j < curr.size(); j ++){
-  //        data.add(curr.get(j));
-  //      }
-  //      //goal
-  //      curr = teamGoals.get(statNames[i]);
-  //      for (int j = 0; j < curr.size(); j ++){
-  //        goalsInput.add(curr.get(j));
-  //      }
-  //    }
-  //  }
-    
-  //  //xlabel
-  //  ArrayList<String> xLabel = new ArrayList<String>();
-  //  for (int i = 0; i < stats.get(statNames[0]).size(); i ++){
-  //    xLabel.add((i + 1) + "");
-  //  }
-    
-  //  //draw graph
-  //  rectMode(CORNER);
-  //  if (legends.size() == 1){
-  //    drawGraph(title, "Scatter", legends.get(0), xLabel, data);
-  //    drawScatterPlot(data);
-  //  } else{
-  //    drawGraph(title, "Scatter", "%", xLabel, data);
-  //    drawMultiScatterPlot(data, goalsInput, legends);
-  //  }  
-  //  rectMode(CENTER);
-  //}
 }
