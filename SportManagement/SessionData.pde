@@ -16,7 +16,7 @@ public class SessionData{
     //get data
     ArrayList<Float> data = new ArrayList<Float>();
     ArrayList<Float> indivGoalsInput = new ArrayList<Float>();
-    for (int i = 0; i < playerNames.size(); i ++){ //for every player
+    for (int i = 0; i < playerNames.size(); i ++){ //for every player IN ORDER
       if (players.get(playerNames.get(i)).checked){ //check if player is selected
         for (int j = 0; j < statNames.length; j++){ //for every stat
           if (statCheckboxes.get(statNames[j]).checked){ //check if stat is selected

@@ -63,25 +63,27 @@ public class GraphButton{
       for (int i = 0; i < statNames.length; i++){ //for each stat
         if (statCheckboxes.get(statNames[i]).checked){ //check if stat if selected
           legends.add(statNames[i]);
-          for (PlayerButton pb : players.values()){ //for every player
-            if (pb.checked){ //check if player is selected
+          for (int j = 0; j < playerNames.size(); j ++){ //for every player IN ORDER
+             PlayerButton pb = players.get(playerNames.get(i));
+              if (pb.checked){ //check if player is selected
               //data
-              for (int k = 0; k < sessionIndexEnd - sessionIndexBegin; k ++){
-                data.set(k, data.get(k) + pb.stats.get(statNames[i]).get(sessionIndexBegin + k));
+              for (int k = 0; k <= sessionIndexEnd - sessionIndexBegin; k ++){
+                int index = k + i * (sessionIndexEnd - sessionIndexBegin + 1);
+                data.set(index, data.get(index) + pb.stats.get(statNames[i]).get(sessionIndexBegin + k));
               }
             }
           }
           //goals
-          for (int k = sessionIndexBegin; k < sessionIndexEnd; k ++){
-            teamGoalsInput.add(teamGoals.get(statNames).get(k));
+          for (int k = sessionIndexBegin; k <= sessionIndexEnd; k ++){
+            teamGoalsInput.add(teamGoals.get(statNames[i]).get(k));
           }
         }
       }
       
       //take average
       int totalPlayer = 0;
-      for (PlayerButton pb : players.values()){ 
-        if (pb.checked){
+      for (int i = 0; i < playerNames.size(); i ++){ //for every player IN ORDER
+        if (players.get(playerNames.get(i)).checked){
           totalPlayer++;
         }
       }
@@ -94,6 +96,12 @@ public class GraphButton{
       for (int i = sessionIndexBegin; i <= sessionIndexEnd; i ++){
         xLabel.add(sessionDates.get(i));
       }
+      
+      println(data);
+      println(data.size());
+      println(teamGoalsInput);
+      println(teamGoalsInput.size());
+      println();
       
       //draw graph
       String title = "From " + sessionDates.get(sessionIndexBegin) + " to " + sessionDates.get(sessionIndexEnd);
