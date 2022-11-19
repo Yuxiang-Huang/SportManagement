@@ -55,7 +55,12 @@ public class AllPlayerChangeButton{
   }
   
   void change(){
-  
+    allOff = !allOff;
+    for (PlayerButton pb : players.values()){
+      if (position == "All" || pb.position.equals(position)){
+        pb.checked = allOff;
+      }
+    }
   }
     
   boolean over()  {
