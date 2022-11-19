@@ -15,7 +15,8 @@ IntroButton stat;
 BackButton back;
 GraphButton graph;
 
-Handle sessionHandle;
+Handle sessionHandleTop;
+Handle sessionHandleBot;
 
 AllStatChangeButton statChange;
 ArrayList<AllPlayerChangeButton> playerChange = new ArrayList<AllPlayerChangeButton>();
@@ -67,7 +68,8 @@ void setup(){
   playerChange.add(new AllPlayerChangeButton(255, 125, 75, "All", 4));
   
   //for session
-  sessionHandle = new Handle(true, height/2, width/4, 50);
+  sessionHandleTop = new Handle(true, height/2, width/4, 50);
+  sessionHandleBot = new Handle(false, height*3/4, width/4, 50);
   
   //graph
   graph = new GraphButton(255, 50);

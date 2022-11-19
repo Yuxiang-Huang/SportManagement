@@ -1,4 +1,7 @@
-int sessionIndex;
+int sessionIndexBegin;
+int sessionIndexEnd;
+int outputTop;
+int outputBot;
 
 public class Handle {
   int x;
@@ -10,17 +13,19 @@ public class Handle {
   
   int minX;
   int maxX;
+  
+  boolean top;
 
-  Handle(boolean first, int y, int minX, int s) {
+  Handle(boolean top, int y, int minX, int s) {
     this.y = y;
     this.minX = minX;
     this.maxX = width - minX;
     this.size = s;
-    
-    if (first){
+    this.top = top;
+    if (top){
       x = minX;
     }else{
-      x = maxX;
+      x = maxX-1;
     }
   }
 
@@ -52,13 +57,24 @@ public class Handle {
       line(x-size/2, y-size/2, x+size/2, y+size/2);
       line(x+size/2, y-size/2, x-size/2, y+size/2);
     }
+    //set session num
+    int output = sessionDates.size() * (x - minX) / (maxX - minX);
+    if (top){
+      outputTop = output;
+    } else{
+      outputBot = output;
+    }
+    sessionIndexBegin = min(outputTop, outputBot);
+    sessionIndexEnd = max(outputTop, outputBot);
     
     //date display
     fill(0);
-    textSize(buttonFontSize);
-    int output = sessionDates.size() * (x - minX) / (maxX - minX);
-    sessionIndex = output;
-    text(sessionDates.get(output), width/2, height/4);
+    textSize(buttonFontSize);   
+    if (sessionIndexBegin == sessionIndexEnd){
+      text(sessionDates.get(sessionIndexBegin), width/2, height/4);
+    } else{
+      text("From " + sessionDates.get(sessionIndexBegin) + " to " + sessionDates.get(sessionIndexEnd), width/2, height/4);
+    }
     textSize(fontSize);
   }
 

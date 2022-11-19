@@ -44,7 +44,8 @@ public class GraphButton{
   }
   
   void graph(){
-    //if (session num == 1)
-    sessions.get(sessionDates.get(sessionIndex)).displayGraph();
+    if (sessionIndexBegin == sessionIndexEnd){
+      sessions.get(sessionDates.get(sessionIndexBegin)).displayGraph();
+    }
   }
 }

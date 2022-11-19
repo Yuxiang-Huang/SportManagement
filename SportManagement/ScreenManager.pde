@@ -8,7 +8,8 @@ void draw(){
   }
   
   if (screen.equals("Session Selecting")){
-    sessionHandle.update();
+    sessionHandleTop.update();
+    sessionHandleBot.update();
   }
   
   else if (screen.equals("Player Selecting")){
@@ -64,7 +65,8 @@ void mousePressed() {
     }
   }
   else if (screen.equals("Session Selecting")){
-    sessionHandle.pressEvent();
+    sessionHandleTop.pressEvent();
+    sessionHandleBot.pressEvent();
   }
   else if (screen.equals("Player Selecting")){
     for (String i : players.keySet()){
@@ -101,7 +103,8 @@ void mousePressed() {
 
 void mouseReleased() {
   if (screen.equals("Session Selecting")){
-    sessionHandle.releaseEvent();
+    sessionHandleTop.releaseEvent();
+    sessionHandleBot.releaseEvent();
   }
 }
 
