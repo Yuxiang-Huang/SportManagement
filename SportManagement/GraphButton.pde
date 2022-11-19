@@ -60,16 +60,19 @@ public class GraphButton{
       ArrayList<String> legends = new ArrayList<String>();
       
       //get data
+      int statNum = 0;
       for (int i = 0; i < statNames.length; i++){ //for each stat
         if (statCheckboxes.get(statNames[i]).checked){ //check if stat if selected
           legends.add(statNames[i]);
           for (int j = 0; j < playerNames.size(); j ++){ //for every player IN ORDER
-             PlayerButton pb = players.get(playerNames.get(i));
-              if (pb.checked){ //check if player is selected
+            PlayerButton pb = players.get(playerNames.get(j));
+            if (pb.checked){ //check if player is selected
               //data
               for (int k = 0; k <= sessionIndexEnd - sessionIndexBegin; k ++){
-                int index = k + i * (sessionIndexEnd - sessionIndexBegin + 1);
-                data.set(index, data.get(index) + pb.stats.get(statNames[i]).get(sessionIndexBegin + k));
+                if (pb.stats.get(statNames[i]).get(sessionIndexBegin + k) != -1){ //check absent
+                  int index = k + statNum * (sessionIndexEnd - sessionIndexBegin + 1);
+                  data.set(index, data.get(index) + pb.stats.get(statNames[i]).get(sessionIndexBegin + k));
+                }
               }
             }
           }
@@ -77,6 +80,7 @@ public class GraphButton{
           for (int k = sessionIndexBegin; k <= sessionIndexEnd; k ++){
             teamGoalsInput.add(teamGoals.get(statNames[i]).get(k));
           }
+          statNum ++;
         }
       }
       
@@ -97,10 +101,9 @@ public class GraphButton{
         xLabel.add(sessionDates.get(i));
       }
       
-      println(data);
       println(data.size());
+      println(data);
       println(teamGoalsInput);
-      println(teamGoalsInput.size());
       println();
       
       //draw graph
