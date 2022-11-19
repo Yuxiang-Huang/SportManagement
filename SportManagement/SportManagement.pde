@@ -98,7 +98,7 @@ void setup(){
       //create new player button
       String name = curr[i].split(" ")[0]; //take first name
       playerNames.add(name); 
-      PlayerButton now = new PlayerButton(i, 255, buttonSize, pos);
+      PlayerButton now = new PlayerButton(i, 255, buttonSize, name, pos);
       players.put(name, now);
       //set the keys for hashmap
       for (int j = 0; j < statNames.length; j ++){

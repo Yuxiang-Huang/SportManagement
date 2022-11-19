@@ -1,5 +1,6 @@
 public class SessionData{
   String date;
+  
   //stat for all players in order of names for each stat in this session
   HashMap<String, ArrayList<Float>> stats = new HashMap<String, ArrayList<Float>>(); 
   //team goals in this session
@@ -11,44 +12,52 @@ public class SessionData{
     date = str;
   }
   
-  void displayGraph(){
-    int barNum = 0;
-    String stat = "";
-    
-    //get data depending on selected stats
+  void displayGraph(){    
+    //get data
     ArrayList<Float> data = new ArrayList<Float>();
     ArrayList<Float> indivGoalsInput = new ArrayList<Float>();
-    for (int i = 0; i < playerNames.size(); i ++){  
-      for (int j = 0; j < statNames.length; j++){
-        if (statCheckboxes.get(statNames[j]).checked){
-          data.add(stats.get(statNames[j]).get(i));
-          indivGoalsInput.add(indivGoals.get(statNames[j]).get(i));
-          barNum ++;
+    for (int i = 0; i < playerNames.size(); i ++){ //for every player
+      if (players.get(playerNames).checked){ //check if player is selected
+        for (int j = 0; j < statNames.length; j++){ //for every stat
+          if (statCheckboxes.get(statNames[j]).checked){ //check if stat if selected
+            data.add(stats.get(statNames[j]).get(i));
+            indivGoalsInput.add(indivGoals.get(statNames[j]).get(i));
+          }
         }
       }
     }
     
+    int statIndex = -1;
+    //loop over stats
     ArrayList<Float> teamGoalsInput = new ArrayList<Float>();
     ArrayList<String> legends = new ArrayList<String>();
     for (int i = 0; i < statNames.length; i ++){
       if (statCheckboxes.get(statNames[i]).checked){
         legends.add(statNames[i]);
         teamGoalsInput.add(teamGoals[i]);
-        stat = statNames[i];
+        statIndex = i;
       }
     }
     
-    barNum /= playerNames.size();   
+    ArrayList<String> xLabel = new ArrayList<String>();
+    //loop over players
+    for (int i = 0; i < playerNames.size(); i ++){ 
+      if (players.get(playerNames).checked){
+        xLabel.add(playerNames.get(i));
+      }
+    }
+    
+    int barNum = xLabel.size();
         
     //draw graph
     rectMode(CORNER);
     if (barNum > 1){      
-      drawGraph(date, "Bar", "%", playerNames, data);
-      drawMultiBarGraph(barNum, teamGoalsInput, legends, data, indivGoalsInput);
+      drawGraph(date, "Bar", xLabel, "%", data);
+      drawMultiBarGraph(data, indivGoalsInput, legends, barNum, teamGoalsInput);
     } 
     else{
-      drawGraph(date, "Bar", stat, playerNames, data);
-      drawBarGraph(data, indivGoalsInput, teamGoals[(statCheckboxes.get(stat).index)]);
+      drawGraph(date, "Bar", xLabel, statNames[statIndex], data);
+      drawBarGraph(data, indivGoalsInput, teamGoals[statIndex]);
     }
     rectMode(CENTER);
   }

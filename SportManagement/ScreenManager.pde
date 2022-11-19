@@ -62,7 +62,7 @@ void mousePressed() {
       screen = "Stat Selecting";
     }
     else if (graph.over){
-      sessions.get(sessionDates.get(sessionIndex)).displayGraph();
+      graph.graph();
       screen = "Display";
     }
   }

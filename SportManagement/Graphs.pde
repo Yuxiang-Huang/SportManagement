@@ -24,7 +24,7 @@ float xunit;
 color[] colors = new color[]{color(255, 0, 0), color(0, 255, 0), color(0, 0, 255),
 color(0, 255, 255), color(255, 0, 255), color(255, 102, 0)}; 
  
-void drawGraph(String title, String mode, String stat, ArrayList<String> xLabel, ArrayList<Float> data){
+void drawGraph(String title, String mode, ArrayList<String> xLabel, String yLabel, ArrayList<Float> data){
   xSpaces = xLabel.size();
   
   //calculate y scaling unit
@@ -86,7 +86,7 @@ void drawGraph(String title, String mode, String stat, ArrayList<String> xLabel,
   pushMatrix();
   translate(50, 250);
   rotate(radians(270));
-  text(stat, 0, 0);
+  text(yLabel, 0, 0);
   popMatrix();
   
   //x lables
@@ -220,12 +220,12 @@ void lineOfBestFit(ArrayList<Float> xVal, ArrayList<Float> yVal){
   line(x0, y0, x1, y1);
 }
 
-void drawBarGraph(ArrayList<Float> data, ArrayList<Float> goals, float teamGoal){  
+void drawBarGraph(ArrayList<Float> data, ArrayList<Float> indivGoals, float teamGoal){  
   //draw bars
   for (int i = 0; i < xSpaces; i ++){
     if (data.get(i) != -1){ //absent player
       float h = data.get(i) / yScaleUnit * yunit;
-      drawBar(1, 0, startX + i*xunit, startY, h, color(0), data.get(i) - goals.get(i));
+      drawBar(1, 0, startX + i*xunit, startY, h, color(0), data.get(i) - indivGoals.get(i));
     }
   }
   
@@ -234,9 +234,8 @@ void drawBarGraph(ArrayList<Float> data, ArrayList<Float> goals, float teamGoal)
   line(startX, teamGoalY, startX + xlen - xunit / 2, teamGoalY);
 }
 
-void drawMultiBarGraph(int barNum, ArrayList<Float> goals, ArrayList<String> legends, 
-ArrayList<Float> data, ArrayList<Float> personalGoals){
-  
+void drawMultiBarGraph(ArrayList<Float> data, ArrayList<Float> indivGoals, ArrayList<String> legends,
+int barNum, ArrayList<Float> teamGoals){
   //set colors
   ArrayList<Integer> allColors = new ArrayList<Integer>();
   for (int i = 0; i < colors.length; i ++){
@@ -254,8 +253,8 @@ ArrayList<Float> data, ArrayList<Float> personalGoals){
   for (int i = 0; i < xSpaces; i ++){
     for (int j = 0; j < barNum; j ++){
       if (data.get(counter) != -1){ //absent player
-        float yNow = data.get(counter) / goals.get(j) * 100 / percent * yunit;
-        drawBar(barNum, j, startX + i*xunit, startY, yNow, palett[j], data.get(counter) - personalGoals.get(counter));
+        float yNow = data.get(counter) / teamGoals.get(j) * 100 / percent * yunit;
+        drawBar(barNum, j, startX + i*xunit, startY, yNow, palett[j], data.get(counter) - indivGoals.get(counter));
       }
       counter ++;
     }
