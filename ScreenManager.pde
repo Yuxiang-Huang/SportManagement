@@ -4,17 +4,12 @@ boolean refresh = true;
 PImage SoccerField;
 
 void draw(){  
-
   if (refresh){ //for graphs
     background(255);
   }
   
-  //sessionHandle.update();
-  
   if (screen.equals("Session Selecting")){
-    for (String i : sessions.keySet()){
-      sessions.get(i).update(i);
-    }
+    sessionHandle.update();
   }
   
   else if (screen.equals("Player Selecting")){
@@ -80,13 +75,14 @@ void mousePressed() {
     }
   }
   else if (screen.equals("Session Selecting")){
-    for (String i : sessions.keySet()){
-      if (sessions.get(i).over){
-        sessions.get(i).displayGraph("Session " + i);
+    //for (String i : sessions.keySet()){
+    //  if (sessions.get(i).over){
+    //    sessions.get(i).displayGraph("Session " + i);
         screen = "Session Display";
         refresh = false;
-      }
-    }
+    //  }
+    //}
+    sessionHandle.pressEvent();
   }
   else if (screen.equals("Player Selecting")){
     for (String i : players.keySet()){
@@ -116,8 +112,6 @@ void mousePressed() {
       }
     }
   }
-  
-  //sessionHandle.pressEvent();
 }
 
 void mouseReleased() {

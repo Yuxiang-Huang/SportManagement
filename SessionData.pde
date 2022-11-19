@@ -1,54 +1,14 @@
-public class SessionButton{
-  float x; 
-  float y;    
-  int size;
-  color origColor;
-  boolean over = false;
-
-  //stat for all players in order of names for each stat
+public class SessionData{
+  String date;
+  //stat for all players in order of names for each stat in this session
   HashMap<String, ArrayList<Float>> stats = new HashMap<String, ArrayList<Float>>(); 
-  //team goals for this session
+  //team goals in this session
   float[] teamGoals;
-  //indiv goal for all players in order of session for each stat
+  //indiv goal in order of player names for each stat in this session
   HashMap<String, ArrayList<Float>> indivGoals = new HashMap<String, ArrayList<Float>>(); 
 
-  public SessionButton(float x, float y, color c, int size) {
-    origColor = c;
-    this.x = x;
-    this.y = y;
-    this.size = size;
-  }
-  
-  void update(String sessionNum) {
-    //update over
-    if (over()){
-      over = true;
-    } 
-    else {
-      over = false;
-    }
-    
-    if (over) {
-      fill(highlight);
-    } else {
-      fill(origColor);
-    }
-
-    rect(x, y, size, size);
-    
-    fill(0);
-    textSize(buttonFontSize);
-    text(sessionNum, x, y);
-    textSize(fontSize);
-  }
-    
-  boolean over()  {
-    if (mouseX >= x-size/2 && mouseX <= x+size/2 && 
-        mouseY >= y-size/2 && mouseY <= y+size/2) {
-      return true;
-    } else {
-      return false;
-    }
+  public SessionData(String str) {
+    date = str;
   }
   
   void displayGraph(String title){
@@ -78,10 +38,7 @@ public class SessionButton{
       }
     }
     
-    barNum /= playerNames.size();
-        
-    println(data);    
-    println(indivGoalsInput);    
+    barNum /= playerNames.size();   
         
     //draw graph
     rectMode(CORNER);

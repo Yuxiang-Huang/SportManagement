@@ -18,18 +18,22 @@ PlayerButton team;
 
 AllStatChangeButton ascb;
 
+Handle sessionHandle;
+
 //for reading data
 String[] allData;
 int index = 0;
+
 ArrayList<String> playerNames = new ArrayList<String>();
+HashMap<String, PlayerButton> players = new HashMap<String, PlayerButton>(); //key: playerNames
+
 String[] statNames;
 HashMap<String, StatCheckbox> statCheckboxes = new HashMap<String, StatCheckbox>(); //key: statNames
-HashMap<String, PlayerButton> players = new HashMap<String, PlayerButton>(); //key: playerNames
-HashMap<String, SessionButton> sessions = new HashMap<String, SessionButton>(); //key: sessionNum
-int numOfSession = 0; //will take out later
-HashMap<String, ArrayList<Float>> indivBest = new HashMap<String, ArrayList<Float>>(); //key: statName
 
-Handle sessionHandle;
+ArrayList<String> sessionDates = new ArrayList<String>(); //will take out later
+HashMap<String, SessionData> sessions = new HashMap<String, SessionData>(); //key: sessionNum
+
+HashMap<String, ArrayList<Float>> indivBest = new HashMap<String, ArrayList<Float>>(); //key: statName
 
 void setup(){
   allData = loadStrings("Input.txt");
@@ -43,8 +47,6 @@ void setup(){
   textAlign(CENTER);
   rectMode(CENTER);
   
-  sessionHandle = new Handle(width/2, height/2, width/4, 50);
-  
   //set for graph
   startX = 100;
   startY = height - 100;
@@ -57,6 +59,9 @@ void setup(){
   stat = new IntroButton(255, 3, "Stats");
   back = new BackButton(255, 30);
   ascb = new AllStatChangeButton(255, 50);
+  
+  //for session
+  sessionHandle = new Handle(width/2, height/2, width/4, 50);
   
   //read data
   
@@ -129,7 +134,7 @@ void setup(){
     }
   }
   
-  checkAllData();
+  //checkAllData();
   
   //images
   SoccerField = loadImage("SoccerField.png");
@@ -138,10 +143,9 @@ void setup(){
 void readSession(int index){
   //create new session button; will replace later
   String[] curr = allData[index++].split(" ");
-  float xVal = distBtwButton * numOfSession + buttonSize * (numOfSession + 1);
-  SessionButton sb = new SessionButton(xVal, height/2, 255, buttonSize);
+  SessionData sb = new SessionData(curr[1]);
+  sessionDates.add(curr[1]);
   sessions.put(curr[1], sb);
-  numOfSession++;
   for (int i = 0; i < statNames.length; i ++){
     sb.stats.put(statNames[i], new ArrayList<Float>());
   }
