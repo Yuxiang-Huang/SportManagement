@@ -9,6 +9,7 @@ void draw(){
   }
   
   if (screen.equals("Session Selecting")){
+    graph.update();
     sessionHandle.update();
   }
   
@@ -75,13 +76,11 @@ void mousePressed() {
     }
   }
   else if (screen.equals("Session Selecting")){
-    //for (String i : sessions.keySet()){
-    //  if (sessions.get(i).over){
-    //    sessions.get(i).displayGraph("Session " + i);
-        //screen = "Session Display";
-        //refresh = false;
-    //  }
-    //}
+    if (graph.over){
+      sessions.get(sessionDates.get(sessionIndex)).displayGraph(sessionDates.get(sessionIndex));
+      screen = "Session Display";
+      refresh = false;
+    }
     sessionHandle.pressEvent();
   }
   else if (screen.equals("Player Selecting")){

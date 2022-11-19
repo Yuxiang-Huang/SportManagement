@@ -13,11 +13,10 @@ IntroButton indiv;
 IntroButton session;
 IntroButton stat;
 BackButton back;
+GraphButton graph;
 
 PlayerButton team;
-
 AllStatChangeButton ascb;
-
 Handle sessionHandle;
 
 //for reading data
@@ -62,6 +61,9 @@ void setup(){
   
   //for session
   sessionHandle = new Handle(width/2, height/2, width/4, 50);
+  
+  //graph
+  graph = new GraphButton(255, 50);
   
   //read data
   
