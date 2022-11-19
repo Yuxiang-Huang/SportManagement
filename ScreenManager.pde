@@ -78,8 +78,8 @@ void mousePressed() {
     //for (String i : sessions.keySet()){
     //  if (sessions.get(i).over){
     //    sessions.get(i).displayGraph("Session " + i);
-        screen = "Session Display";
-        refresh = false;
+        //screen = "Session Display";
+        //refresh = false;
     //  }
     //}
     sessionHandle.pressEvent();
@@ -115,7 +115,9 @@ void mousePressed() {
 }
 
 void mouseReleased() {
-  //sessionHandle.releaseEvent();
+  if (screen.equals("Session Selecting")){
+    sessionHandle.releaseEvent();
+  }
 }
 
 int numOfStatOn(){
