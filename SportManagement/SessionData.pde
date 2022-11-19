@@ -19,7 +19,7 @@ public class SessionData{
     for (int i = 0; i < playerNames.size(); i ++){ //for every player
       if (players.get(playerNames.get(i)).checked){ //check if player is selected
         for (int j = 0; j < statNames.length; j++){ //for every stat
-          if (statCheckboxes.get(statNames[j]).checked){ //check if stat if selected
+          if (statCheckboxes.get(statNames[j]).checked){ //check if stat is selected
             data.add(stats.get(statNames[j]).get(i));
             indivGoalsInput.add(indivGoals.get(statNames[j]).get(i));
           }
