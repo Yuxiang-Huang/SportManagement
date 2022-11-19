@@ -1,3 +1,5 @@
+int sessionIndex;
+
 public class Handle {
   int x;
   int y;
@@ -36,6 +38,7 @@ public class Handle {
   }
 
   void display() {
+    //handle display
     line(minX, y, maxX, y);
     fill(255);
     stroke(0);
@@ -45,10 +48,13 @@ public class Handle {
       line(x+size/2, y-size/2, x-size/2, y+size/2);
     }
     
+    //date display
     fill(0);
-    int output = 5 * (x - minX) / (maxX - minX) + 1;
-    text(x, width/2, height/3);
-    text(output, width/2, height/4);
+    textSize(buttonFontSize);
+    int output = sessionDates.size() * (x - minX) / (maxX - minX);
+    sessionIndex = output;
+    text(sessionDates.get(output), width/2, height/4);
+    textSize(fontSize);
   }
 
   boolean overRect(int x, int y, int width, int height) {
