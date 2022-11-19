@@ -64,12 +64,14 @@ public class GraphButton{
       for (int i = 0; i < statNames.length; i++){ //for each stat
         if (statCheckboxes.get(statNames[i]).checked){ //check if stat if selected
           legends.add(statNames[i]);
+          int[] totalPlayer = new int[sessionIndexEnd - sessionIndexBegin + 1];
           for (int j = 0; j < playerNames.size(); j ++){ //for every player IN ORDER
             PlayerButton pb = players.get(playerNames.get(j));
             if (pb.checked){ //check if player is selected
               //data
               for (int k = 0; k <= sessionIndexEnd - sessionIndexBegin; k ++){
                 if (pb.stats.get(statNames[i]).get(sessionIndexBegin + k) != -1){ //check absent
+                  totalPlayer[k]++;
                   int index = k + statNum * (sessionIndexEnd - sessionIndexBegin + 1);
                   data.set(index, data.get(index) + pb.stats.get(statNames[i]).get(sessionIndexBegin + k));
                 }
@@ -80,19 +82,13 @@ public class GraphButton{
           for (int k = sessionIndexBegin; k <= sessionIndexEnd; k ++){
             teamGoalsInput.add(teamGoals.get(statNames[i]).get(k));
           }
+          //take average
+          for (int k = 0; k <= sessionIndexEnd - sessionIndexBegin; k ++){
+            int index = k + statNum * (sessionIndexEnd - sessionIndexBegin + 1);
+            data.set(index, data.get(index)/totalPlayer[k]);
+          }
           statNum ++;
         }
-      }
-      
-      //take average
-      int totalPlayer = 0;
-      for (int i = 0; i < playerNames.size(); i ++){ //for every player IN ORDER
-        if (players.get(playerNames.get(i)).checked){
-          totalPlayer++;
-        }
-      }
-      for (int i = 0; i < data.size(); i ++){
-        data.set(i, data.get(i)/totalPlayer);
       }
       
       //xlabel

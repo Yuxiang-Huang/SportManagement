@@ -158,7 +158,7 @@ void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayLi
     for (int i = 1; i <= xSpaces; i ++){  
       if (data.get(index) != -1){ //absent player
         //point
-        float yNow = startY - data.get(index) / goals.get(index) * 100 / percent * yunit;
+        float yNow = startY - data.get(index) / goals.get(index) * 100 / yScaleUnit * yunit;
         circle(startX + i*xunit, yNow, sizeOfPoint);
         
         //line
