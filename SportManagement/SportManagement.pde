@@ -62,10 +62,10 @@ void setup(){
   
   //set all change button
   statChange = new AllStatChangeButton(255, 50);
-  playerChange.add(new AllPlayerChangeButton(255, 75, "Offense", 1));
-  playerChange.add(new AllPlayerChangeButton(255, 75, "Center", 2));
-  playerChange.add(new AllPlayerChangeButton(255, 75, "Defense", 3));
-  playerChange.add(new AllPlayerChangeButton(255, 75, "All", 4));
+  playerChange.add(new AllPlayerChangeButton(255, 125, 75, "Offense", 1));
+  playerChange.add(new AllPlayerChangeButton(255, 125, 75, "Center", 2));
+  playerChange.add(new AllPlayerChangeButton(255, 125, 75, "Defense", 3));
+  playerChange.add(new AllPlayerChangeButton(255, 125, 75, "All", 4));
   
   //for session
   sessionHandle = new Handle(width/2, height/2, width/4, 50);

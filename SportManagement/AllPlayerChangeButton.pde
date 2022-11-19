@@ -1,7 +1,8 @@
 public class AllPlayerChangeButton{
   float x; 
   float y;    
-  int size;
+  int xSize;
+  int ySize;
   color origColor;
   boolean over = false;
   
@@ -9,11 +10,12 @@ public class AllPlayerChangeButton{
   
   String position;
 
-  public AllPlayerChangeButton(color c, int size, String pos, int i) {
+  public AllPlayerChangeButton(color c, int xSize, int ySize, String pos, int i) {
     origColor = c;
-    this.size = size;
+    this.xSize = xSize;
+    this.ySize = ySize;
     position = pos;
-    x = width - size;
+    x = width - xSize/2-10;
     y = height/5*i;
   }
   
@@ -32,9 +34,10 @@ public class AllPlayerChangeButton{
       fill(origColor);
     }
 
-    rect(x, y, size, size);
+    rect(x, y, xSize, ySize);
     
     fill(0);
+    textSize(16);
     if (position.equals("All")){
       if (allOff){
         text("All Off", x, y);
@@ -48,6 +51,7 @@ public class AllPlayerChangeButton{
         text("All " + position + " On", x, y);
       }
     }
+    textSize(fontSize);
   }
   
   void change(){
@@ -55,8 +59,8 @@ public class AllPlayerChangeButton{
   }
     
   boolean over()  {
-    if (mouseX >= x-size/2 && mouseX <= x+size/2 && 
-        mouseY >= y-size/2 && mouseY <= y+size/2) {
+    if (mouseX >= x-xSize/2 && mouseX <= x+xSize/2 && 
+        mouseY >= y-ySize/2 && mouseY <= y+ySize/2) {
       return true;
     } else {
       return false;
