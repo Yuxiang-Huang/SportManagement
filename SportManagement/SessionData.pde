@@ -11,7 +11,7 @@ public class SessionData{
     date = str;
   }
   
-  void displayGraph(String title){
+  void displayGraph(){
     int barNum = 0;
     String stat = "";
     
@@ -43,11 +43,11 @@ public class SessionData{
     //draw graph
     rectMode(CORNER);
     if (barNum > 1){      
-      drawGraph(title, "Bar", "%", playerNames, data);
+      drawGraph(date, "Bar", "%", playerNames, data);
       drawMultiBarGraph(barNum, teamGoalsInput, legends, data, indivGoalsInput);
     } 
     else{
-      drawGraph(title, "Bar", stat, playerNames, data);
+      drawGraph(date, "Bar", stat, playerNames, data);
       drawBarGraph(data, indivGoalsInput, teamGoals[(statCheckboxes.get(stat).index)]);
     }
     rectMode(CENTER);

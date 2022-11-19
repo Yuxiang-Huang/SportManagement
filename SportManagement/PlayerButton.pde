@@ -5,12 +5,14 @@ public class PlayerButton{
   color origColor;
   boolean over = false;
   
-  String position; //not used yet
+  String position;
 
   //each stat in order of session
   HashMap<String, ArrayList<Float>> stats = new HashMap<String, ArrayList<Float>>();
   //team goals in order of session
   HashMap<String, ArrayList<Float>> teamGoals = new HashMap<String, ArrayList<Float>>();
+  
+  boolean onOff = true;
 
   public PlayerButton(float yIndex, color c, int size, String pos) {
     //team button
@@ -61,12 +63,18 @@ public class PlayerButton{
       over = false;
     }
     
+    //color over or not
     if (over) {
       fill(highlight);
     } else {
-      fill(origColor);
+      //color on or off
+      if (onOff){
+        fill(0, 0, 255);
+      } else{
+        fill(origColor);
+      }
     }
-
+    
     rect(x, y, size, size);
     
     fill(0);

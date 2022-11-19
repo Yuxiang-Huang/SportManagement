@@ -6,7 +6,7 @@ int introButtonSize = 150;
 int buttonSize = 100;
 int buttonFontSize = 25;
 int distBtwButton = 50; //take out later
-color highlight  = color(200);
+color highlight = color(200);
 
 //special buttons
 IntroButton indiv;

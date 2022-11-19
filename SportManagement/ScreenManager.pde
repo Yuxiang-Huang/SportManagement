@@ -77,7 +77,7 @@ void mousePressed() {
   }
   else if (screen.equals("Session Selecting")){
     if (graph.over){
-      sessions.get(sessionDates.get(sessionIndex)).displayGraph(sessionDates.get(sessionIndex));
+      sessions.get(sessionDates.get(sessionIndex)).displayGraph();
       screen = "Session Display";
       refresh = false;
     }
