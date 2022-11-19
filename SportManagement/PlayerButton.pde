@@ -5,14 +5,15 @@ public class PlayerButton{
   color origColor;
   boolean over = false;
   
+  boolean checked = true;
+  boolean lock = false; //for highlighting interference
+  
   String position;
 
   //each stat in order of session
   HashMap<String, ArrayList<Float>> stats = new HashMap<String, ArrayList<Float>>();
   //team goals in order of session
   HashMap<String, ArrayList<Float>> teamGoals = new HashMap<String, ArrayList<Float>>();
-  
-  boolean onOff = true;
 
   public PlayerButton(float yIndex, color c, int size, String pos) {
     //team button
@@ -64,11 +65,11 @@ public class PlayerButton{
     }
     
     //color over or not
-    if (over) {
+    if (!lock && over) {
       fill(highlight);
     } else {
       //color on or off
-      if (onOff){
+      if (checked){
         fill(0, 0, 255);
       } else{
         fill(origColor);
@@ -88,6 +89,7 @@ public class PlayerButton{
         mouseY >= y-size/2 && mouseY <= y+size/2) {
       return true;
     } else {
+      lock = false;
       return false;
     }
   }

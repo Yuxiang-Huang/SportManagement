@@ -170,7 +170,6 @@ void readSession(int index){
   for (int i = 0; i < tempPlayerName.size(); i++){
     PlayerButton pb = players.get(tempPlayerName.get(i));
     for (int s = 0; s < statNames.length; s ++){
-      Float now = Float.parseFloat(curr[s]);
       pb.stats.get(statNames[s]).add(-1f);
     }
   }

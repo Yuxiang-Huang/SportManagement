@@ -86,9 +86,11 @@ void mousePressed() {
   else if (screen.equals("Player Selecting")){
     for (String i : players.keySet()){
       if (players.get(i).over){
-        players.get(i).displayGraph(i);
-        screen = "Player Display";
-        refresh = false;
+        players.get(i).checked = !players.get(i).checked;
+        players.get(i).lock = true;
+        //players.get(i).displayGraph(i);
+        //screen = "Player Display";
+        //refresh = false;
       }
     }
     //team button
