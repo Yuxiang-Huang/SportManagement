@@ -1,15 +1,13 @@
 String screen = "Intro";
-boolean refresh = true;
 
 PImage SoccerField;
 
 void draw(){  
-  if (refresh){ //for graphs
+  if (!screen.equals("Display")){ //refresh when not display
     background(255);
   }
   
   if (screen.equals("Session Selecting")){
-    graph.update();
     sessionHandle.update();
   }
   
@@ -19,7 +17,6 @@ void draw(){
     for (String i : players.keySet()){
       players.get(i).update(i);
     }
-    
     if (numOfStatOn() == 1){ //only display if one stat is on
       team.update("Average");
     }
@@ -36,6 +33,7 @@ void draw(){
     indiv.update();
     session.update();
     stat.update();
+    graph.update();
   } else{
     back.update();
   }
@@ -44,22 +42,7 @@ void draw(){
 void mousePressed() {  
   //back button
   if (back.over){
-    if (screen.equals("Session Selecting")){
-      screen = "Intro";
-    }
-    else if (screen.equals("Session Display")){
-      screen = "Session Selecting";
-      refresh = true;
-    }
-    else if (screen.equals("Player Selecting")){
-      screen = "Intro";
-    }
-    else if (screen.equals("Player Display")){
-      screen = "Player Selecting";
-      refresh = true;
-    } else if (screen.equals("Stat Selecting")){
-      screen = "Intro";
-    }
+    screen = "Intro";
     back.over = false;
   }
   
@@ -74,13 +57,12 @@ void mousePressed() {
     else if (stat.over) {
       screen = "Stat Selecting";
     }
+    else if (graph.over){
+      sessions.get(sessionDates.get(sessionIndex)).displayGraph();
+      screen = "Display";
+    }
   }
   else if (screen.equals("Session Selecting")){
-    if (graph.over){
-      sessions.get(sessionDates.get(sessionIndex)).displayGraph();
-      screen = "Session Display";
-      refresh = false;
-    }
     sessionHandle.pressEvent();
   }
   else if (screen.equals("Player Selecting")){
@@ -97,7 +79,6 @@ void mousePressed() {
     if (team.over){
         team.displayGraph("Team");
         screen = "Player Display";
-        refresh = false;
     }
   }
   else if (screen.equals("Stat Selecting")){
