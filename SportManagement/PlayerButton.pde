@@ -17,44 +17,33 @@ public class PlayerButton{
   HashMap<String, ArrayList<Float>> teamGoals = new HashMap<String, ArrayList<Float>>();
 
   public PlayerButton(float yIndex, color c, int size, String name, String pos) {
-    //team button
-    if (pos.equals("Average")){
-      this.y = height/2;
-      this.size = size;
-      x = size/2;
-      origColor = c;
+    int num;
+    //find number of button in a column
+    if (pos.equals("Defense")){
+      num = 4;
+    } else{
+      num = 3;
     }
     
-    //player button
-    else{
-      int num;
-      //find number of button in a column
-      if (pos.equals("Defense")){
-        num = 4;
-      } else{
-        num = 3;
+    //set x value base on pos
+    if (pos.equals("Defense")){
+      num = 4;
+      x = width / 4;
+    } else{
+      num = 3;
+      if (pos.equals("Center")){ 
+        x = width / 2;
       }
-      
-      //set x value base on pos
-      if (pos.equals("Defense")){
-        num = 4;
-        x = width / 4;
-      } else{
-        num = 3;
-        if (pos.equals("Center")){ 
-          x = width / 2;
-        }
-        else if (pos.equals("Offense")){ 
-          x = width * 3 / 4;
-        }
+      else if (pos.equals("Offense")){ 
+        x = width * 3 / 4;
       }
-      
-      this.y = yIndex * height / num + height / num / 2;
-      this.size = size;
-      this.position = pos;
-      this.name = name;
-      origColor = c;
     }
+    
+    this.y = yIndex * height / num + height / num / 2;
+    this.size = size;
+    this.position = pos;
+    this.name = name;
+    origColor = c;
   }
   
   void update(String name) {

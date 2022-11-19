@@ -21,9 +21,6 @@ void draw(){
     for (AllPlayerChangeButton apcb : playerChange){
       apcb.update();
     }
-    if (numOfStatOn() == 1){ //only display if one stat is on
-      team.update("Average");
-    }
   }
   
   else if (screen.equals("Stat Selecting")){
@@ -85,12 +82,6 @@ void mousePressed() {
       if (apcb.over){
         apcb.change();
       }
-    }
-    
-    //team button
-    if (team.over){
-        team.displayGraph("Team");
-        screen = "Player Display";
     }
   }
   else if (screen.equals("Stat Selecting")){

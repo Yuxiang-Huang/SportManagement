@@ -17,7 +17,7 @@ public class SessionData{
     ArrayList<Float> data = new ArrayList<Float>();
     ArrayList<Float> indivGoalsInput = new ArrayList<Float>();
     for (int i = 0; i < playerNames.size(); i ++){ //for every player
-      if (players.get(playerNames).checked){ //check if player is selected
+      if (players.get(playerNames.get(i)).checked){ //check if player is selected
         for (int j = 0; j < statNames.length; j++){ //for every stat
           if (statCheckboxes.get(statNames[j]).checked){ //check if stat if selected
             data.add(stats.get(statNames[j]).get(i));
@@ -42,12 +42,12 @@ public class SessionData{
     ArrayList<String> xLabel = new ArrayList<String>();
     //loop over players
     for (int i = 0; i < playerNames.size(); i ++){ 
-      if (players.get(playerNames).checked){
+      if (players.get(playerNames.get(i)).checked){
         xLabel.add(playerNames.get(i));
       }
     }
     
-    int barNum = xLabel.size();
+    int barNum = legends.size();
         
     //draw graph
     rectMode(CORNER);

@@ -11,12 +11,17 @@ public class Handle {
   int minX;
   int maxX;
 
-  Handle(int x, int y, int minX, int s) {
-    this.x = x;
+  Handle(boolean first, int y, int minX, int s) {
     this.y = y;
     this.minX = minX;
     this.maxX = width - minX;
     this.size = s;
+    
+    if (first){
+      x = minX;
+    }else{
+      x = maxX;
+    }
   }
 
   void update() {    

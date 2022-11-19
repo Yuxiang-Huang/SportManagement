@@ -15,7 +15,6 @@ IntroButton stat;
 BackButton back;
 GraphButton graph;
 
-PlayerButton team;
 Handle sessionHandle;
 
 AllStatChangeButton statChange;
@@ -68,7 +67,7 @@ void setup(){
   playerChange.add(new AllPlayerChangeButton(255, 125, 75, "All", 4));
   
   //for session
-  sessionHandle = new Handle(width/2, height/2, width/4, 50);
+  sessionHandle = new Handle(true, height/2, width/4, 50);
   
   //graph
   graph = new GraphButton(255, 50);
@@ -107,14 +106,6 @@ void setup(){
       }
     }
     index ++; //skip an empty line
-  }
-  
-  //team player button
-  team = new PlayerButton(-1, 255, buttonSize, "Average");
-  //set the keys for hashmap
-  for (int j = 0; j < statNames.length; j ++){
-    team.stats.put(statNames[j], new ArrayList<Float>());
-    team.teamGoals.put(statNames[j], new ArrayList<Float>());
   }
   
   //indiv best
@@ -213,9 +204,6 @@ void readSession(int index){
     for (String now : players.keySet()){
       players.get(now).teamGoals.get(statNames[i]).add(teamGoal);
     }
-    //for average
-    team.stats.get(statNames[i]).add(teamGoal);
-    team.teamGoals.get(statNames[i]).add(1f); //to not change
   }
   
   //set personal goal
