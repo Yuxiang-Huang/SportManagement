@@ -16,8 +16,10 @@ BackButton back;
 GraphButton graph;
 
 PlayerButton team;
-AllStatChangeButton ascb;
 Handle sessionHandle;
+
+AllStatChangeButton statChange;
+ArrayList<AllPlayerChangeButton> playerChange = new ArrayList<AllPlayerChangeButton>();
 
 //for reading data
 String[] allData;
@@ -57,7 +59,13 @@ void setup(){
   session = new IntroButton(255, 2, "Session");
   stat = new IntroButton(255, 3, "Stats");
   back = new BackButton(255, 30);
-  ascb = new AllStatChangeButton(255, 50);
+  
+  //set all change button
+  statChange = new AllStatChangeButton(255, 50);
+  playerChange.add(new AllPlayerChangeButton(255, 75, "Offense", 1));
+  playerChange.add(new AllPlayerChangeButton(255, 75, "Center", 2));
+  playerChange.add(new AllPlayerChangeButton(255, 75, "Defense", 3));
+  playerChange.add(new AllPlayerChangeButton(255, 75, "All", 4));
   
   //for session
   sessionHandle = new Handle(width/2, height/2, width/4, 50);

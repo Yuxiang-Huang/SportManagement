@@ -17,6 +17,10 @@ void draw(){
     for (String i : players.keySet()){
       players.get(i).update(i);
     }
+    //player change buttons
+    for (AllPlayerChangeButton apcb : playerChange){
+      apcb.update();
+    }
     if (numOfStatOn() == 1){ //only display if one stat is on
       team.update("Average");
     }
@@ -26,7 +30,7 @@ void draw(){
     for (String i : statCheckboxes.keySet()){
       statCheckboxes.get(i).update();
     }
-    ascb.update();
+    statChange.update();
   }
   
   if (screen.equals("Intro")){
@@ -75,6 +79,14 @@ void mousePressed() {
         //refresh = false;
       }
     }
+    
+    //player change buttons
+    for (AllPlayerChangeButton apcb : playerChange){
+      if (apcb.over){
+        apcb.change();
+      }
+    }
+    
     //team button
     if (team.over){
         team.displayGraph("Team");
@@ -87,10 +99,10 @@ void mousePressed() {
         statCheckboxes.get(i).checked = !statCheckboxes.get(i).checked;
       }
     }
-    if (ascb.over){
-      ascb.allOff = ! ascb.allOff;
+    if (statChange.over){
+      statChange.allOff = ! statChange.allOff;
       for (String i : statCheckboxes.keySet()){
-        statCheckboxes.get(i).checked = ascb.allOff;
+        statCheckboxes.get(i).checked = statChange.allOff;
       }
     }
   }
