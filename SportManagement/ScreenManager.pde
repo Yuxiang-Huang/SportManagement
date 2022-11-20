@@ -15,8 +15,17 @@ void draw(){
   else if (screen.equals("Player Selecting")){
     //soccer field image
     image(SoccerField, 0, 0, width, height);
+    
+    boolean over = false;
     for (String i : players.keySet()){
       players.get(i).update(i);
+      over = over || players.get(i).over;
+    } 
+    //cursor
+    if (over) {
+      cursor(HAND);
+    } else {
+      cursor(ARROW);
     }
     //player change buttons
     for (AllPlayerChangeButton apcb : playerChange){
@@ -72,10 +81,7 @@ void mousePressed() {
     for (String i : players.keySet()){
       if (players.get(i).over){
         players.get(i).checked = !players.get(i).checked;
-        players.get(i).lock = true;
-        //players.get(i).displayGraph(i);
-        //screen = "Player Display";
-        //refresh = false;
+        //players.get(i).lock = true;
       }
     }
     
