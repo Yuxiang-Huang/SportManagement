@@ -3,11 +3,14 @@ String screen = "Intro";
 PImage SoccerField;
 
 void draw(){  
+  boolean handCursor = false;
+  
   if (screen.equals("Display")){
     debug.update();
     if (debug.tableMode && sessionIndexBegin != sessionIndexEnd){
       statIndexChange.update();
     }
+    handCursor = handCursor || debug.over || statIndexChange.over;
   } else{ //refresh when not display
     background(255);
   }
@@ -20,18 +23,10 @@ void draw(){
   else if (screen.equals("Player Selecting")){
     //soccer field image
     image(SoccerField, 0, 0, width, height);
-    
-    boolean over = false;
     for (String i : players.keySet()){
       players.get(i).update(i);
-      over = over || players.get(i).over;
+      handCursor = handCursor || players.get(i).over;
     } 
-    //cursor
-    if (over) {
-      cursor(HAND);
-    } else {
-      cursor(ARROW);
-    }
     //player change buttons
     for (AllPlayerChangeButton apcb : playerChange){
       apcb.update();
@@ -55,6 +50,12 @@ void draw(){
     if (numOfStatOn() > 0){
       back.update();
     }
+  }
+  
+  if (handCursor){
+    cursor(HAND);
+  } else{
+    cursor(ARROW);
   }
 }
 

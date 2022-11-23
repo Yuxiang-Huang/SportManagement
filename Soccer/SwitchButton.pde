@@ -36,12 +36,6 @@ public class SwitchButton{
     else {
       over = false;
     }
-    
-    if (over) {
-      cursor(HAND);
-    } else {
-      cursor(ARROW);
-    }
   }
     
   boolean over()  {

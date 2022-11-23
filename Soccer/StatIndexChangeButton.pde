@@ -31,12 +31,6 @@ public class StatIndexChangeButton{
     else {
       over = false;
     }
-    
-    if (over) {
-      cursor(HAND);
-    } else {
-      cursor(ARROW);
-    }
   }
     
   boolean over()  {
