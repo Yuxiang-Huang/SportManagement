@@ -103,11 +103,11 @@ public class SwitchButton{
     int ySize = height / (playerIncluded.size() + 3);
     
     //grid lines
-    for (int i = 0; i < playerNames.size() + 3; i ++){
+    for (int i = 0; i < playerIncluded.size() + 3; i ++){ //horizontal
       line(xSize - xSize/2, (i + 0.5) * ySize, width - xSize/2, (i + 0.5) * ySize);
     }
-    for (int i = 0; i < sessions.keySet().size() + 2; i ++){
-      line((i + 0.5)*xSize, height - ySize/2 - 5, (i + 0.5)*xSize, ySize/2);
+    for (int i = 0; i < statIncluded.size() + 2; i ++){ //vertical
+      line((i + 0.5)*xSize, height - ySize/2, (i + 0.5)*xSize, ySize/2);
     }
     
     //first col
@@ -128,6 +128,7 @@ public class SwitchButton{
         int yCount = 0;
         for (int j = 0; j < curr.size(); j ++){
           if (players.get(playerNames.get(j)).checked){
+            //rest
             text(curr.get(j), xCount * xSize,  (yCount + 2) * ySize);
             yCount ++;
           }
@@ -140,6 +141,11 @@ public class SwitchButton{
 
         xCount ++;
       }
+    }
+    
+    //first col
+    for (int i = 0; i < playerIncluded.size(); i ++){ //horizontal
+      text(playerIncluded.get(i), xSize, (i + 2) * ySize);
     }
   }
 }
