@@ -79,10 +79,14 @@ public class DebugButton{
       //first row
       text(str, i * xSize, ySize);
       
-      //
-      //text(sessions.get(), i * width/(size+2), 15);
-      print("teamGoals: ");
-      println(sessions.get(str).teamGoals);
+      //each player
+      ArrayList<Float> curr = sessions.get(str).stats.get(statNames[statIndex]);
+      for (int j = 0; j < curr.size(); j ++){
+        text(curr.get(j), i * xSize,  (j + 2) * ySize);
+      }
+      
+      //last row - team goals
+      text(sessions.get(str).teamGoals[statIndex], i * xSize, (playerNames.size() + 2) * ySize);
       
       //println(sessions.get(str).indivGoals);
       i ++;
