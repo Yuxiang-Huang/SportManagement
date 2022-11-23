@@ -48,7 +48,14 @@ void draw(){
     stat.update();
     graph.update();
   } else{
-    back.update();
+    //don't display if all stats off
+    boolean oneStatOn = false;
+    for (StatCheckbox curr : statCheckboxes.values()){
+      oneStatOn = oneStatOn || curr.checked;
+    } 
+    if (oneStatOn){
+      back.update();
+    }
   }
 }
 
@@ -78,6 +85,7 @@ void mousePressed() {
   }
   else if (screen.equals("Display")){
     if (debug.over){
+      //display table vs display graph
       if (debug.tableMode){
         graph.graph();
         debug.display();
