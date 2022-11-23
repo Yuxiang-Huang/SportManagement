@@ -6,7 +6,6 @@ public class PlayerButton{
   boolean over = false;
   
   boolean checked = true;
-  //boolean lock = false; //for highlighting interference
   
   String name;
   String position;
@@ -73,7 +72,6 @@ public class PlayerButton{
         mouseY >= y-size/2 && mouseY <= y+size/2) {
       return true;
     } else {
-      //lock = false;
       return false;
     }
   }

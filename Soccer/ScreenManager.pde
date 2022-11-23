@@ -45,7 +45,6 @@ void draw(){
     session.update();
     stat.update();
     graph.update();
-    debug.update();
   } else{
     back.update();
   }
@@ -71,10 +70,7 @@ void mousePressed() {
     }
     else if (graph.over){
       graph.graph();
-      screen = "Display";
-    }
-    else if (debug.over){
-      debug.checkAllData();
+      debug.display();
       screen = "Display";
     }
   }
@@ -86,7 +82,6 @@ void mousePressed() {
     for (String i : players.keySet()){
       if (players.get(i).over){
         players.get(i).checked = !players.get(i).checked;
-        //players.get(i).lock = true;
       }
     }
     

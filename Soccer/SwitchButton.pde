@@ -1,4 +1,4 @@
-public class DebugButton{
+public class SwitchButton{
   float x; 
   float y;    
   int size;
@@ -7,12 +7,19 @@ public class DebugButton{
   
   int statIndex = 0;
 
-  public DebugButton(color c, int size) {
+  public SwitchButton(color c, int size) {
     origColor = c;
-    //top right
+    //bot right
     this.x = width - size/2 - 5;
-    this.y = size/2 + 5;
+    this.y = height - size/2 - 5;
     this.size = size;
+  }
+  
+  void display(){
+    fill(255);
+    rect(x, y, size, size);
+    fill(0);
+    text("Table", x, y);
   }
   
   void update() {
@@ -25,15 +32,10 @@ public class DebugButton{
     }
     
     if (over) {
-      fill(highlight);
+      cursor(HAND);
     } else {
-      fill(origColor);
+      cursor(ARROW);
     }
-
-    rect(x, y, size, size);
-    
-    fill(0);
-    text("Debug", x, y);
   }
     
   boolean over()  {
@@ -83,6 +85,7 @@ public class DebugButton{
     }
     text("Team Goals", xSize, (playerNames.size() + 2) * ySize);
     
+    //other part
     int i = 2;
     for (String str : sessions.keySet()){
       //first row

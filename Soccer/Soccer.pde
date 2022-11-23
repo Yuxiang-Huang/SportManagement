@@ -16,7 +16,7 @@ IntroButton session;
 IntroButton stat;
 BackButton back;
 GraphButton graph;
-DebugButton debug;
+SwitchButton debug;
 
 Handle sessionHandleTop;
 Handle sessionHandleBot;
@@ -28,13 +28,13 @@ ArrayList<AllPlayerChangeButton> playerChange = new ArrayList<AllPlayerChangeBut
 String[] allData;
 int index = 0;
 
-ArrayList<String> playerNames = new ArrayList<String>();
+ArrayList<String> playerNames = new ArrayList<String>(); //all player names
 HashMap<String, PlayerButton> players = new HashMap<String, PlayerButton>(); //key: playerNames
 
 String[] statNames;
 HashMap<String, StatCheckbox> statCheckboxes = new HashMap<String, StatCheckbox>(); //key: statNames
 
-ArrayList<String> sessionDates = new ArrayList<String>(); //will take out later
+ArrayList<String> sessionDates = new ArrayList<String>(); //all session dates
 HashMap<String, SessionData> sessions = new HashMap<String, SessionData>(); //key: sessionNum
 
 HashMap<String, ArrayList<Float>> indivBest = new HashMap<String, ArrayList<Float>>(); //key: statName
@@ -64,7 +64,7 @@ void setup(){
   session = new IntroButton(255, 2, "Session");
   stat = new IntroButton(255, 3, "Stats");
   back = new BackButton(255, 30);
-  debug = new DebugButton(255, 45);
+  debug = new SwitchButton(255, 50);
   
   //set all change button
   statChange = new AllStatChangeButton(255, 50);
