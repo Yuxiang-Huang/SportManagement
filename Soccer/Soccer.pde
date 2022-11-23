@@ -147,8 +147,7 @@ void setup(){
     }
   }
   
-  //sessionIndexEnd = sessionDates.size() - 1;
-  sessionIndexEnd = 0;
+  sessionIndexEnd = sessionDates.size() - 1;
   
   //images
   SoccerField = loadImage("SoccerField.png");

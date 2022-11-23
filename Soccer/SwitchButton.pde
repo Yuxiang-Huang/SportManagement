@@ -83,16 +83,41 @@ public class SwitchButton{
   }
   
   void mutliSessionTable(int statIndex){
-    int i = 2;
-    for (String str : sessions.keySet()){
+    ArrayList<String> playerIncluded = new ArrayList<String>();
+    for (String name : players.keySet()){
+      if (players.get(name).checked){
+        playerIncluded.add(name);
+      }
+    }
+    
+    //set unit
+    int xTotal = sessionIndexEnd - sessionIndexBegin + 3;
+    int xSize = width/ xTotal;
+    int ySize = height / (playerIncluded.size() + 3);
+    
+    //grid lines
+    for (int i = 0; i < playerIncluded.size() + 3; i ++){ //horizontal
+      line(xSize - xSize/2, (i + 0.5) * ySize, width - xSize/2, (i + 0.5) * ySize);
+    }
+    for (int i = 0; i < xTotal; i ++){ //vertical
+      line((i + 0.5)*xSize, height - ySize/2, (i + 0.5)*xSize, ySize/2);
+    }
+    
+    //first col
+    for (int i = 0; i < playerIncluded.size(); i ++){
+      text(playerIncluded.get(i), xSize, (i + 2) * ySize);
+    }
+    text("Team Goals", xSize, (playerIncluded.size() + 2) * ySize);
+    
+    for (int i = sessionIndexBegin; i <= sessionIndexEnd; i ++){
       //first row
-      text(str, i * xSize, ySize);
+      text(sessionDates.get(i), (i - sessionIndexBegin + 2) * xSize, ySize);
 
       //each player
-      ArrayList<Float> curr = sessions.get(str).stats.get(statNames[statIndex]);
-      for (int j = 0; j < curr.size(); j ++){
-        text(curr.get(j), i * xSize,  (j + 2) * ySize);
-      }
+      //ArrayList<Float> curr = sessions.get(sessionDates.get(i)).stats.get(statNames[statIndex]);
+      //for (int j = 0; j < curr.size(); j ++){
+      //  text(curr.get(j), i * xSize,  (j + 2) * ySize);
+      //}
     }
   }
   
