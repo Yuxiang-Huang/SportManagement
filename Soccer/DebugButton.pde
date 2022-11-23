@@ -4,6 +4,8 @@ public class DebugButton{
   int size;
   color origColor;
   boolean over = false;
+  
+  int statIndex = 0;
 
   public DebugButton(color c, int size) {
     origColor = c;
@@ -64,20 +66,25 @@ public class DebugButton{
   
   void checkAllData(){
     background(255);
-    int size = sessions.keySet().size();
+    int xSize = width / (sessions.keySet().size() + 2);
+    int ySize = height / (playerNames.size() + 3);
+    //first col
     for (int i = 0; i < playerNames.size(); i ++){
-      text(playerNames.get(i), width/(size+2), (i + 1) * height / (playerNames.size() + 1));
+      text(playerNames.get(i), xSize, (i + 2) * ySize);
     }
+    text("Team Goals", xSize, (playerNames.size() + 2) * ySize);
+    
     int i = 2;
     for (String str : sessions.keySet()){
-      text(str, i * width/(size+2), 15);
-      print("stats: ");
-      println(sessions.get(str).stats);
+      //first row
+      text(str, i * xSize, ySize);
+      
+      //
+      //text(sessions.get(), i * width/(size+2), 15);
       print("teamGoals: ");
       println(sessions.get(str).teamGoals);
-      print("indivGoals: ");
-      println(sessions.get(str).indivGoals);
-      println();
+      
+      //println(sessions.get(str).indivGoals);
       i ++;
     }
   }
