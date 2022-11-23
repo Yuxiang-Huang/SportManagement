@@ -75,7 +75,7 @@ void mousePressed() {
     }
     else if (debug.over){
       debug.checkAllData();
-      screen = "Debug Selecting";
+      screen = "Display";
     }
   }
   else if (screen.equals("Session Selecting")){
