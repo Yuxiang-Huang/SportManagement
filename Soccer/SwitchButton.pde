@@ -82,9 +82,9 @@ public class SwitchButton{
     }
     
     ArrayList<String> playerIncluded = new ArrayList<String>();
-    for (String name : players.keySet()){
-      if (players.get(name).checked){
-        playerIncluded.add(name);
+    for (int i = 0; i < playerNames.size(); i ++){
+      if (players.get(playerNames.get(i)).checked){
+        playerIncluded.add(playerNames.get(i));
       }
     }
     
@@ -136,9 +136,9 @@ public class SwitchButton{
     SessionData sd = sessions.get(sessionDates.get(sessionIndexBegin));
     
     ArrayList<String> playerIncluded = new ArrayList<String>();
-    for (String name : players.keySet()){
-      if (players.get(name).checked){
-        playerIncluded.add(name);
+    for (int i = 0; i < playerNames.size(); i ++){
+      if (players.get(playerNames.get(i)).checked){
+        playerIncluded.add(playerNames.get(i));
       }
     }
     ArrayList<String> statIncluded = new ArrayList<String>();
