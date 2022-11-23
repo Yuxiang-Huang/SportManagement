@@ -5,7 +5,7 @@ public class SwitchButton{
   color origColor;
   boolean over = false;
   
-  int statIndex;
+  int statIndex = 0;
   
   boolean tableMode = false;
 
@@ -77,12 +77,16 @@ public class SwitchButton{
     if (sessionIndexBegin == sessionIndexEnd){
       oneSessionTable();
     } else{
-      statIndex = nextValidStatIndex(-1);
       mutliSessionTable(statIndex);
     }
   }
   
   void mutliSessionTable(int statIndex){
+    //for edge case
+    if (! statCheckboxes.get(statNames[statIndex]).checked){
+      statIndex = nextValidStatIndex(statIndex);
+    }
+    
     ArrayList<String> playerIncluded = new ArrayList<String>();
     for (String name : players.keySet()){
       if (players.get(name).checked){

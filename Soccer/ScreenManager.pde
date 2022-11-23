@@ -95,6 +95,12 @@ void mousePressed() {
         debug.display();
       }
     }
+    else if (statIndexChange.over){
+      debug.statIndex = debug.nextValidStatIndex(debug.statIndex);
+      background(255);
+      debug.displayTable();
+      debug.display();
+    }
   }
   else if (screen.equals("Session Selecting")){
     sessionHandleTop.pressEvent();
