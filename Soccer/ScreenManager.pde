@@ -5,6 +5,9 @@ PImage SoccerField;
 void draw(){  
   if (screen.equals("Display")){
     debug.update();
+    if (debug.tableMode && sessionIndexBegin != sessionIndexEnd){
+      statIndexChange.update();
+    }
   } else{ //refresh when not display
     background(255);
   }

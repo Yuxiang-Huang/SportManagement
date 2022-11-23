@@ -17,6 +17,7 @@ IntroButton stat;
 BackButton back;
 GraphButton graph;
 SwitchButton debug;
+StatIndexChangeButton statIndexChange;
 
 Handle sessionHandleTop;
 Handle sessionHandleBot;
@@ -65,6 +66,7 @@ void setup(){
   stat = new IntroButton(255, 3, "Stats");
   back = new BackButton(255, 30);
   debug = new SwitchButton(255, 50);
+  statIndexChange = new StatIndexChangeButton(255);
   
   //set all change button
   statChange = new AllStatChangeButton(255, 50);

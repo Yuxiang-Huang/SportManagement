@@ -95,6 +95,9 @@ public class SwitchButton{
     int xSize = width/ xTotal;
     int ySize = height / (playerIncluded.size() + 3);
     
+    //display stat change button
+    statIndexChange.display(xSize, ySize, xSize - 10, ySize - 10);
+    
     //grid lines
     for (int i = 0; i < playerIncluded.size() + 3; i ++){ //horizontal
       line(xSize - xSize/2, (i + 0.5) * ySize, width - xSize/2, (i + 0.5) * ySize);
