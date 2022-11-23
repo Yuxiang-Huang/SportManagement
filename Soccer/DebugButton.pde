@@ -69,10 +69,14 @@ public class DebugButton{
     int xSize = width / (sessions.keySet().size() + 2);
     int ySize = height / (playerNames.size() + 3);
     //first col
+    line(xSize - xSize/2, (0.5) * ySize, width - xSize/2, (0.5) * ySize);
+    line(xSize - xSize/2, (1.5) * ySize, width - xSize/2, (1.5) * ySize);
     for (int i = 0; i < playerNames.size(); i ++){
       text(playerNames.get(i), xSize, (i + 2) * ySize);
+      line(xSize - xSize/2, (i + 2.5) * ySize, width - xSize/2, (i + 2.5) * ySize);
     }
     text("Team Goals", xSize, (playerNames.size() + 2) * ySize);
+    line(xSize - xSize/2, (playerNames.size() + 2.5) * ySize, width - xSize/2, (playerNames.size() + 2.5) * ySize);
     
     int i = 2;
     for (String str : sessions.keySet()){
