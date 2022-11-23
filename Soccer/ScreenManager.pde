@@ -48,12 +48,8 @@ void draw(){
     stat.update();
     graph.update();
   } else{
-    //don't display if all stats off
-    boolean oneStatOn = false;
-    for (StatCheckbox curr : statCheckboxes.values()){
-      oneStatOn = oneStatOn || curr.checked;
-    } 
-    if (oneStatOn){
+    //don't display if all stats off    
+    if (numOfStatOn() > 0){
       back.update();
     }
   }

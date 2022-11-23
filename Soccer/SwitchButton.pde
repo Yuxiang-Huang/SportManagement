@@ -74,8 +74,34 @@ public class SwitchButton{
   
   void displayTable(){
     background(255);
-    int xSize = width / (sessions.keySet().size() + 2);
-    int ySize = height / (playerNames.size() + 3);
+    if (sessionIndexBegin == sessionIndexEnd){
+      oneSessionTable();
+    } else{
+    
+    }
+    tableMode = true;
+  }
+  
+  void oneSessionTable(){
+    //prepare
+    SessionData sd = sessions.get(sessionIndexBegin);
+    
+    ArrayList<String> playerIncluded = new ArrayList<String>();
+    for (String name : players.keySet()){
+      if (players.get(name).checked){
+        playerIncluded.add(name);
+      }
+    }
+    ArrayList<String> statIncluded = new ArrayList<String>();
+    for (int i = 0; i < statNames.length; i ++){
+      if (statCheckboxes.get(statNames[i]).checked){
+        statIncluded.add(statNames[i]);
+      }
+    }
+    
+    //set unit
+    int xSize = width / (statIncluded.size() + 2);
+    int ySize = height / (playerIncluded.size() + 3);
     
     //grid lines
     for (int i = 0; i < playerNames.size() + 3; i ++){
@@ -86,30 +112,35 @@ public class SwitchButton{
     }
     
     //first col
-    for (int i = 0; i < playerNames.size(); i ++){
-      text(playerNames.get(i), xSize, (i + 2) * ySize);
+    for (int i = 0; i < playerIncluded.size(); i ++){
+      text(playerIncluded.get(i), xSize, (i + 2) * ySize);
     }
-    text("Team Goals", xSize, (playerNames.size() + 2) * ySize);
+    text("Team Goals", xSize, (playerIncluded.size() + 2) * ySize);
     
     //other part
-    int i = 2;
-    for (String str : sessions.keySet()){
-      //first row
-      text(str, i * xSize, ySize);
-      
-      //each player
-      ArrayList<Float> curr = sessions.get(str).stats.get(statNames[statIndex]);
-      for (int j = 0; j < curr.size(); j ++){
-        text(curr.get(j), i * xSize,  (j + 2) * ySize);
+    int xCount = 0;
+    for (int i = 0; i < statNames.length; i ++){
+      if (statCheckboxes.get(statNames[i]).checked){
+        //first row
+        text(statNames[i], xCount * xSize, ySize);
+        
+        //each player
+        ArrayList<Float> curr = sd.stats.get(statNames[i]);
+        int yCount = 0;
+        for (int j = 0; j < curr.size(); j ++){
+          if (players.get(playerNames.get(j)).checked){
+            text(curr.get(j), xCount * xSize,  (yCount + 2) * ySize);
+            yCount ++;
+          }
+        }
+        
+        //last row - team goals
+        text(sd.teamGoals[i], xCount * xSize, (playerNames.size() + 2) * ySize);
+        
+        //println(sessions.get(str).indivGoals);
+        
+        xCount ++;
       }
-      
-      //last row - team goals
-      text(sessions.get(str).teamGoals[statIndex], i * xSize, (playerNames.size() + 2) * ySize);
-      
-      //println(sessions.get(str).indivGoals);
-      i ++;
     }
-    
-    tableMode = true;
   }
 }
