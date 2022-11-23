@@ -5,7 +5,7 @@ public class SwitchButton{
   color origColor;
   boolean over = false;
   
-  int statIndex = 0;
+  int statIndex;
   
   boolean tableMode = false;
 
@@ -77,7 +77,22 @@ public class SwitchButton{
     if (sessionIndexBegin == sessionIndexEnd){
       oneSessionTable();
     } else{
-    
+      statIndex = nextValidStatIndex(-1);
+      mutliSessionTable(statIndex);
+    }
+  }
+  
+  void mutliSessionTable(int statIndex){
+    int i = 2;
+    for (String str : sessions.keySet()){
+      //first row
+      text(str, i * xSize, ySize);
+
+      //each player
+      ArrayList<Float> curr = sessions.get(str).stats.get(statNames[statIndex]);
+      for (int j = 0; j < curr.size(); j ++){
+        text(curr.get(j), i * xSize,  (j + 2) * ySize);
+      }
     }
   }
   
@@ -111,9 +126,9 @@ public class SwitchButton{
     }
     
     //first col
-    //for (int i = 0; i < playerIncluded.size(); i ++){
-    //  text(playerIncluded.get(i), xSize, (i + 2) * ySize);
-    //}
+    for (int i = 0; i < playerIncluded.size(); i ++){
+      text(playerIncluded.get(i), xSize, (i + 2) * ySize);
+    }
     text("Team Goals", xSize, (playerIncluded.size() + 2) * ySize);
     
     //other part
@@ -125,16 +140,15 @@ public class SwitchButton{
 
         //each player
         ArrayList<Float> curr = sd.stats.get(statNames[i]);
-        int yCount = 0;
+        int yCount = 2;
         for (int j = 0; j < curr.size(); j ++){
           if (players.get(playerNames.get(j)).checked){
-            //rest
-            text(curr.get(j), xCount * xSize,  (yCount + 2) * ySize);
+            text(curr.get(j), xCount * xSize,  yCount * ySize);
             yCount ++;
           }
         }
 
-        //last row - team goals
+        //last row: team goals
         text(sd.teamGoals[i], xCount * xSize, (playerNames.size() + 2) * ySize);
 
         //println(sessions.get(str).indivGoals);
@@ -142,10 +156,24 @@ public class SwitchButton{
         xCount ++;
       }
     }
-    
-    //first col
-    for (int i = 0; i < playerIncluded.size(); i ++){ //horizontal
-      text(playerIncluded.get(i), xSize, (i + 2) * ySize);
+  }
+  
+  int nextValidStatIndex(int curIndex){
+    curIndex ++;
+    while (curIndex < statNames.length){
+      if (statCheckboxes.get(statNames[curIndex]).checked){
+        return curIndex;
+      }
     }
+    
+    curIndex = 0;
+    
+    while (curIndex < statNames.length){
+      if (statCheckboxes.get(statNames[curIndex]).checked){
+        return curIndex;
+      }
+    }
+    
+    return -1;
   }
 }
