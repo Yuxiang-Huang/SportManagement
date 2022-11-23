@@ -110,14 +110,23 @@ public class SwitchButton{
     text("Team Goals", xSize, (playerIncluded.size() + 2) * ySize);
     
     for (int i = sessionIndexBegin; i <= sessionIndexEnd; i ++){
+      int xCount = i - sessionIndexBegin + 2;
       //first row
-      text(sessionDates.get(i), (i - sessionIndexBegin + 2) * xSize, ySize);
+      text(sessionDates.get(i), xCount * xSize, ySize);
 
       //each player
-      //ArrayList<Float> curr = sessions.get(sessionDates.get(i)).stats.get(statNames[statIndex]);
-      //for (int j = 0; j < curr.size(); j ++){
-      //  text(curr.get(j), i * xSize,  (j + 2) * ySize);
-      //}
+      int yCount = 2;
+      SessionData sd = sessions.get(sessionDates.get(i));
+      ArrayList<Float> curr = sd.stats.get(statNames[statIndex]);
+      for (int j = 0; j < curr.size(); j ++){
+        if (players.get(playerNames.get(j)).checked){ //if included
+          text(curr.get(j), xCount * xSize, yCount * ySize);
+          yCount ++;
+        }
+      }
+      
+      //team goal
+      text(sd.teamGoals[statIndex], xCount * xSize, height - ySize);
     }
   }
   
@@ -154,7 +163,7 @@ public class SwitchButton{
     for (int i = 0; i < playerIncluded.size(); i ++){
       text(playerIncluded.get(i), xSize, (i + 2) * ySize);
     }
-    text("Team Goals", xSize, (playerIncluded.size() + 2) * ySize);
+    text("Team Goals", xSize, height - ySize);
     
     //other part
     int xCount = 2;
@@ -173,8 +182,8 @@ public class SwitchButton{
           }
         }
 
-        //last row: team goals
-        text(sd.teamGoals[i], xCount * xSize, (playerNames.size() + 2) * ySize);
+        //team goals
+        text(sd.teamGoals[i], xCount * xSize, height - ySize);
 
         //println(sessions.get(str).indivGoals);
 
