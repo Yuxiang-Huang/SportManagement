@@ -23,7 +23,7 @@ public class TxtReader{
       data.put(allNames.get(i), new ArrayList<String>());
     }
 
-    File file = new File("Raw_9_15_2022.txt");
+    File file = new File("Raw_8_29_2022.txt");
 
     try {
       //set up
