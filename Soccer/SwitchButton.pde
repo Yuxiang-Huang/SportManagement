@@ -79,12 +79,11 @@ public class SwitchButton{
     } else{
     
     }
-    tableMode = true;
   }
   
   void oneSessionTable(){
     //prepare
-    SessionData sd = sessions.get(sessionIndexBegin);
+    SessionData sd = sessions.get(sessionDates.get(sessionIndexBegin));
     
     ArrayList<String> playerIncluded = new ArrayList<String>();
     for (String name : players.keySet()){
@@ -112,23 +111,23 @@ public class SwitchButton{
     }
     
     //first col
-    for (int i = 0; i < playerIncluded.size(); i ++){
-      text(playerIncluded.get(i), xSize, (i + 2) * ySize);
-    }
+    //for (int i = 0; i < playerIncluded.size(); i ++){
+    //  text(playerIncluded.get(i), xSize, (i + 2) * ySize);
+    //}
     text("Team Goals", xSize, (playerIncluded.size() + 2) * ySize);
     
     //other part
     int xCount = 0;
-    for (int i = 0; i < statNames.length; i ++){
-      if (statCheckboxes.get(statNames[i]).checked){
+    for (int i = 0; i < playerNames.size(); i ++){
+      if (players.get(playerNames.get(i)).checked){
         //first row
-        text(statNames[i], xCount * xSize, ySize);
+        text(playerIncluded.get(i), xSize, (i + 2) * ySize);
         
         //each player
-        ArrayList<Float> curr = sd.stats.get(statNames[i]);
+        ArrayList<Float> curr = sd.stats.get(playerNames.get(i));
         int yCount = 0;
-        for (int j = 0; j < curr.size(); j ++){
-          if (players.get(playerNames.get(j)).checked){
+        for (int j = 0; j < statNames.length; j ++){
+          if (statCheckboxes.get(statNames[j]).checked){
             text(curr.get(j), xCount * xSize,  (yCount + 2) * ySize);
             yCount ++;
           }

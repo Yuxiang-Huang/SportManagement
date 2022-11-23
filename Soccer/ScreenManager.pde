@@ -60,6 +60,7 @@ void mousePressed() {
   if (back.over){
     screen = "Intro";
     back.over = false;
+    debug.tableMode = false;
   }
   
   //other buttons
@@ -82,11 +83,12 @@ void mousePressed() {
   else if (screen.equals("Display")){
     if (debug.over){
       //display table vs display graph
+      debug.tableMode = !debug.tableMode;
       if (debug.tableMode){
-        graph.graph();
+        debug.displayTable();
         debug.display();
       } else{
-        debug.displayTable();
+        graph.graph();
         debug.display();
       }
     }
