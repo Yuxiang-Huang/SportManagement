@@ -3,7 +3,9 @@ String screen = "Intro";
 PImage SoccerField;
 
 void draw(){  
-  if (!screen.equals("Display")){ //refresh when not display
+  if (screen.equals("Display")){
+    debug.update();
+  } else{ //refresh when not display
     background(255);
   }
   
@@ -72,6 +74,17 @@ void mousePressed() {
       graph.graph();
       debug.display();
       screen = "Display";
+    }
+  }
+  else if (screen.equals("Display")){
+    if (debug.over){
+      if (debug.tableMode){
+        graph.graph();
+        debug.display();
+      } else{
+        debug.displayTable();
+        debug.display();
+      }
     }
   }
   else if (screen.equals("Session Selecting")){

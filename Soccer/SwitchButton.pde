@@ -6,6 +6,8 @@ public class SwitchButton{
   boolean over = false;
   
   int statIndex = 0;
+  
+  boolean tableMode = false;
 
   public SwitchButton(color c, int size) {
     origColor = c;
@@ -19,7 +21,11 @@ public class SwitchButton{
     fill(255);
     rect(x, y, size, size);
     fill(0);
-    text("Table", x, y);
+    if (tableMode){
+      text("Graph", x, y);
+    } else{
+      text("Table", x, y);
+    }
   }
   
   void update() {
@@ -66,7 +72,7 @@ public class SwitchButton{
     }
   }
   
-  void checkAllData(){
+  void displayTable(){
     background(255);
     int xSize = width / (sessions.keySet().size() + 2);
     int ySize = height / (playerNames.size() + 3);
@@ -103,5 +109,7 @@ public class SwitchButton{
       //println(sessions.get(str).indivGoals);
       i ++;
     }
+    
+    tableMode = true;
   }
 }
