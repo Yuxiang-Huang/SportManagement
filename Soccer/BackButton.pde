@@ -7,7 +7,7 @@ public class BackButton{
 
   public BackButton(color c, int size) {
     origColor = c;
-    //top right
+    //top left
     this.x = size/2 + 5;
     this.y = size/2 + 5;
     this.size = size;

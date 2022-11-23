@@ -16,6 +16,7 @@ IntroButton session;
 IntroButton stat;
 BackButton back;
 GraphButton graph;
+DebugButton debug;
 
 Handle sessionHandleTop;
 Handle sessionHandleBot;
@@ -63,6 +64,7 @@ void setup(){
   session = new IntroButton(255, 2, "Session");
   stat = new IntroButton(255, 3, "Stats");
   back = new BackButton(255, 30);
+  debug = new DebugButton(255, 45);
   
   //set all change button
   statChange = new AllStatChangeButton(255, 50);
@@ -147,8 +149,6 @@ void setup(){
   
   sessionIndexEnd = sessionDates.size() - 1;
   
-  //checkAllData();
-  
   //images
   SoccerField = loadImage("SoccerField.png");
 }
@@ -224,24 +224,5 @@ void readSession(int index){
       sb.indivGoals.get(statNames[i]).add(Math.max(stats.get(j), indivBest.get(statNames[i]).get(j)));
       indivBest.get(statNames[i]).set(j, Math.max(stats.get(j), indivBest.get(statNames[i]).get(j)));
     }
-  }
-}
-
-void checkAllData(){
-  for (String str : players.keySet()){
-    println(str);
-    print("stats: ");
-    println(players.get(str).stats);
-    println();
-  }
-  for (String str : sessions.keySet()){
-    println(str);
-    print("stats: ");
-    println(sessions.get(str).stats);
-    print("teamGoals: ");
-    println(sessions.get(str).teamGoals);
-    print("indivGoals: ");
-    println(sessions.get(str).indivGoals);
-    println();
   }
 }

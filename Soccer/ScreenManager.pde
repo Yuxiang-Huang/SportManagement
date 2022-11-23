@@ -45,6 +45,7 @@ void draw(){
     session.update();
     stat.update();
     graph.update();
+    debug.update();
   } else{
     back.update();
   }
@@ -71,6 +72,10 @@ void mousePressed() {
     else if (graph.over){
       graph.graph();
       screen = "Display";
+    }
+    else if (debug.over){
+      debug.checkAllData();
+      screen = "Debug Selecting";
     }
   }
   else if (screen.equals("Session Selecting")){
