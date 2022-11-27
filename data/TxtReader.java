@@ -26,7 +26,7 @@ public class TxtReader{
     allNames.add("Kaeden");
     allNames.add("Gabriel");
     allNames.add("Frederik");
-    allNames.add("Rafael"); 
+    allNames.add("Rafael");
 
     //data
     HashMap<String, ArrayList<String>> data =
@@ -35,11 +35,12 @@ public class TxtReader{
       data.put(allNames.get(i), new ArrayList<String>());
     }
 
-    File file = new File("Raw_8_29_2022.txt");
+    File file = new File("Catapult-Export-09_15_22.csv");
 
     try {
       //set up
       Scanner s = new Scanner(file);
+
       s.nextLine();
 
       ArrayList<String> statNames = new ArrayList<String>();
@@ -58,18 +59,20 @@ public class TxtReader{
       indices.add(17);
 
       //read
+      boolean first = true;
       while (s.hasNextLine()){
-        read(s.nextLine(), indices, data);
+        read(s.nextLine(), indices, data, first);
+        first = false;
       }
 
       //output
 
       //stats
-      for (int i = 0; i < statNames.size() - 1; i ++){
-        System.out.print(statNames.get(i) + ", ");
-      }
-
-      System.out.println(statNames.get(statNames.size() - 1));
+      // for (int i = 0; i < statNames.size() - 1; i ++){
+      //   System.out.print(statNames.get(i) + ", ");
+      // }
+      //
+      // System.out.println(statNames.get(statNames.size() - 1));
 
       //data
       for (String str : allNames){
@@ -90,9 +93,12 @@ public class TxtReader{
   }
 
   public static void read(String str, ArrayList<Integer> indices,
-  HashMap<String, ArrayList<String>> allNames){
+  HashMap<String, ArrayList<String>> allNames, boolean first){
     //System.out.println(Arrays.toString(str.split("	")));
-    String[] arr = str.split("	");
+    String[] arr = str.split(",");
+    if (first){
+      System.out.println("Session: " + arr[1]);
+    }
     String name = trimSpace(arr[2].split(" ")[0]);
     if (allNames.containsKey(name)){
       for (int i = 0; i < indices.size(); i ++){
