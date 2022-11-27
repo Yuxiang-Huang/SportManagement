@@ -16,6 +16,18 @@ public class TxtReader{
     allNames.add("Anselm");
     allNames.add("Soham");
 
+    allNames.add("Patrick");
+    allNames.add("Michael");
+    allNames.add("Ethan");
+    allNames.add("John");
+    allNames.add("Martin");
+    allNames.add("Duncan");
+    allNames.add("Farzad");
+    allNames.add("Kaeden");
+    allNames.add("Gabriel");
+    allNames.add("Frederik");
+    allNames.add("Rafael"); 
+
     //data
     HashMap<String, ArrayList<String>> data =
     new HashMap<String, ArrayList<String>>();
