@@ -30,6 +30,7 @@ String[] allData;
 int index = 0;
 
 ArrayList<String> playerNames = new ArrayList<String>(); //all player names
+ArrayList<String> backups = new ArrayList<String>(); //backup player names
 HashMap<String, PlayerButton> players = new HashMap<String, PlayerButton>(); //key: playerNames
 
 String[] statNames;
@@ -47,7 +48,7 @@ void setup(){
   
   //settings
   background(255);
-  size(900, 500);
+  size(900, 650);
   fill(0);
   stroke(lineThickness);
   textSize(fontSize);
@@ -125,6 +126,7 @@ void setup(){
   index++;
   
   //back ups
+  int xIndex = 0;
   for (int times = 0; times < 3; times ++){
     String pos = allData[index++]; //position name
     curr = allData[index++].split(", ");
@@ -132,12 +134,15 @@ void setup(){
       //create new player button
       String name = curr[i].split(" ")[0]; //take first name
       playerNames.add(name); 
-      PlayerButton now = new PlayerButton(i, 255, buttonSize, name, pos, 12); //12 hard number
+      backups.add(name);
+      PlayerButton now = new PlayerButton(xIndex, 255, buttonSize, buttonSize/2, name, pos, 11); //12 hard number
       players.put(name, now);
+      now.checked = false;
       //set the keys for hashmap
       for (int j = 0; j < statNames.length; j ++){
         now.stats.put(statNames[j], new ArrayList<Float>());
       }
+      xIndex ++;
     }
     index ++; //skip an empty line
   }

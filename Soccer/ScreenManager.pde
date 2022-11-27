@@ -2,6 +2,8 @@ String screen = "Intro";
 
 PImage SoccerField;
 
+int benchLen = 150;
+
 void draw(){  
   boolean handCursor = false;
   
@@ -22,7 +24,7 @@ void draw(){
   
   else if (screen.equals("Player Selecting")){
     //soccer field image
-    image(SoccerField, 0, 0, width, height);
+    image(SoccerField, 0, 0, width, height - benchLen);
     for (String i : players.keySet()){
       players.get(i).update(i);
       handCursor = handCursor || players.get(i).over;

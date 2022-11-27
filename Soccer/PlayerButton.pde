@@ -1,7 +1,8 @@
 public class PlayerButton{
   float x; 
   float y;    
-  int size;
+  int wid;
+  int hei;
   color origColor;
   boolean over = false;
   
@@ -36,19 +37,32 @@ public class PlayerButton{
       }
     }
     
-    this.y = yIndex * height / num + height / num / 2;
-    this.size = size;
+    this.y = yIndex * (height - benchLen) / num + (height - benchLen) / num / 2;
+    this.wid = size;
+    this.hei = size;
     this.position = pos;
     this.name = name;
     origColor = c;
   }
   
-  public PlayerButton(float yIndex, color c, int size, String name, String pos, int total) {
-    this.y = yIndex * height / total + height / total / 2;
-    this.size = size;
-    this.position = pos;
-    this.name = name;
-    origColor = c;
+  public PlayerButton(float xIndex, color c, int wid, int hei, String name, String pos, int total) {
+    if (xIndex > total/2){
+      this.x = (xIndex - (total+1)/2) * width / (total / 2 + 1) + width / total;
+      this.y = height - benchLen / 4;
+      this.wid = wid;
+      this.hei = hei;
+      this.position = pos;
+      this.name = name;
+      origColor = c;
+    } else{
+      this.x = xIndex * width / (total / 2 + 1) + width / total;
+      this.y = height - benchLen * 3 / 4;
+      this.wid = wid;
+      this.hei = hei;
+      this.position = pos;
+      this.name = name;
+      origColor = c;
+    }
   }
   
   void update(String name) {
@@ -62,12 +76,12 @@ public class PlayerButton{
     
     //color on or off
     if (checked){
-      fill(0, 0, 255);
+      fill(0, 255, 255);
     } else{
       fill(origColor);
     }
     
-    rect(x, y, size, size);
+    rect(x, y, wid, hei);
     
     fill(0);
     textSize(buttonFontSize);
@@ -76,8 +90,8 @@ public class PlayerButton{
   }
     
   boolean over()  {
-    if (mouseX >= x-size/2 && mouseX <= x+size/2 && 
-        mouseY >= y-size/2 && mouseY <= y+size/2) {
+    if (mouseX >= x-wid/2 && mouseX <= x+wid/2 && 
+        mouseY >= y-hei/2 && mouseY <= y+hei/2) {
       return true;
     } else {
       return false;

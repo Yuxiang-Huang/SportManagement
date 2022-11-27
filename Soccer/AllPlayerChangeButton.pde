@@ -16,7 +16,7 @@ public class AllPlayerChangeButton{
     this.ySize = ySize;
     position = pos;
     x = width - xSize/2-10;
-    y = height/5*i;
+    y = (height - benchLen)/5*i; //4 buttons
   }
   
   void update() {
