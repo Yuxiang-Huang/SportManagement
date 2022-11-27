@@ -104,18 +104,28 @@ void drawGraph(String title, String mode, ArrayList<String> xLabel, String yLabe
 }
 
 void drawScatterPlot(ArrayList<Float> data){
+  float max = data.get(0);
+  float lastX = -1;
   float lastY = -1;
   ArrayList<Float> xVal = new ArrayList<Float>();
   ArrayList<Float> yVal = new ArrayList<Float>();
   for (int i = 1; i <= xSpaces; i ++){ 
-    if (data.get(i-1) != -1){ //absent player
+    if (Math.abs(data.get(i-1) + 1) > 0.001){ //absent player
       //point
       float yNow = startY - data.get(i-1) / yScaleUnit * yunit;
+      
+      if (data.get(i - 1) >= max){
+        max = data.get(i - 1);
+        fill(0);
+      } else{
+        fill(255);
+      }
+      
       circle(startX + i*xunit, yNow, sizeOfPoint);
       
       //line
       if (lastY > 0){
-        line(startX + i*xunit - xunit, lastY, startX + i*xunit, yNow);
+        line(lastX, lastY, startX + i*xunit, yNow);
       }
       
       //add for later calculation
@@ -123,11 +133,11 @@ void drawScatterPlot(ArrayList<Float> data){
       yVal.add(yNow);
       
       //adjust for next loop
+      lastX = startX + i*xunit;
       lastY = yNow;
     }
-    index ++;
   }
-
+  fill(0);
   lineOfBestFit(xVal, yVal);
 }
 
@@ -214,7 +224,7 @@ void lineOfBestFit(ArrayList<Float> xVal, ArrayList<Float> yVal){
   float x0 = startX + xunit / 2;
   float y0 = m * x0 + b;
   
-  float x1 = xlen;
+  float x1 = startX + xlen;
   float y1 = m * x1 + b;
   
   line(x0, y0, x1, y1);
