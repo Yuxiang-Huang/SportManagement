@@ -97,8 +97,22 @@ public class GraphButton{
         xLabel.add(sessionDates.get(i));
       }
       
-      //draw graph
-      String title = "From " + sessionDates.get(sessionIndexBegin) + " to " + sessionDates.get(sessionIndexEnd);
+      //figure out title
+      String player = "";
+      int numOfPlayer = 0;
+      for (int j = 0; j < playerNames.size(); j ++){ //for every player IN ORDER
+        if (players.get(playerNames.get(j)).checked){
+          numOfPlayer ++;
+          player = playerNames.get(j);
+        }
+      }
+      String title;
+      if (numOfPlayer > 1){
+        title = "Team Average";
+      } else{
+        title = player;
+      }
+      
       rectMode(CORNER);
       if (legends.size() == 1){
         drawGraph(title, "Scatter", xLabel, legends.get(0), data);
