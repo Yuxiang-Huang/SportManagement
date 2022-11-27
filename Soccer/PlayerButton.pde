@@ -43,6 +43,14 @@ public class PlayerButton{
     origColor = c;
   }
   
+  public PlayerButton(float yIndex, color c, int size, String name, String pos, int total) {
+    this.y = yIndex * height / total + height / total / 2;
+    this.size = size;
+    this.position = pos;
+    this.name = name;
+    origColor = c;
+  }
+  
   void update(String name) {
     //update over
     if (over()){

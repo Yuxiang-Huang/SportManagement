@@ -122,20 +122,45 @@ void setup(){
     index ++; //skip an empty line
   }
   
+  index++;
+  
+  //back ups
+  for (int times = 0; times < 3; times ++){
+    String pos = allData[index++]; //position name
+    curr = allData[index++].split(", ");
+    for (int i = 0; i < curr.length; i ++){ 
+      //create new player button
+      String name = curr[i].split(" ")[0]; //take first name
+      playerNames.add(name); 
+      PlayerButton now = new PlayerButton(i, 255, buttonSize, name, pos, 12); //12 hard number
+      players.put(name, now);
+      //set the keys for hashmap
+      for (int j = 0; j < statNames.length; j ++){
+        now.stats.put(statNames[j], new ArrayList<Float>());
+      }
+    }
+    index ++; //skip an empty line
+  }
+  
   //indiv best
   for (int i = 0; i < statNames.length; i ++){
-    indivBest.put(statNames[i], new ArrayList<Float>());
+    ArrayList<Float> best = new ArrayList<Float>();
+    for (int j = 0; j < playerNames.size(); j ++){
+      best.add(0f);
+    }  
+    indivBest.put(statNames[i], best);
   }
-  index ++; //skip empty line
-  //for each player line
-  for (int p = 0; p < playerNames.size(); p ++){
-    index ++; //skip name line
-    curr = allData[index++].split(" ");
-    //for each stat
-    for (int i = 0; i < curr.length; i ++){
-      indivBest.get(statNames[i]).add(Float.parseFloat(curr[i]));  
-    }
-  }
+  
+  //index ++; //skip empty line
+  ////for each player line
+  //for (int p = 0; p < playerNames.size(); p ++){
+  //  index ++; //skip name line
+  //  curr = allData[index++].split(" ");
+  //  //for each stat
+  //  for (int i = 0; i < curr.length; i ++){
+  //    indivBest.get(statNames[i]).add(Float.parseFloat(curr[i]));  
+  //  }
+  //}
       
   //read each session
   while (index < allData.length){
@@ -157,12 +182,13 @@ void setup(){
 
 void readSession(int index){
   //create new session button; will replace later
-  String[] curr = allData[index++].split(" ");
-  SessionData sb = new SessionData(curr[1]);
-  sessionDates.add(curr[1]);
-  sessions.put(curr[1], sb);
+  String[] curr;
+  String date = allData[index++].substring(9); //Session:
+  SessionData sd = new SessionData(date);
+  sessionDates.add(date);
+  sessions.put(date, sd);
   for (int i = 0; i < statNames.length; i ++){
-    sb.stats.put(statNames[i], new ArrayList<Float>());
+    sd.stats.put(statNames[i], new ArrayList<Float>());
   }
   
   //read stats for playerButton
@@ -192,14 +218,14 @@ void readSession(int index){
     PlayerButton pb = players.get(playerNames.get(i)); 
     for (int s = 0; s < statNames.length; s ++){
       ArrayList<Float> now = pb.stats.get(statNames[s]);
-      sb.stats.get(statNames[s]).add(now.get(now.size()-1));
+      sd.stats.get(statNames[s]).add(now.get(now.size()-1));
     }
   }
   
   //calculat team goals
-  sb.teamGoals = new float[statNames.length];
+  sd.teamGoals = new float[statNames.length];
   for (int i = 0; i < statNames.length; i++){ //for each stat
-    ArrayList<Float> statNow = sb.stats.get(statNames[i]);
+    ArrayList<Float> statNow = sd.stats.get(statNames[i]);
     
     //calculate average
     float sum = 0;
@@ -213,17 +239,17 @@ void readSession(int index){
     float teamGoal = sum / num;
     
     //for session
-    sb.teamGoals[i] = teamGoal;
+    sd.teamGoals[i] = teamGoal;
     //for indiv
     teamGoals.get(statNames[i]).add(teamGoal);
   }
   
   //set personal goal
   for (int i = 0; i < statNames.length; i ++){ //for each stat
-    ArrayList<Float> stats = sb.stats.get(statNames[i]);
-    sb.indivGoals.put(statNames[i], new ArrayList<Float>());
+    ArrayList<Float> stats = sd.stats.get(statNames[i]);
+    sd.indivGoals.put(statNames[i], new ArrayList<Float>());
     for (int j = 0; j < stats.size(); j ++){ //for each session put the greater
-      sb.indivGoals.get(statNames[i]).add(Math.max(stats.get(j), indivBest.get(statNames[i]).get(j)));
+      sd.indivGoals.get(statNames[i]).add(Math.max(stats.get(j), indivBest.get(statNames[i]).get(j)));
       indivBest.get(statNames[i]).set(j, Math.max(stats.get(j), indivBest.get(statNames[i]).get(j)));
     }
   }
