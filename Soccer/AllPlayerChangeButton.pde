@@ -9,6 +9,8 @@ public class AllPlayerChangeButton{
   boolean allOff = true;
   
   String position;
+  
+  boolean backup;
 
   public AllPlayerChangeButton(color c, int xSize, int ySize, String pos, int i) {
     origColor = c;
@@ -17,6 +19,17 @@ public class AllPlayerChangeButton{
     position = pos;
     x = width - xSize/2-10;
     y = (height - benchLen)/5*i; //4 buttons
+  }
+  
+  public AllPlayerChangeButton(color c, int xSize, int ySize, String pos) {
+    origColor = c;
+    this.xSize = xSize;
+    this.ySize = ySize;
+    position = pos;
+    x = width - xSize/2-10;
+    y = (height - benchLen/4);
+    backup = true;
+    allOff = false;
   }
   
   void update() {
@@ -57,8 +70,14 @@ public class AllPlayerChangeButton{
   void change(){
     allOff = !allOff;
     for (PlayerButton pb : players.values()){
-      if (position == "All" || pb.position.equals(position)){
+      if (position.equals("All") || pb.position.equals(position)){
         pb.checked = allOff;
+      }
+    }
+    
+    if (backup){
+      for (String name : backups){
+        players.get(name).checked = allOff;
       }
     }
   }
