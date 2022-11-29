@@ -4,14 +4,14 @@ public class IntroButton{
   int size;
   color origColor;
   boolean over = false;
-  String text;
+  String displayText;
 
   public IntroButton(color c, int num, String text) {
     origColor = c;
     x = num * width / 4;
     y = height / 2;
     size = introButtonSize;
-    this.text = text;
+    displayText = text;
   }
   
   void update() {
@@ -33,7 +33,7 @@ public class IntroButton{
     
     fill(0);
     textSize(buttonFontSize);
-    text(text, x, y);
+    text(displayText, x, y);
     textSize(fontSize);
   }
     
