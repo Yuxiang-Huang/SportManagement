@@ -16,7 +16,7 @@ public class IntroButton{
   
   void update() {
     //update over
-    if (over()){
+    if (isOver()){
       over = true;
     } 
     else {
@@ -37,7 +37,7 @@ public class IntroButton{
     textSize(fontSize);
   }
     
-  boolean over()  {
+  boolean isOver()  {
     if (mouseX >= x-size/2 && mouseX <= x+size/2 && 
         mouseY >= y-size/2 && mouseY <= y+size/2) {
       return true;

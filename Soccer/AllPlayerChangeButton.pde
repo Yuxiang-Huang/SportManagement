@@ -34,7 +34,7 @@ public class AllPlayerChangeButton{
   
   void update() {
     //update over
-    if (over()){
+    if (isOver()){
       over = true;
     } 
     else {
@@ -82,7 +82,7 @@ public class AllPlayerChangeButton{
     }
   }
     
-  boolean over()  {
+  boolean isOver()  {
     if (mouseX >= x-xSize/2 && mouseX <= x+xSize/2 && 
         mouseY >= y-ySize/2 && mouseY <= y+ySize/2) {
       return true;

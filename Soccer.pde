@@ -46,7 +46,7 @@ public void setup(){
 
   //settings
   background(255);
-
+  size(900, 650);
   fill(0);
   stroke(lineThickness);
   textSize(fontSize);
@@ -294,7 +294,7 @@ public class AllPlayerChangeButton{
 
   public void update() {
     //update over
-    if (over()){
+    if (isOver()){
       over = true;
     }
     else {
@@ -342,7 +342,7 @@ public class AllPlayerChangeButton{
     }
   }
 
-  public boolean over()  {
+  public boolean isOver()  {
     if (mouseX >= x-xSize/2 && mouseX <= x+xSize/2 &&
         mouseY >= y-ySize/2 && mouseY <= y+ySize/2) {
       return true;
@@ -370,7 +370,7 @@ public class AllStatChangeButton{
 
   public void update() {
     //update over
-    if (over()){
+    if (isOver()){
       over = true;
     }
     else {
@@ -393,7 +393,7 @@ public class AllStatChangeButton{
     }
   }
 
-  public boolean over()  {
+  public boolean isOver()  {
     if (mouseX >= x-size/2 && mouseX <= x+size/2 &&
         mouseY >= y-size/2 && mouseY <= y+size/2) {
       return true;
@@ -419,7 +419,7 @@ public class BackButton{
 
   public void update() {
     //update over
-    if (over()){
+    if (isOver()){
       over = true;
     }
     else {
@@ -438,7 +438,7 @@ public class BackButton{
     text("Back", x, y);
   }
 
-  public boolean over()  {
+  public boolean isOver()  {
     if (mouseX >= x-size/2 && mouseX <= x+size/2 &&
         mouseY >= y-size/2 && mouseY <= y+size/2) {
       return true;
@@ -464,7 +464,7 @@ public class GraphButton{
 
   public void update() {
     //update over
-    if (over()){
+    if (isOver()){
       over = true;
     }
     else {
@@ -483,7 +483,7 @@ public class GraphButton{
     text("Graph", x, y);
   }
 
-  public boolean over()  {
+  public boolean isOver()  {
     if (mouseX >= x-size/2 && mouseX <= x+size/2 &&
         mouseY >= y-size/2 && mouseY <= y+size/2) {
       return true;
@@ -1032,7 +1032,7 @@ public class IntroButton{
 
   public void update() {
     //update over
-    if (over()){
+    if (isOver()){
       over = true;
     }
     else {
@@ -1052,7 +1052,7 @@ public class IntroButton{
     textSize(fontSize);
   }
 
-  public boolean over()  {
+  public boolean isOver()  {
     if (mouseX >= x-size/2 && mouseX <= x+size/2 &&
         mouseY >= y-size/2 && mouseY <= y+size/2) {
       return true;
@@ -1130,7 +1130,7 @@ public class PlayerButton{
 
   public void update(String name) {
     //update over
-    if (over()){
+    if (isOver()){
       over = true;
     }
     else {
@@ -1152,7 +1152,7 @@ public class PlayerButton{
     textSize(fontSize);
   }
 
-  public boolean over()  {
+  public boolean isOver()  {
     if (mouseX >= x-wid/2 && mouseX <= x+wid/2 &&
         mouseY >= y-hei/2 && mouseY <= y+hei/2) {
       return true;
@@ -1399,7 +1399,7 @@ public class StatCheckbox{
 
   public void update() {
     //update over
-    if (over()){
+    if (isOver()){
       over = true;
     }
     else {
@@ -1431,7 +1431,7 @@ public class StatCheckbox{
     textAlign(CENTER);
   }
 
-  public boolean over()  {
+  public boolean isOver()  {
     if (mouseX >= x-size/2 && mouseX <= x+size/2 &&
         mouseY >= y-size/2 && mouseY <= y+size/2) {
       return true;
@@ -1467,7 +1467,7 @@ public class StatIndexChangeButton{
 
   public void update() {
     //update over
-    if (over()){
+    if (isOver()){
       over = true;
     }
     else {
@@ -1475,7 +1475,7 @@ public class StatIndexChangeButton{
     }
   }
 
-  public boolean over()  {
+  public boolean isOver()  {
     if (mouseX >= x-wid/2 && mouseX <= x+wid/2 &&
         mouseY >= y-hei/2 && mouseY <= y+hei/2) {
       return true;
@@ -1516,7 +1516,7 @@ public class SwitchButton{
 
   public void update() {
     //update over
-    if (over()){
+    if (isOver()){
       over = true;
     }
     else {
@@ -1524,7 +1524,7 @@ public class SwitchButton{
     }
   }
 
-  public boolean over()  {
+  public boolean isOver()  {
     if (mouseX >= x-size/2 && mouseX <= x+size/2 &&
         mouseY >= y-size/2 && mouseY <= y+size/2) {
       return true;

@@ -67,7 +67,7 @@ public class PlayerButton{
   
   void update(String name) {
     //update over
-    if (over()){
+    if (isOver()){
       over = true;
     } 
     else {
@@ -89,7 +89,7 @@ public class PlayerButton{
     textSize(fontSize);
   }
     
-  boolean over()  {
+  boolean isOver()  {
     if (mouseX >= x-wid/2 && mouseX <= x+wid/2 && 
         mouseY >= y-hei/2 && mouseY <= y+hei/2) {
       return true;

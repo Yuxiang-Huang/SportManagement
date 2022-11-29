@@ -17,7 +17,7 @@ public class StatCheckbox{
   
   void update() {
     //update over
-    if (over()){
+    if (isOver()){
       over = true;
     } 
     else {
@@ -49,7 +49,7 @@ public class StatCheckbox{
     textAlign(CENTER);
   }
     
-  boolean over()  {
+  boolean isOver()  {
     if (mouseX >= x-size/2 && mouseX <= x+size/2 && 
         mouseY >= y-size/2 && mouseY <= y+size/2) {
       return true;
