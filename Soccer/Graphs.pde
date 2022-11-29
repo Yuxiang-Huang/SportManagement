@@ -109,9 +109,14 @@ void drawScatterPlot(ArrayList<Float> data){
   float lastY = -1;
   ArrayList<Float> xVal = new ArrayList<Float>();
   ArrayList<Float> yVal = new ArrayList<Float>();
+  
+      println(startY);
+      println(yScaleUnit);
+      println(yunit);
+      
   for (int i = 1; i <= xSpaces; i ++){ 
     if (data.get(i - 1) > 0){ //absent player
-      //point
+      //point      
       float yNow = startY - data.get(i-1) / yScaleUnit * yunit;
       
       if (data.get(i - 1) >= max){
@@ -120,7 +125,7 @@ void drawScatterPlot(ArrayList<Float> data){
       } else{
         fill(255);
       }
-      
+   
       circle(startX + i*xunit, yNow, sizeOfPoint);
       
       //line

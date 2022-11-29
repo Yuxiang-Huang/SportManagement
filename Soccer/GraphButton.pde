@@ -70,7 +70,7 @@ public class GraphButton{
             if (pb.checked){ //check if player is selected
               //data
               for (int k = 0; k <= sessionIndexEnd - sessionIndexBegin; k ++){
-                if (pb.stats.get(statNames[i]).get(sessionIndexBegin + k) != -1){ //check absent
+                if (pb.stats.get(statNames[i]).get(sessionIndexBegin + k) > 0){ //check absent
                   totalPlayer[k]++;
                   int index = k + statNum * (sessionIndexEnd - sessionIndexBegin + 1);
                   data.set(index, data.get(index) + pb.stats.get(statNames[i]).get(sessionIndexBegin + k));
