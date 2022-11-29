@@ -46,7 +46,7 @@ public void setup(){
 
   //settings
   background(255);
-  size(900, 650);
+  size(1800, 1300);
   fill(0);
   stroke(lineThickness);
   textSize(fontSize);
