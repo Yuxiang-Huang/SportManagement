@@ -520,9 +520,9 @@ public class GraphButton{
               //data
               for (int k = 0; k <= sessionIndexEnd - sessionIndexBegin; k ++){
                 if (pb.stats.get(statNames[i]).get(sessionIndexBegin + k) > 0){ //check absent
-                  totalPlayer[k]++;
-                  int index = k + statNum * (sessionIndexEnd - sessionIndexBegin + 1);
-                  data.set(index, data.get(index) + pb.stats.get(statNames[i]).get(sessionIndexBegin + k));
+                  totalPlayer[k]++; //for taking average
+                  int index = k + statNum * (sessionIndexEnd - sessionIndexBegin + 1); //find index
+                  data.set(index, data.get(index) + pb.stats.get(statNames[i]).get(sessionIndexBegin + k)); //update
                 }
               }
             }
@@ -533,8 +533,12 @@ public class GraphButton{
           }
           //take average
           for (int k = 0; k <= sessionIndexEnd - sessionIndexBegin; k ++){
-            int index = k + statNum * (sessionIndexEnd - sessionIndexBegin + 1);
-            data.set(index, data.get(index)/totalPlayer[k]);
+            int index = k + statNum * (sessionIndexEnd - sessionIndexBegin + 1); //det index
+            if (totalPlayer[k] > 0){ //take average or set as -1 if absent
+              data.set(index, data.get(index)/totalPlayer[k]);
+            } else{
+              data.set(index, -1f);
+            }
           }
           statNum ++;
         }
@@ -609,7 +613,7 @@ public void drawGraph(String title, String mode, ArrayList<String> xLabel, Strin
     max = Math.max(max, data.get(i));
   }
 
-  yScaleUnit = parseInt(max / ySpaces) + 1;
+  yScaleUnit = (int) (max / ySpaces) + 1;
 
   //set unit
   yunit = ylen / (ySpaces + 1);
@@ -680,7 +684,7 @@ public void drawGraph(String title, String mode, ArrayList<String> xLabel, Strin
 }
 
 public void drawScatterPlot(ArrayList<Float> data){
-  float max = data.get(0);
+  float max = -1;
   float lastX = -1;
   float lastY = -1;
   ArrayList<Float> xVal = new ArrayList<Float>();
@@ -739,7 +743,7 @@ public void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, 
     fill(palett[x]);
     stroke(palett[x]);
 
-    float max = data.get(index);
+    float max = -1;
     float lastX = -1;
     float lastY = -1;
     ArrayList<Float> xVal = new ArrayList<Float>();
@@ -965,7 +969,7 @@ public class Handle {
       line(x+size/2, y-size/2, x-size/2, y+size/2);
     }
     //set session num
-    int output = parseInt(sessionDates.size() * (x - minX) / (maxX - minX));
+    int output = (int) (sessionDates.size() * (x - minX) / (maxX - minX));
     if (top){
       outputTop = output;
     } else{
@@ -1040,6 +1044,7 @@ public class IntroButton{
     }
 
     rect(x, y, size, size);
+
     fill(0);
     textSize(buttonFontSize);
     text(displayText, x, y);
@@ -1163,6 +1168,7 @@ int benchLen = 150;
 
 public void draw(){
   boolean handCursor = false;
+
   if (screen.equals("Display")){
     debug.update();
     if (debug.tableMode && sessionIndexBegin != sessionIndexEnd){
@@ -1665,8 +1671,6 @@ public class SwitchButton{
 
         //team goals
         text(sd.teamGoals[i], xCount * xSize, height - ySize);
-
-        //println(sessions.get(str).indivGoals);
 
         xCount ++;
       }
