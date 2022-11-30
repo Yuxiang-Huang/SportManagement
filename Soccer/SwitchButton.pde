@@ -71,11 +71,11 @@ public class SwitchButton{
     if (sessionIndexBegin == sessionIndexEnd){
       oneSessionTable();
     } else{
-      mutliSessionTable(statIndex);
+      mutliSessionTable();
     }
   }
   
-  void mutliSessionTable(int statIndex){
+  void mutliSessionTable(){
     //for edge case
     if (! statCheckboxes.get(statNames[statIndex]).checked){
       statIndex = nextValidStatIndex(statIndex);
@@ -197,6 +197,7 @@ public class SwitchButton{
       if (statCheckboxes.get(statNames[curIndex]).checked){
         return curIndex;
       }
+      curIndex ++;
     }
     
     curIndex = 0;
@@ -205,6 +206,7 @@ public class SwitchButton{
       if (statCheckboxes.get(statNames[curIndex]).checked){
         return curIndex;
       }
+      curIndex ++;
     }
     
     return -1;

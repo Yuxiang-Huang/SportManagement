@@ -1561,7 +1561,7 @@ public class SwitchButton{
     }
   }
 
-  public void mutliSessionTable(int statIndex){
+  public void mutliSessionTable(){
     //for edge case
     if (! statCheckboxes.get(statNames[statIndex]).checked){
       statIndex = nextValidStatIndex(statIndex);
