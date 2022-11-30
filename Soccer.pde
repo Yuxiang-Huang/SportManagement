@@ -187,7 +187,7 @@ public void setup(){
 public void readSession(int index){
   //create new session button; will replace later
   String[] curr;
-  String date = allData[index].substring(9, allData[index++].length() - 5); //Session:
+  String date = allData[index++].split(" ")[1]; //session date
   SessionData sd = new SessionData(date);
   sessionDates.add(date);
   sessions.put(date, sd);

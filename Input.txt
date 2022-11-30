@@ -19,7 +19,7 @@ John, Martin, Duncan
 Defense
 Farzad, Kaeden, Gabriel, Frederik, Rafael
 
-Session: August 29 2022
+Session: 8-29-22
 Aden
 4.296 14.068 9 328.8155 20.9556 61.211
 Mitchell
@@ -54,7 +54,7 @@ Rafael
 6.2543 17.16 10 493.1493 18.5979 42.0554
 End
 
-Session: August 30 2022
+Session: 8-30-22
 Aden
 3.4074 17.6322 7 252.5796 10.5143 51.636
 Mitchell
@@ -85,7 +85,7 @@ Rafael
 4.228 16.3845 18 325.8495 20.3323 64.9788
 End
 
-Session: August 31 2022
+Session: 8-31-22
 Aden
 4.1747 19.4864 35 279.4656 9.3389 30.1953
 Mitchell
@@ -118,7 +118,7 @@ Frederik
 4.2176 19.6256 27 272.7624 23.7503 62.3858
 End
 
-Session: September 1 2022
+Session: 9-1-22
 Aden
 4.5457 18.1243 53 288.5172 8.5372 27.5385
 Mitchell
@@ -145,7 +145,7 @@ Rafael
 1.7737 13.5013 15 200.0096 3.0184 10.756
 End
 
-Session: September 2 2022
+Session: 9-2-22
 Aden
 4.9586 18.3928 62 291.9817 28.6509 85.9463
 Mitchell
@@ -172,7 +172,7 @@ Rafael
 2.0708 16.7772 11 187.9985 13.8001 35.2168
 End
 
-Session: September 6 2022
+Session: 9-6-22
 Jack
 4.8814 18.2337 51 490.2671 14.0498 34.5993
 Mitchell
@@ -199,7 +199,7 @@ Rafael
 3.1985 15.4499 45 264.4917 14.2096 51.4414
 End
 
-Session: September 7 2022
+Session: 9-7-22
 Stefan
 3.2553 14.2171 25 261.8567 27.084 71.9625
 Eben
@@ -228,7 +228,7 @@ Rafael
 3.8203 16.5137 22 314.9416 29.5082 75.6539
 End
 
-Session: September 8 2022
+Session: 9-8-22
 Jack
 5.3177 16.3646 36 469.3345 14.6691 38.0105
 Mitchell
@@ -259,7 +259,7 @@ Rafael
 4.9417 17.2793 52 410.8506 23.2651 44.2727
 End
 
-Session: September 9 2022
+Session: 9-9-22
 Mitchell
 6.911 17.3787 81 473.6561 47.0498 106.8238
 Stefan
@@ -294,7 +294,7 @@ Rafael
 0.2052 5.8559 0 29.4715 0.23 1.1036
 End
 
-Session: September 12 2022
+Session: 9-12-22
 Aden
 1.8167 13.4118 1 156.5225 7.5511 17.0085
 Mitchell
@@ -329,7 +329,7 @@ Frederik
 4.1532 13.5908 10 315.3971 14.0557 31.4638
 End
 
-Session: September 14 2022
+Session: 9-14-22
 Mitchell
 2.8408 13.9387 6 245.7666 15.0479 45.9786
 Eben
@@ -354,7 +354,7 @@ Rafael
 0.9522 10.7672 0 50.2715 5.3252 6.9538
 End
 
-Session: September 15 2022
+Session: 9-15-22
 Aden
 3.9672 16.5634 21 312.1876 12.4992 36.6963
 Mitchell
