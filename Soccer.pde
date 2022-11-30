@@ -46,7 +46,7 @@ public void setup(){
 
   //settings
   background(255);
-  size(1800, 1300);
+  size(900, 650);
   fill(0);
   stroke(lineThickness);
   textSize(fontSize);
@@ -609,7 +609,7 @@ public void drawGraph(String title, String mode, ArrayList<String> xLabel, Strin
     max = Math.max(max, data.get(i));
   }
 
-  yScaleUnit = PApplet.parseInt(max / ySpaces) + 1;
+  yScaleUnit = parseInt(max / ySpaces) + 1;
 
   //set unit
   yunit = ylen / (ySpaces + 1);
@@ -971,7 +971,7 @@ public class Handle {
       line(x+size/2, y-size/2, x-size/2, y+size/2);
     }
     //set session num
-    int output = sessionDates.size() * (x - minX) / (maxX - minX);
+    int output = parseInt(sessionDates.size() * (x - minX) / (maxX - minX));
     if (top){
       outputTop = output;
     } else{

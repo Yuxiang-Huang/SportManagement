@@ -33,7 +33,7 @@ void drawGraph(String title, String mode, ArrayList<String> xLabel, String yLabe
     max = Math.max(max, data.get(i));
   }
   
-  yScaleUnit = int(max / ySpaces) + 1;
+  yScaleUnit = (int) (max / ySpaces) + 1;
   
   //set unit
   yunit = ylen / (ySpaces + 1);

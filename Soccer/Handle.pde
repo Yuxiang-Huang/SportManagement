@@ -58,7 +58,7 @@ public class Handle {
       line(x+size/2, y-size/2, x-size/2, y+size/2);
     }
     //set session num
-    int output = sessionDates.size() * (x - minX) / (maxX - minX);
+    int output = (int) (sessionDates.size() * (x - minX) / (maxX - minX));
     if (top){
       outputTop = output;
     } else{

@@ -4,7 +4,7 @@ PImage SoccerField;
 
 int benchLen = 150;
 
-void draw(){  
+void draw(){    
   boolean handCursor = false;
   
   if (screen.equals("Display")){
