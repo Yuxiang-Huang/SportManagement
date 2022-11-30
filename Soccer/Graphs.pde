@@ -104,7 +104,7 @@ void drawGraph(String title, String mode, ArrayList<String> xLabel, String yLabe
 }
 
 void drawScatterPlot(ArrayList<Float> data){
-  float max = data.get(0);
+  float max = -1;
   float lastX = -1;
   float lastY = -1;
   ArrayList<Float> xVal = new ArrayList<Float>();
@@ -163,7 +163,7 @@ void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayLi
     fill(palett[x]);
     stroke(palett[x]);
     
-    float max = data.get(index);
+    float max = -1;
     float lastX = -1;
     float lastY = -1;
     ArrayList<Float> xVal = new ArrayList<Float>();
