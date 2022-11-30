@@ -185,9 +185,7 @@ public class SwitchButton{
 
         //team goals
         text(sd.teamGoals[i], xCount * xSize, height - ySize);
-
-        //println(sessions.get(str).indivGoals);
-
+        
         xCount ++;
       }
     }
