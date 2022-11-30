@@ -71,9 +71,9 @@ public class GraphButton{
               //data
               for (int k = 0; k <= sessionIndexEnd - sessionIndexBegin; k ++){
                 if (pb.stats.get(statNames[i]).get(sessionIndexBegin + k) > 0){ //check absent
-                  totalPlayer[k]++;
-                  int index = k + statNum * (sessionIndexEnd - sessionIndexBegin + 1);
-                  data.set(index, data.get(index) + pb.stats.get(statNames[i]).get(sessionIndexBegin + k));
+                  totalPlayer[k]++; //for taking average
+                  int index = k + statNum * (sessionIndexEnd - sessionIndexBegin + 1); //find index
+                  data.set(index, data.get(index) + pb.stats.get(statNames[i]).get(sessionIndexBegin + k)); //update
                 }
               }
             }
@@ -84,8 +84,12 @@ public class GraphButton{
           }
           //take average
           for (int k = 0; k <= sessionIndexEnd - sessionIndexBegin; k ++){
-            int index = k + statNum * (sessionIndexEnd - sessionIndexBegin + 1);
-            data.set(index, data.get(index)/totalPlayer[k]);
+            int index = k + statNum * (sessionIndexEnd - sessionIndexBegin + 1); //det index
+            if (totalPlayer[k] > 0){ //take average or set as -1 if absent
+              data.set(index, data.get(index)/totalPlayer[k]);
+            } else{
+              data.set(index, -1f);
+            }
           }
           statNum ++;
         }
