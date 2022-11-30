@@ -755,7 +755,7 @@ public void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, 
 
         if (data.get(index) >= max){
           max = data.get(index);
-          fill(0);
+          fill(palett[x]);
         } else{
           fill(255);
         }
