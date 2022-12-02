@@ -99,7 +99,6 @@ void drawGraph(String title, String mode, ArrayList<String> xLabel, String yLabe
   //title
   textSize(titleFontSize);
   text(title, startX + xlen/2, 50);
-  
   textSize(defaultFontSize);
 }
 
@@ -147,7 +146,7 @@ void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayLi
   
   ArrayList<Integer> allColors = new ArrayList<Integer>();
   color[] palett = new color[numOfStat];
-  if (numOfStat < palett.length){
+  if (numOfStat <= palett.length){
     //set colors
     for (int i = 0; i < colors.length; i ++){
       allColors.add(colors[i]);

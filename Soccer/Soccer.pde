@@ -67,10 +67,11 @@ void setup(){
   session = new Button(width/2, height/2, 150, 150, 25, "Session");
   stat = new Button(width*3/4, height/2, 150, 150, 25, "Stats");
   
+  graph = new GraphButton(width/2, height - 50, 50, 50);
+  table = new TableButton(width - 30, height - 20, 50, 30);
   back = new Button(50/2 + 5, 30/2 + 5, 50, 30, defaultFontSize, "Back");
-  table = new TableButton(width - 30, height - 20, 50, 30, defaultFontSize);
-  statIndexChange = new Button(0, 0, 0, 0, defaultFontSize, ""); //set later
   average = new Button(50, height - 30, 75, 50, defaultFontSize, "Average: On");
+  statIndexChange = new Button(0, 0, 0, 0, defaultFontSize, ""); //set later
   
   //set all change button
   statChange = new AllStatChangeButton(255, 50);
@@ -83,9 +84,6 @@ void setup(){
   //for session
   sessionHandleTop = new Handle(true, height/2, width/4, 50);
   sessionHandleBot = new Handle(false, height*3/4, width/4, 50);
-  
-  //graph
-  graph = new GraphButton(255, 50);
   
   //read data
   

@@ -2,8 +2,8 @@ public class TableButton extends Button{
   int statIndex = 0;
   boolean tableMode = false;
 
-  public TableButton(float x, float y, float wid, float hei, int fontSize) {
-    super(x, y, wid, hei, fontSize, "");
+  public TableButton(float x, float y, float wid, float hei) {
+    super(x, y, wid, hei, defaultFontSize, "");
   }
   
   void dataPrint(){
