@@ -1,70 +1,37 @@
-public class AllPlayerChangeButton{
-  float x; 
-  float y;    
-  int xSize;
-  int ySize;
-  color origColor;
-  boolean over = false;
-  
+public class AllPlayerChangeButton extends Button{
   boolean allOff = true;
-  
   String position;
-  
   boolean backup;
 
-  public AllPlayerChangeButton(color c, int xSize, int ySize, String pos, int i) {
-    origColor = c;
-    this.xSize = xSize;
-    this.ySize = ySize;
+  public AllPlayerChangeButton(int xSize, int ySize, String pos, int i) {
+    super(width - xSize/2-10, (height - benchLen)/5*i, xSize, ySize, 16, "");
     position = pos;
-    x = width - xSize/2-10;
-    y = (height - benchLen)/5*i; //4 buttons
   }
   
-  public AllPlayerChangeButton(color c, int xSize, int ySize, String pos) {
-    origColor = c;
-    this.xSize = xSize;
-    this.ySize = ySize;
+  public AllPlayerChangeButton(int xSize, int ySize, String pos) { //back up button
+    super(width - xSize/2-10, height - benchLen/4, xSize, ySize, 16, "");
     position = pos;
-    x = width - xSize/2-10;
-    y = (height - benchLen/4);
+    position = pos;
     backup = true;
     allOff = false;
   }
   
   void update() {
-    //update over
-    if (isOver()){
-      over = true;
-    } 
-    else {
-      over = false;
-    }
-    
-    if (over) {
-      fill(highlight);
-    } else {
-      fill(origColor);
-    }
-
-    rect(x, y, xSize, ySize);
-    
-    fill(0);
-    textSize(16);
+    //update word
     if (position.equals("All")){
       if (allOff){
-        text("All Off", x, y);
+        word = "All Off";
       } else{
-        text("All On", x, y);
+        word = "All On";
       }
     } else{
       if (allOff){
-        text("All " + position + " Off", x, y);
+        word = "All " + position + " Off";
       } else{
-        text("All " + position + " On", x, y);
+        word = "All " + position + " On";
       }
     }
-    textSize(defaultFontSize);
+    super.update();
   }
   
   void change(){
@@ -79,15 +46,6 @@ public class AllPlayerChangeButton{
       for (String name : backups){
         players.get(name).checked = allOff;
       }
-    }
-  }
-    
-  boolean isOver()  {
-    if (mouseX >= x-xSize/2 && mouseX <= x+xSize/2 && 
-        mouseY >= y-ySize/2 && mouseY <= y+ySize/2) {
-      return true;
-    } else {
-      return false;
     }
   }
 }

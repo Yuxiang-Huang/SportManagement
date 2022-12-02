@@ -74,11 +74,11 @@ void setup(){
   
   //set all change button
   allStatChange = new Button(width - 30, 50/2 + 5, 50, 50, defaultFontSize, "");
-  playerChange.add(new AllPlayerChangeButton(255, 125, 75, "Offense", 1));
-  playerChange.add(new AllPlayerChangeButton(255, 125, 75, "Center", 2));
-  playerChange.add(new AllPlayerChangeButton(255, 125, 75, "Defense", 3));
-  playerChange.add(new AllPlayerChangeButton(255, 125, 75, "All", 4));
-  playerChange.add(new AllPlayerChangeButton(255, 125, 50, "Backups"));
+  playerChange.add(new AllPlayerChangeButton(125, 75, "Offense", 1));
+  playerChange.add(new AllPlayerChangeButton(125, 75, "Center", 2));
+  playerChange.add(new AllPlayerChangeButton(125, 75, "Defense", 3));
+  playerChange.add(new AllPlayerChangeButton(125, 75, "All", 4));
+  playerChange.add(new AllPlayerChangeButton(125, 50, "Backups"));
   
   //for session
   sessionHandleTop = new Handle(true, height/2, width/4, 50);

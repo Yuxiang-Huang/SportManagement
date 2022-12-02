@@ -35,6 +35,7 @@ public class Button{
     rect(x, y, wid, hei);
     fill(0);
     
+    //text
     textSize(fontSize);
     text(word, x, y);
     textSize(defaultFontSize);
