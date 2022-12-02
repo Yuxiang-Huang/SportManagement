@@ -46,7 +46,7 @@ public void setup(){
 
   //settings
   background(255);
-
+  size(900, 650);
   fill(0);
   stroke(lineThickness);
   textSize(defaultFontSize);
@@ -205,7 +205,7 @@ public void readSession(int index){
     curr = allData[index++].split(" ");
     //process data
     for (int s = 0; s < statNames.length; s ++){
-      pb.stats.get(statNames[s]).add(Float.parseFloat(curr[s]));
+      pb.stats.get(statNames[s]).add(parseFloat(curr[s]));
     }
   }
 
@@ -986,7 +986,6 @@ public class PlayerButton extends Button{
     }
   }
 
-  @Override
   public void update() {
     //update over
     if (isOver()){
