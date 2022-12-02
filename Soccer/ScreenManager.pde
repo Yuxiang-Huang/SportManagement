@@ -50,7 +50,12 @@ void draw(){
     for (String i : statCheckboxes.keySet()){
       statCheckboxes.get(i).update();
     }
-    statChange.update();
+    if (numOfStatOn() > 0){
+      allStatChange.word = "All Off";
+    } else{
+      allStatChange.word = "All On";
+    }
+    allStatChange.update();
   }
   
   if (screen.equals("Intro")){
@@ -145,10 +150,15 @@ void mousePressed() {
         statCheckboxes.get(i).checked = !statCheckboxes.get(i).checked;
       }
     }
-    if (statChange.over){
-      statChange.allOff = ! statChange.allOff;
+    if (allStatChange.over){
+      boolean status;
+      if (numOfStatOn() > 0){
+        status = false;
+      } else{
+        status = true;
+      }
       for (String i : statCheckboxes.keySet()){
-        statCheckboxes.get(i).checked = statChange.allOff;
+        statCheckboxes.get(i).checked = status;
       }
     }
   }

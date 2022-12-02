@@ -16,6 +16,7 @@ Button stat;
 Button back;
 Button statIndexChange;
 Button average;
+Button allStatChange;
 
 GraphButton graph;
 TableButton table;
@@ -23,7 +24,6 @@ TableButton table;
 Handle sessionHandleTop;
 Handle sessionHandleBot;
 
-AllStatChangeButton statChange;
 ArrayList<AllPlayerChangeButton> playerChange = new ArrayList<AllPlayerChangeButton>();
 
 //for reading data
@@ -74,7 +74,7 @@ void setup(){
   statIndexChange = new Button(0, 0, 0, 0, defaultFontSize, ""); //set later
   
   //set all change button
-  statChange = new AllStatChangeButton(255, 50);
+  allStatChange = new Button(width - 30, 50/2 + 5, 50, 50, defaultFontSize, "");
   playerChange.add(new AllPlayerChangeButton(255, 125, 75, "Offense", 1));
   playerChange.add(new AllPlayerChangeButton(255, 125, 75, "Center", 2));
   playerChange.add(new AllPlayerChangeButton(255, 125, 75, "Defense", 3));
