@@ -69,13 +69,13 @@ public class Handle {
     
     //date display
     fill(0);
-    textSize(buttonFontSize);   
+    textSize(25);   
     if (sessionIndexBegin == sessionIndexEnd){
       text(sessionDates.get(sessionIndexBegin), width/2, height/4);
     } else{
       text("From " + sessionDates.get(sessionIndexBegin) + " to " + sessionDates.get(sessionIndexEnd), width/2, height/4);
     }
-    textSize(fontSize);
+    textSize(defaultFontSize);
   }
 
   boolean overRect(int x, int y, int width, int height) {

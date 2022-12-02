@@ -84,9 +84,9 @@ public class PlayerButton{
     rect(x, y, wid, hei);
     
     fill(0);
-    textSize(buttonFontSize);
+    textSize(25);
     text(name, x, y);
-    textSize(fontSize);
+    textSize(defaultFontSize);
   }
     
   boolean isOver()  {

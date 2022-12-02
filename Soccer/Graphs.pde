@@ -100,7 +100,7 @@ void drawGraph(String title, String mode, ArrayList<String> xLabel, String yLabe
   textSize(titleFontSize);
   text(title, startX + xlen/2, 50);
   
-  textSize(fontSize);
+  textSize(defaultFontSize);
 }
 
 void drawScatterPlot(ArrayList<Float> data){

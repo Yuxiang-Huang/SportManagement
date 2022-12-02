@@ -3,15 +3,17 @@ public class Button{
   float y;    
   float wid;
   float hei;
-  boolean over = false;
+  int fontSize;
   String word;
+  boolean over = false;
 
-  public Button(float x, float y, float wid, float hei, String word) {
+  public Button(float x, float y, float wid, float hei, int fontSize, String word) {
     this.x = x;
     this.y = y;
     this.wid = wid;
     this.hei = hei;
     this.word = word;
+    this.fontSize = fontSize;
   }
   
   void update() {
@@ -33,7 +35,9 @@ public class Button{
     rect(x, y, wid, hei);
     
     fill(0);
+    textSize(fontSize);
     text(word, x, y);
+    textSize(defaultFontSize);
   }
     
   boolean isOver()  {

@@ -64,7 +64,7 @@ public class AllPlayerChangeButton{
         text("All " + position + " On", x, y);
       }
     }
-    textSize(fontSize);
+    textSize(defaultFontSize);
   }
   
   void change(){

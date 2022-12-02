@@ -1,19 +1,17 @@
 import java.util.*;
 
 //default
-int fontSize = 12;
+int defaultFontSize = 12;
 
 //button setting
-int introButtonSize = 150;
 int buttonSize = 100;
-int buttonFontSize = 25;
 int distBtwButton = 50; //take out later
 color highlight = color(200);
 
 //special buttons
-IntroButton indiv;
-IntroButton session;
-IntroButton stat;
+Button indiv;
+Button session;
+Button stat;
 Button back;
 GraphButton graph;
 SwitchButton debug;
@@ -52,7 +50,7 @@ void setup(){
   size(900, 650);
   fill(0);
   stroke(lineThickness);
-  textSize(fontSize);
+  textSize(defaultFontSize);
   textAlign(CENTER);
   rectMode(CENTER);
   
@@ -63,13 +61,14 @@ void setup(){
   ylen = height - 150;
   
   //set main buttons
-  indiv = new IntroButton(255, 1, "Player");
-  session = new IntroButton(255, 2, "Session");
-  stat = new IntroButton(255, 3, "Stats");
-  back = new Button(50/2 + 5, 30/2 + 5, 50, 30, "Back");
+  indiv = new Button(width/4, height/2, 150, 150, 25, "Player");
+  session = new Button(width/2, height/2, 150, 150, 25, "Session");
+  stat = new Button(width*3/4, height/2, 150, 150, 25, "Stats");
+  
+  back = new Button(50/2 + 5, 30/2 + 5, 50, 30, defaultFontSize, "Back");
   debug = new SwitchButton(255, 50);
   statIndexChange = new StatIndexChangeButton(255);
-  average = new Button(50, height - 30, 75, 50, "Average: On");
+  average = new Button(50, height - 30, 75, 50, defaultFontSize, "Average: On");
   
   //set all change button
   statChange = new AllStatChangeButton(255, 50);
