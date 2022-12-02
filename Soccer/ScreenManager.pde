@@ -23,7 +23,6 @@ void draw(){
     } else{
       takeAverage = true;
     }
-    handCursor = handCursor || table.over || statIndexChange.over;
   } else{ //refresh when not display
     background(255);
   }
