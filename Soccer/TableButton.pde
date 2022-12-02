@@ -1,48 +1,9 @@
-public class SwitchButton{
-  float x; 
-  float y;    
-  int size;
-  color origColor;
-  boolean over = false;
-  
+public class TableButton extends Button{  
   int statIndex = 0;
-  
   boolean tableMode = false;
 
-  public SwitchButton(color c, int size) {
-    origColor = c;
-    //bot right
-    this.x = width - size/2 - 5;
-    this.y = height - size/2 - 5;
-    this.size = size;
-  }
-  
-  void update() {
-    //update over
-    if (isOver()){
-      over = true;
-    } 
-    else {
-      over = false;
-    }
-    
-    fill(255);
-    rect(x, y, size, size);
-    fill(0);
-    if (tableMode){
-      text("Graph", x, y);
-    } else{
-      text("Table", x, y);
-    }
-  }
-    
-  boolean isOver()  {
-    if (mouseX >= x-size/2 && mouseX <= x+size/2 && 
-        mouseY >= y-size/2 && mouseY <= y+size/2) {
-      return true;
-    } else {
-      return false;
-    }
+  public TableButton(float x, float y, float wid, float hei, int fontSize) {
+    super(x, y, wid, hei, fontSize, "");
   }
   
   void dataPrint(){
@@ -96,7 +57,7 @@ public class SwitchButton{
     statIndexChange.y = ySize;
     statIndexChange.wid = xSize - 10;
     statIndexChange.hei = ySize - 10;
-    statIndexChange.word = "Stat "+ (debug.statIndex + 1);
+    statIndexChange.word = "Stat "+ (table.statIndex + 1);
     
     //grid lines
     for (int i = 0; i < playerIncluded.size() + 3; i ++){ //horizontal

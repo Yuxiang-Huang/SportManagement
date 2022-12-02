@@ -12,11 +12,13 @@ color highlight = color(200);
 Button indiv;
 Button session;
 Button stat;
+
 Button back;
-GraphButton graph;
-SwitchButton debug;
 Button statIndexChange;
 Button average;
+
+GraphButton graph;
+TableButton table;
 
 Handle sessionHandleTop;
 Handle sessionHandleBot;
@@ -66,7 +68,7 @@ void setup(){
   stat = new Button(width*3/4, height/2, 150, 150, 25, "Stats");
   
   back = new Button(50/2 + 5, 30/2 + 5, 50, 30, defaultFontSize, "Back");
-  debug = new SwitchButton(255, 50);
+  table = new TableButton(width - 30, height - 20, 50, 30, defaultFontSize);
   statIndexChange = new Button(0, 0, 0, 0, defaultFontSize, ""); //set later
   average = new Button(50, height - 30, 75, 50, defaultFontSize, "Average: On");
   

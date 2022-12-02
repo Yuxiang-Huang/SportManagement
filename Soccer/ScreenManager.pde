@@ -9,8 +9,13 @@ boolean handCursor;
 void draw(){      
   handCursor = false;
   if (screen.equals("Display")){
-    debug.update();
-    if (debug.tableMode && sessionIndexBegin != sessionIndexEnd){
+    if (table.tableMode){
+      table.word = "graph";
+    } else{
+      table.word = "Table";
+    }
+    table.update();
+    if (table.tableMode && sessionIndexBegin != sessionIndexEnd){
       statIndexChange.update();
     }
     if (numOfStatOn() == 1){
@@ -18,7 +23,7 @@ void draw(){
     } else{
       takeAverage = true;
     }
-    handCursor = handCursor || debug.over || statIndexChange.over;
+    handCursor = handCursor || table.over || statIndexChange.over;
   } else{ //refresh when not display
     background(255);
   }
@@ -72,7 +77,7 @@ void mousePressed() {
   if (back.over){
     screen = "Intro";
     back.over = false;
-    debug.tableMode = false;
+    table.tableMode = false;
   }
   
   //other buttons
@@ -92,11 +97,11 @@ void mousePressed() {
     }
   }
   else if (screen.equals("Display")){
-    if (debug.over){
+    if (table.over){
       //display table vs display graph
-      debug.tableMode = !debug.tableMode;
-      if (debug.tableMode){
-        debug.displayTable();
+      table.tableMode = !table.tableMode;
+      if (table.tableMode){
+        table.displayTable();
       } else{
         graph.graph();
       }
@@ -111,9 +116,9 @@ void mousePressed() {
       graph.graph();
     }
     else if (statIndexChange.over){
-      debug.statIndex = debug.nextValidStatIndex(debug.statIndex);
+      table.statIndex = table.nextValidStatIndex(table.statIndex);
       background(255);
-      debug.displayTable();
+      table.displayTable();
     }
   }
   else if (screen.equals("Session Selecting")){
