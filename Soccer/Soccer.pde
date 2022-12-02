@@ -239,7 +239,7 @@ void readSession(int index){
     float sum = 0;
     int num = 0;
     for (int j = 0; j < statNow.size(); j ++){
-      if (statNow.get(j) != -1){ //skip absent
+      if (statNow.get(j) > -1){ //skip absent
         sum += statNow.get(j);
         num++;
       }

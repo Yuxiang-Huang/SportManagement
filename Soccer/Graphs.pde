@@ -111,7 +111,7 @@ void drawScatterPlot(ArrayList<Float> data){
   ArrayList<Float> yVal = new ArrayList<Float>();
 
   for (int i = 1; i <= xSpaces; i ++){ 
-    if (data.get(i - 1) > 0){ //absent player
+    if (data.get(i - 1) > -1){ //absent player
       //point      
       float yNow = startY - data.get(i-1) / yScaleUnit * yunit;
       
@@ -175,7 +175,7 @@ void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayLi
     ArrayList<Float> xVal = new ArrayList<Float>();
     ArrayList<Float> yVal = new ArrayList<Float>();
     for (int i = 1; i <= xSpaces; i ++){  
-      if (data.get(index) > 0){ //absent player
+      if (data.get(index) > -1){ //absent player
         //point
         float yNow = startY - data.get(index) / goals.get(index) * 100 / percent * yunit;
         
@@ -252,7 +252,7 @@ void lineOfBestFit(ArrayList<Float> xVal, ArrayList<Float> yVal){
 void drawBarGraph(ArrayList<Float> data, ArrayList<Float> indivGoals, float teamGoal){  
   //draw bars
   for (int i = 0; i < xSpaces; i ++){
-    if (data.get(i) > 0){ //absent player
+    if (data.get(i) > -1){ //absent player
       float h = data.get(i) / yScaleUnit * yunit;
       drawBar(1, 0, startX + i*xunit, startY, h, color(0), data.get(i) - indivGoals.get(i));
     }
@@ -281,7 +281,7 @@ int barNum, ArrayList<Float> teamGoals){
   int counter = 0;
   for (int i = 0; i < xSpaces; i ++){
     for (int j = 0; j < barNum; j ++){
-      if (data.get(counter) > 0){ //absent player
+      if (data.get(counter) > -1){ //absent player
         float yNow = data.get(counter) / teamGoals.get(j) * 100 / percent * yunit;
         drawBar(barNum, j, startX + i*xunit, startY, yNow, palett[j], data.get(counter) - indivGoals.get(counter));
       }

@@ -3,12 +3,10 @@ public class Button{
   float y;    
   float wid;
   float hei;
-  color origColor;
   boolean over = false;
   String word;
 
   public Button(float x, float y, float wid, float hei, String word) {
-    origColor = 255;
     this.x = x;
     this.y = y;
     this.wid = wid;
@@ -25,7 +23,12 @@ public class Button{
       over = false;
     }
     
-    fill(origColor);
+    if (over){
+      fill(highlight);
+      handCursor = true;
+    } else{
+      fill(255);
+    }
 
     rect(x, y, wid, hei);
     

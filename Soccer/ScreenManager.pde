@@ -4,9 +4,10 @@ PImage SoccerField;
 
 int benchLen = 150;
 
-void draw(){    
-  boolean handCursor = false;
-  
+boolean handCursor;
+
+void draw(){      
+  handCursor = false;
   if (screen.equals("Display")){
     debug.update();
     if (debug.tableMode && sessionIndexBegin != sessionIndexEnd){
@@ -17,7 +18,7 @@ void draw(){
     } else{
       takeAverage = true;
     }
-    handCursor = handCursor || debug.over || statIndexChange.over || average.over;
+    handCursor = handCursor || debug.over || statIndexChange.over;
   } else{ //refresh when not display
     background(255);
   }
