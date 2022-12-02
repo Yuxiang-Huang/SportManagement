@@ -157,6 +157,8 @@ void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayLi
     allColors.remove(ran);
   }
   
+  println(xSpaces);
+  
   //loop
   int index = 0;
   for (int x = 0; x < numOfStat; x ++){

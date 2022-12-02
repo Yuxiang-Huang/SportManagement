@@ -152,15 +152,13 @@ public class GraphButton{
             //data
             legends.add(playerNames.get(j));
             for (int k = 0; k <= sessionIndexEnd - sessionIndexBegin; k ++){
-              if (pb.stats.get(statNames[i]).get(sessionIndexBegin + k) > 0){ //check absent
-                data.add(pb.stats.get(statNames[i]).get(sessionIndexBegin + k));
-              }
+              data.add(pb.stats.get(statNames[i]).get(sessionIndexBegin + k));
+            }
+            //goals
+            for (int k = sessionIndexBegin; k <= sessionIndexEnd; k ++){
+              teamGoalsInput.add(teamGoals.get(statNames[i]).get(k));
             }
           }
-        }
-        //goals
-        for (int k = sessionIndexBegin; k <= sessionIndexEnd; k ++){
-          teamGoalsInput.add(teamGoals.get(statNames[i]).get(k));
         }
       }
     }
@@ -171,8 +169,12 @@ public class GraphButton{
       xLabel.add(sessionDates.get(i));
     }
     
+    println(data);
+    println(teamGoalsInput);
+    println(legends);
+    
     rectMode(CORNER);
-    drawGraph(title, "Scatter", xLabel, "%", data);
+    drawGraph(title, "Scatter", xLabel, legends.get(0), data);
     drawMultiScatterPlot(data, teamGoalsInput, legends);
     rectMode(CENTER);
   }
