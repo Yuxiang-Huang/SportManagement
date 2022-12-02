@@ -16,6 +16,7 @@ BackButton back;
 GraphButton graph;
 SwitchButton debug;
 StatIndexChangeButton statIndexChange;
+Button average;
 
 Handle sessionHandleTop;
 Handle sessionHandleBot;
@@ -66,6 +67,7 @@ public void setup(){
   back = new BackButton(255, 30);
   debug = new SwitchButton(255, 50);
   statIndexChange = new StatIndexChangeButton(255);
+  average = new Button(50, height - 30, 75, 50, "Average: On");
 
   //set all change button
   statChange = new AllStatChangeButton(255, 50);
@@ -447,6 +449,52 @@ public class BackButton{
     }
   }
 }
+public class Button{
+  float x;
+  float y;
+  float wid;
+  float hei;
+  int origColor;
+  boolean over = false;
+  String word;
+
+  public Button(float x, float y, float wid, float hei, String word) {
+    origColor = 255;
+    this.x = x;
+    this.y = y;
+    this.wid = wid;
+    this.hei = hei;
+    this.word = word;
+  }
+
+  public void update() {
+    //update over
+    if (isOver()){
+      over = true;
+    }
+    else {
+      over = false;
+    }
+
+    fill(origColor);
+
+    rect(x, y, wid, hei);
+
+    fill(0);
+    text(word, x, y);
+  }
+
+  public boolean isOver()  {
+    if (mouseX >= x-wid/2 && mouseX <= x+wid/2 &&
+        mouseY >= y-hei/2 && mouseY <= y+hei/2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+boolean takeAverage = true;
+
 public class GraphButton{
   float x;
   float y;
@@ -496,86 +544,130 @@ public class GraphButton{
     if (sessionIndexBegin == sessionIndexEnd){
       sessions.get(sessionDates.get(sessionIndexBegin)).displayGraph();
     } else{
-      //set up
-      ArrayList<Float> data = new ArrayList<Float>();
-      for (int i = 0; i < statNames.length; i++){ //for each stat
-        if (statCheckboxes.get(statNames[i]).checked){ //check if stat is selected
-          for (int j = sessionIndexBegin; j <= sessionIndexEnd; j ++){ //add session dif number of 0s
-            data.add(0f);
+      if (takeAverage){
+        //set up
+        ArrayList<Float> data = new ArrayList<Float>();
+        for (int i = 0; i < statNames.length; i++){ //for each stat
+          if (statCheckboxes.get(statNames[i]).checked){ //check if stat is selected
+            for (int j = sessionIndexBegin; j <= sessionIndexEnd; j ++){ //add session dif number of 0s
+              data.add(0f);
+            }
           }
         }
-      }
-      ArrayList<Float> teamGoalsInput = new ArrayList<Float>();
-      ArrayList<String> legends = new ArrayList<String>();
+        ArrayList<Float> teamGoalsInput = new ArrayList<Float>();
+        ArrayList<String> legends = new ArrayList<String>();
 
-      //get data
-      int statNum = 0;
-      for (int i = 0; i < statNames.length; i++){ //for each stat
-        if (statCheckboxes.get(statNames[i]).checked){ //check if stat if selected
-          legends.add(statNames[i]);
-          int[] totalPlayer = new int[sessionIndexEnd - sessionIndexBegin + 1];
-          for (int j = 0; j < playerNames.size(); j ++){ //for every player IN ORDER
-            PlayerButton pb = players.get(playerNames.get(j));
-            if (pb.checked){ //check if player is selected
-              //data
-              for (int k = 0; k <= sessionIndexEnd - sessionIndexBegin; k ++){
-                if (pb.stats.get(statNames[i]).get(sessionIndexBegin + k) > 0){ //check absent
-                  totalPlayer[k]++; //for taking average
-                  int index = k + statNum * (sessionIndexEnd - sessionIndexBegin + 1); //find index
-                  data.set(index, data.get(index) + pb.stats.get(statNames[i]).get(sessionIndexBegin + k)); //update
+        //get data
+        int statNum = 0;
+        for (int i = 0; i < statNames.length; i++){ //for each stat
+          if (statCheckboxes.get(statNames[i]).checked){ //check if stat if selected
+            legends.add(statNames[i]);
+            int[] totalPlayer = new int[sessionIndexEnd - sessionIndexBegin + 1];
+            for (int j = 0; j < playerNames.size(); j ++){ //for every player IN ORDER
+              PlayerButton pb = players.get(playerNames.get(j));
+              if (pb.checked){ //check if player is selected
+                //data
+                for (int k = 0; k <= sessionIndexEnd - sessionIndexBegin; k ++){
+                  if (pb.stats.get(statNames[i]).get(sessionIndexBegin + k) > 0){ //check absent
+                    totalPlayer[k]++; //for taking average
+                    int index = k + statNum * (sessionIndexEnd - sessionIndexBegin + 1); //find index
+                    data.set(index, data.get(index) + pb.stats.get(statNames[i]).get(sessionIndexBegin + k)); //update
+                  }
                 }
               }
             }
+            //goals
+            for (int k = sessionIndexBegin; k <= sessionIndexEnd; k ++){
+              teamGoalsInput.add(teamGoals.get(statNames[i]).get(k));
+            }
+            //take average
+            for (int k = 0; k <= sessionIndexEnd - sessionIndexBegin; k ++){
+              int index = k + statNum * (sessionIndexEnd - sessionIndexBegin + 1); //det index
+              if (totalPlayer[k] > 0){ //take average or set as -1 if absent
+                data.set(index, data.get(index)/totalPlayer[k]);
+              } else{
+                data.set(index, -1f);
+              }
+            }
+            statNum ++;
           }
-          //goals
-          for (int k = sessionIndexBegin; k <= sessionIndexEnd; k ++){
-            teamGoalsInput.add(teamGoals.get(statNames[i]).get(k));
+        }
+
+        //xlabel
+        ArrayList<String> xLabel = new ArrayList<String>();
+        for (int i = sessionIndexBegin; i <= sessionIndexEnd; i ++){
+          xLabel.add(sessionDates.get(i));
+        }
+
+        //figure out title
+        String player = "";
+        int numOfPlayer = 0;
+        for (int j = 0; j < playerNames.size(); j ++){ //for every player IN ORDER
+          if (players.get(playerNames.get(j)).checked){
+            numOfPlayer ++;
+            player = playerNames.get(j);
           }
-          //take average
-          for (int k = 0; k <= sessionIndexEnd - sessionIndexBegin; k ++){
-            int index = k + statNum * (sessionIndexEnd - sessionIndexBegin + 1); //det index
-            if (totalPlayer[k] > 0){ //take average or set as -1 if absent
-              data.set(index, data.get(index)/totalPlayer[k]);
-            } else{
-              data.set(index, -1f);
+        }
+        String title;
+        if (numOfPlayer > 1){
+          title = "Team Average";
+        } else{
+          title = player;
+        }
+
+        rectMode(CORNER);
+        if (legends.size() == 1){
+          drawGraph(title, "Scatter", xLabel, legends.get(0), data);
+          drawScatterPlot(data);
+        } else{
+          drawGraph(title, "Scatter", xLabel, "%", data);
+          drawMultiScatterPlot(data, teamGoalsInput, legends);
+        }
+        rectMode(CENTER);
+      } else{
+        notAverageGraph();
+      }
+    }
+  }
+
+  public void notAverageGraph(){
+    //set up
+    ArrayList<Float> data = new ArrayList<Float>();
+    ArrayList<Float> teamGoalsInput = new ArrayList<Float>();
+    ArrayList<String> legends = new ArrayList<String>();
+    String title = "";
+
+    //get data
+    for (int i = 0; i < statNames.length; i++){ //for each stat
+      if (statCheckboxes.get(statNames[i]).checked){ //check if stat if selected
+        title = statNames[i];
+        for (int j = 0; j < playerNames.size(); j ++){ //for every player IN ORDER
+          PlayerButton pb = players.get(playerNames.get(j));
+          if (pb.checked){ //check if player is selected
+            //data
+            legends.add(playerNames.get(j));
+            for (int k = 0; k <= sessionIndexEnd - sessionIndexBegin; k ++){
+              data.add(pb.stats.get(statNames[i]).get(sessionIndexBegin + k));
+            }
+            //goals
+            for (int k = sessionIndexBegin; k <= sessionIndexEnd; k ++){
+              teamGoalsInput.add(teamGoals.get(statNames[i]).get(k));
             }
           }
-          statNum ++;
         }
       }
-
-      //xlabel
-      ArrayList<String> xLabel = new ArrayList<String>();
-      for (int i = sessionIndexBegin; i <= sessionIndexEnd; i ++){
-        xLabel.add(sessionDates.get(i));
-      }
-
-      //figure out title
-      String player = "";
-      int numOfPlayer = 0;
-      for (int j = 0; j < playerNames.size(); j ++){ //for every player IN ORDER
-        if (players.get(playerNames.get(j)).checked){
-          numOfPlayer ++;
-          player = playerNames.get(j);
-        }
-      }
-      String title;
-      if (numOfPlayer > 1){
-        title = "Team Average";
-      } else{
-        title = player;
-      }
-
-      rectMode(CORNER);
-      if (legends.size() == 1){
-        drawGraph(title, "Scatter", xLabel, legends.get(0), data);
-        drawScatterPlot(data);
-      } else{
-        drawGraph(title, "Scatter", xLabel, "%", data);
-        drawMultiScatterPlot(data, teamGoalsInput, legends);
-      }
-      rectMode(CENTER);
     }
+
+    //xlabel
+    ArrayList<String> xLabel = new ArrayList<String>();
+    for (int i = sessionIndexBegin; i <= sessionIndexEnd; i ++){
+      xLabel.add(sessionDates.get(i));
+    }
+
+    rectMode(CORNER);
+    drawGraph(title, "Scatter", xLabel, title, data);
+    drawMultiScatterPlot(data, teamGoalsInput, legends);
+    rectMode(CENTER);
   }
 }
 float startX;
@@ -725,16 +817,22 @@ public void drawScatterPlot(ArrayList<Float> data){
 public void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayList<String> legends){
   int numOfStat = legends.size();
 
-  //set colors
   ArrayList<Integer> allColors = new ArrayList<Integer>();
-  for (int i = 0; i < colors.length; i ++){
-    allColors.add(colors[i]);
-  }
   int[] palett = new int[numOfStat];
-  for (int i = 0; i < palett.length; i ++){
-    int ran = (int) random(allColors.size());
-    palett[i] = allColors.get(ran);
-    allColors.remove(ran);
+  if (numOfStat < palett.length){
+    //set colors
+    for (int i = 0; i < colors.length; i ++){
+      allColors.add(colors[i]);
+    }
+    for (int i = 0; i < palett.length; i ++){
+      int ran = (int) random(allColors.size());
+      palett[i] = allColors.get(ran);
+      allColors.remove(ran);
+    }
+  } else{
+    for (int x = 0; x < numOfStat; x ++){
+      palett[x] = color(random(255), random(255), random(255));
+    }
   }
 
   //loop
@@ -1174,7 +1272,12 @@ public void draw(){
     if (debug.tableMode && sessionIndexBegin != sessionIndexEnd){
       statIndexChange.update();
     }
-    handCursor = handCursor || debug.over || statIndexChange.over;
+    if (numOfStatOn() == 1){
+      average.update();
+    } else{
+      takeAverage = true;
+    }
+    handCursor = handCursor || debug.over || statIndexChange.over || average.over;
   } else{ //refresh when not display
     background(255);
   }
@@ -1244,7 +1347,6 @@ public void mousePressed() {
     }
     else if (graph.over){
       graph.graph();
-      debug.display();
       screen = "Display";
     }
   }
@@ -1254,17 +1356,23 @@ public void mousePressed() {
       debug.tableMode = !debug.tableMode;
       if (debug.tableMode){
         debug.displayTable();
-        debug.display();
       } else{
         graph.graph();
-        debug.display();
       }
+    }
+    else if (average.over){
+      if (takeAverage){
+        average.word = "Average: Off";
+      } else{
+        average.word = "Average: On";
+      }
+      takeAverage = !takeAverage;
+      graph.graph();
     }
     else if (statIndexChange.over){
       debug.statIndex = debug.nextValidStatIndex(debug.statIndex);
       background(255);
       debug.displayTable();
-      debug.display();
     }
   }
   else if (screen.equals("Session Selecting")){
@@ -1503,17 +1611,6 @@ public class SwitchButton{
     this.size = size;
   }
 
-  public void display(){
-    fill(255);
-    rect(x, y, size, size);
-    fill(0);
-    if (tableMode){
-      text("Graph", x, y);
-    } else{
-      text("Table", x, y);
-    }
-  }
-
   public void update() {
     //update over
     if (isOver()){
@@ -1521,6 +1618,15 @@ public class SwitchButton{
     }
     else {
       over = false;
+    }
+
+    fill(255);
+    rect(x, y, size, size);
+    fill(0);
+    if (tableMode){
+      text("Graph", x, y);
+    } else{
+      text("Table", x, y);
     }
   }
 
