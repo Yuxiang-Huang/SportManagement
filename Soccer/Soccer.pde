@@ -18,6 +18,7 @@ BackButton back;
 GraphButton graph;
 SwitchButton debug;
 StatIndexChangeButton statIndexChange;
+Button average;
 
 Handle sessionHandleTop;
 Handle sessionHandleBot;
@@ -68,6 +69,7 @@ void setup(){
   back = new BackButton(255, 30);
   debug = new SwitchButton(255, 50);
   statIndexChange = new StatIndexChangeButton(255);
+  average = new Button(50, height - 30, 75, 50, "Average: On");
   
   //set all change button
   statChange = new AllStatChangeButton(255, 50);

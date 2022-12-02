@@ -1,3 +1,5 @@
+boolean takeAverage = true;
+
 public class GraphButton{
   float x; 
   float y;    
