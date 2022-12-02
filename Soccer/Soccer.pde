@@ -14,7 +14,7 @@ color highlight = color(200);
 IntroButton indiv;
 IntroButton session;
 IntroButton stat;
-BackButton back;
+Button back;
 GraphButton graph;
 SwitchButton debug;
 StatIndexChangeButton statIndexChange;
@@ -66,7 +66,7 @@ void setup(){
   indiv = new IntroButton(255, 1, "Player");
   session = new IntroButton(255, 2, "Session");
   stat = new IntroButton(255, 3, "Stats");
-  back = new BackButton(255, 30);
+  back = new Button(50/2 + 5, 30/2 + 5, 50, 30, "Back");
   debug = new SwitchButton(255, 50);
   statIndexChange = new StatIndexChangeButton(255);
   average = new Button(50, height - 30, 75, 50, "Average: On");
