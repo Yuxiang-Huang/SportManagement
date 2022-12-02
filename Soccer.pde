@@ -1,27 +1,26 @@
 //default
-int fontSize = 12;
+int defaultFontSize = 12;
 
 //button setting
-int introButtonSize = 150;
-int buttonSize = 100;
-int buttonFontSize = 25;
 int distBtwButton = 50; //take out later
 int highlight = color(200);
 
 //special buttons
-IntroButton indiv;
-IntroButton session;
-IntroButton stat;
-BackButton back;
-GraphButton graph;
-SwitchButton debug;
-StatIndexChangeButton statIndexChange;
+Button indiv;
+Button session;
+Button stat;
+
+Button back;
+Button statIndexChange;
 Button average;
+Button allStatChange;
+
+GraphButton graph;
+TableButton table;
 
 Handle sessionHandleTop;
 Handle sessionHandleBot;
 
-AllStatChangeButton statChange;
 ArrayList<AllPlayerChangeButton> playerChange = new ArrayList<AllPlayerChangeButton>();
 
 //for reading data
@@ -47,10 +46,10 @@ public void setup(){
 
   //settings
   background(255);
-  size(900, 650);
+
   fill(0);
   stroke(lineThickness);
-  textSize(fontSize);
+  textSize(defaultFontSize);
   textAlign(CENTER);
   rectMode(CENTER);
 
@@ -61,28 +60,27 @@ public void setup(){
   ylen = height - 150;
 
   //set main buttons
-  indiv = new IntroButton(255, 1, "Player");
-  session = new IntroButton(255, 2, "Session");
-  stat = new IntroButton(255, 3, "Stats");
-  back = new BackButton(255, 30);
-  debug = new SwitchButton(255, 50);
-  statIndexChange = new StatIndexChangeButton(255);
-  average = new Button(50, height - 30, 75, 50, "Average: On");
+  indiv = new Button(width/4, height/2, 150, 150, 25, "Player");
+  session = new Button(width/2, height/2, 150, 150, 25, "Session");
+  stat = new Button(width*3/4, height/2, 150, 150, 25, "Stats");
+
+  graph = new GraphButton(width/2, height - 50, 50, 50);
+  table = new TableButton(width - 30, height - 20, 50, 30);
+  back = new Button(50/2 + 5, 30/2 + 5, 50, 30, defaultFontSize, "Back");
+  average = new Button(50, height - 30, 75, 50, defaultFontSize, "Average: On");
+  statIndexChange = new Button(0, 0, 0, 0, defaultFontSize, ""); //set later
 
   //set all change button
-  statChange = new AllStatChangeButton(255, 50);
-  playerChange.add(new AllPlayerChangeButton(255, 125, 75, "Offense", 1));
-  playerChange.add(new AllPlayerChangeButton(255, 125, 75, "Center", 2));
-  playerChange.add(new AllPlayerChangeButton(255, 125, 75, "Defense", 3));
-  playerChange.add(new AllPlayerChangeButton(255, 125, 75, "All", 4));
-  playerChange.add(new AllPlayerChangeButton(255, 125, 50, "Backups"));
+  allStatChange = new Button(width - 30, 50/2 + 5, 50, 50, defaultFontSize, "");
+  playerChange.add(new AllPlayerChangeButton(125, 75, "Offense", 1));
+  playerChange.add(new AllPlayerChangeButton(125, 75, "Center", 2));
+  playerChange.add(new AllPlayerChangeButton(125, 75, "Defense", 3));
+  playerChange.add(new AllPlayerChangeButton(125, 75, "All", 4));
+  playerChange.add(new AllPlayerChangeButton(125, 50, "Backups"));
 
   //for session
   sessionHandleTop = new Handle(true, height/2, width/4, 50);
   sessionHandleBot = new Handle(false, height*3/4, width/4, 50);
-
-  //graph
-  graph = new GraphButton(255, 50);
 
   //read data
 
@@ -114,7 +112,7 @@ public void setup(){
       //create new player button
       String name = curr[i].split(" ")[0]; //take first name
       playerNames.add(name);
-      PlayerButton now = new PlayerButton(i, 255, buttonSize, name, pos);
+      PlayerButton now = new PlayerButton(i, 100, 100, name, pos);
       players.put(name, now);
       //set the keys for hashmap
       for (int j = 0; j < statNames.length; j ++){
@@ -136,7 +134,7 @@ public void setup(){
       String name = curr[i].split(" ")[0]; //take first name
       playerNames.add(name);
       backups.add(name);
-      PlayerButton now = new PlayerButton(xIndex, 255, buttonSize, buttonSize/2, name, pos, 11); //12 hard number
+      PlayerButton now = new PlayerButton(xIndex, 100, 50, name, pos, 11); //11 hard number
       players.put(name, now);
       now.checked = false;
       //set the keys for hashmap
@@ -207,7 +205,7 @@ public void readSession(int index){
     curr = allData[index++].split(" ");
     //process data
     for (int s = 0; s < statNames.length; s ++){
-      pb.stats.get(statNames[s]).add(parseFloat(curr[s]));
+      pb.stats.get(statNames[s]).add(Float.parseFloat(curr[s]));
     }
   }
 
@@ -237,7 +235,7 @@ public void readSession(int index){
     float sum = 0;
     int num = 0;
     for (int j = 0; j < statNow.size(); j ++){
-      if (statNow.get(j) != -1){ //skip absent
+      if (statNow.get(j) > -1){ //skip absent
         sum += statNow.get(j);
         num++;
       }
@@ -260,73 +258,40 @@ public void readSession(int index){
     }
   }
 }
-public class AllPlayerChangeButton{
-  float x;
-  float y;
-  int xSize;
-  int ySize;
-  int origColor;
-  boolean over = false;
-
+public class AllPlayerChangeButton extends Button{
   boolean allOff = true;
-
   String position;
-
   boolean backup;
 
-  public AllPlayerChangeButton(int c, int xSize, int ySize, String pos, int i) {
-    origColor = c;
-    this.xSize = xSize;
-    this.ySize = ySize;
+  public AllPlayerChangeButton(int xSize, int ySize, String pos, int i) {
+    super(width - xSize/2-10, (height - benchLen)/5*i, xSize, ySize, 16, "");
     position = pos;
-    x = width - xSize/2-10;
-    y = (height - benchLen)/5*i; //4 buttons
   }
 
-  public AllPlayerChangeButton(int c, int xSize, int ySize, String pos) {
-    origColor = c;
-    this.xSize = xSize;
-    this.ySize = ySize;
+  public AllPlayerChangeButton(int xSize, int ySize, String pos) { //back up button
+    super(width - xSize/2-10, height - benchLen/4, xSize, ySize, 16, "");
     position = pos;
-    x = width - xSize/2-10;
-    y = (height - benchLen/4);
+    position = pos;
     backup = true;
     allOff = false;
   }
 
   public void update() {
-    //update over
-    if (isOver()){
-      over = true;
-    }
-    else {
-      over = false;
-    }
-
-    if (over) {
-      fill(highlight);
-    } else {
-      fill(origColor);
-    }
-
-    rect(x, y, xSize, ySize);
-
-    fill(0);
-    textSize(16);
+    //update word
     if (position.equals("All")){
       if (allOff){
-        text("All Off", x, y);
+        word = "All Off";
       } else{
-        text("All On", x, y);
+        word = "All On";
       }
     } else{
       if (allOff){
-        text("All " + position + " Off", x, y);
+        word = "All " + position + " Off";
       } else{
-        text("All " + position + " On", x, y);
+        word = "All " + position + " On";
       }
     }
-    textSize(fontSize);
+    super.update();
   }
 
   public void change(){
@@ -343,128 +308,23 @@ public class AllPlayerChangeButton{
       }
     }
   }
-
-  public boolean isOver()  {
-    if (mouseX >= x-xSize/2 && mouseX <= x+xSize/2 &&
-        mouseY >= y-ySize/2 && mouseY <= y+ySize/2) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-}
-public class AllStatChangeButton{
-  float x;
-  float y;
-  int size;
-  int origColor;
-  boolean over = false;
-
-  boolean allOff = true;
-
-  public AllStatChangeButton(int c, int size) {
-    origColor = c;
-    //top right
-    this.x = width - size/2 - 5;
-    this.y = size/2 + 5;
-    this.size = size;
-  }
-
-  public void update() {
-    //update over
-    if (isOver()){
-      over = true;
-    }
-    else {
-      over = false;
-    }
-
-    if (over) {
-      fill(highlight);
-    } else {
-      fill(origColor);
-    }
-
-    rect(x, y, size, size);
-
-    fill(0);
-    if (allOff){
-      text("All Off", x, y);
-    } else{
-      text("All On", x, y);
-    }
-  }
-
-  public boolean isOver()  {
-    if (mouseX >= x-size/2 && mouseX <= x+size/2 &&
-        mouseY >= y-size/2 && mouseY <= y+size/2) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-}
-public class BackButton{
-  float x;
-  float y;
-  int size;
-  int origColor;
-  boolean over = false;
-
-  public BackButton(int c, int size) {
-    origColor = c;
-    //top left
-    this.x = size/2 + 5;
-    this.y = size/2 + 5;
-    this.size = size;
-  }
-
-  public void update() {
-    //update over
-    if (isOver()){
-      over = true;
-    }
-    else {
-      over = false;
-    }
-
-    if (over) {
-      fill(highlight);
-    } else {
-      fill(origColor);
-    }
-
-    rect(x, y, size, size);
-
-    fill(0);
-    text("Back", x, y);
-  }
-
-  public boolean isOver()  {
-    if (mouseX >= x-size/2 && mouseX <= x+size/2 &&
-        mouseY >= y-size/2 && mouseY <= y+size/2) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 }
 public class Button{
   float x;
   float y;
   float wid;
   float hei;
-  int origColor;
-  boolean over = false;
+  int fontSize;
   String word;
+  boolean over = false;
 
-  public Button(float x, float y, float wid, float hei, String word) {
-    origColor = 255;
+  public Button(float x, float y, float wid, float hei, int fontSize, String word) {
     this.x = x;
     this.y = y;
     this.wid = wid;
     this.hei = hei;
     this.word = word;
+    this.fontSize = fontSize;
   }
 
   public void update() {
@@ -476,12 +336,20 @@ public class Button{
       over = false;
     }
 
-    fill(origColor);
-
+    //display depend on over
+    if (over){
+      fill(highlight);
+      handCursor = true;
+    } else{
+      fill(255);
+    }
     rect(x, y, wid, hei);
-
     fill(0);
+
+    //text
+    textSize(fontSize);
     text(word, x, y);
+    textSize(defaultFontSize);
   }
 
   public boolean isOver()  {
@@ -495,49 +363,9 @@ public class Button{
 }
 boolean takeAverage = true;
 
-public class GraphButton{
-  float x;
-  float y;
-  int size;
-  int origColor;
-  boolean over = false;
-
-  public GraphButton(int c, int size) {
-    origColor = c;
-    //button
-    this.x = width/2;
-    this.y = height - 50;
-    this.size = size;
-  }
-
-  public void update() {
-    //update over
-    if (isOver()){
-      over = true;
-    }
-    else {
-      over = false;
-    }
-
-    if (over) {
-      fill(highlight);
-    } else {
-      fill(origColor);
-    }
-
-    rect(x, y, size, size);
-
-    fill(0);
-    text("Graph", x, y);
-  }
-
-  public boolean isOver()  {
-    if (mouseX >= x-size/2 && mouseX <= x+size/2 &&
-        mouseY >= y-size/2 && mouseY <= y+size/2) {
-      return true;
-    } else {
-      return false;
-    }
+public class GraphButton extends Button{
+  public GraphButton(float x, float y, float wid, float hei) {
+    super(x, y, wid, hei, defaultFontSize, "Graph");
   }
 
   public void graph(){
@@ -568,7 +396,7 @@ public class GraphButton{
               if (pb.checked){ //check if player is selected
                 //data
                 for (int k = 0; k <= sessionIndexEnd - sessionIndexBegin; k ++){
-                  if (pb.stats.get(statNames[i]).get(sessionIndexBegin + k) > 0){ //check absent
+                  if (pb.stats.get(statNames[i]).get(sessionIndexBegin + k) > -1){ //check absent
                     totalPlayer[k]++; //for taking average
                     int index = k + statNum * (sessionIndexEnd - sessionIndexBegin + 1); //find index
                     data.set(index, data.get(index) + pb.stats.get(statNames[i]).get(sessionIndexBegin + k)); //update
@@ -583,7 +411,7 @@ public class GraphButton{
             //take average
             for (int k = 0; k <= sessionIndexEnd - sessionIndexBegin; k ++){
               int index = k + statNum * (sessionIndexEnd - sessionIndexBegin + 1); //det index
-              if (totalPlayer[k] > 0){ //take average or set as -1 if absent
+              if (totalPlayer[k] != 0){ //take average or set as -1 if absent
                 data.set(index, data.get(index)/totalPlayer[k]);
               } else{
                 data.set(index, -1f);
@@ -771,8 +599,7 @@ public void drawGraph(String title, String mode, ArrayList<String> xLabel, Strin
   //title
   textSize(titleFontSize);
   text(title, startX + xlen/2, 50);
-
-  textSize(fontSize);
+  textSize(defaultFontSize);
 }
 
 public void drawScatterPlot(ArrayList<Float> data){
@@ -783,7 +610,7 @@ public void drawScatterPlot(ArrayList<Float> data){
   ArrayList<Float> yVal = new ArrayList<Float>();
 
   for (int i = 1; i <= xSpaces; i ++){
-    if (data.get(i - 1) > 0){ //absent player
+    if (data.get(i - 1) > -1){ //absent player
       //point
       float yNow = startY - data.get(i-1) / yScaleUnit * yunit;
 
@@ -819,7 +646,7 @@ public void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, 
 
   ArrayList<Integer> allColors = new ArrayList<Integer>();
   int[] palett = new int[numOfStat];
-  if (numOfStat < palett.length){
+  if (numOfStat <= colors.length){
     //set colors
     for (int i = 0; i < colors.length; i ++){
       allColors.add(colors[i]);
@@ -847,7 +674,7 @@ public void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, 
     ArrayList<Float> xVal = new ArrayList<Float>();
     ArrayList<Float> yVal = new ArrayList<Float>();
     for (int i = 1; i <= xSpaces; i ++){
-      if (data.get(index) > 0){ //absent player
+      if (data.get(index) > -1){ //absent player
         //point
         float yNow = startY - data.get(index) / goals.get(index) * 100 / percent * yunit;
 
@@ -924,7 +751,7 @@ public void lineOfBestFit(ArrayList<Float> xVal, ArrayList<Float> yVal){
 public void drawBarGraph(ArrayList<Float> data, ArrayList<Float> indivGoals, float teamGoal){
   //draw bars
   for (int i = 0; i < xSpaces; i ++){
-    if (data.get(i) > 0){ //absent player
+    if (data.get(i) > -1){ //absent player
       float h = data.get(i) / yScaleUnit * yunit;
       drawBar(1, 0, startX + i*xunit, startY, h, color(0), data.get(i) - indivGoals.get(i));
     }
@@ -953,7 +780,7 @@ int barNum, ArrayList<Float> teamGoals){
   int counter = 0;
   for (int i = 0; i < xSpaces; i ++){
     for (int j = 0; j < barNum; j ++){
-      if (data.get(counter) > 0){ //absent player
+      if (data.get(counter) > -1){ //absent player
         float yNow = data.get(counter) / teamGoals.get(j) * 100 / percent * yunit;
         drawBar(barNum, j, startX + i*xunit, startY, yNow, palett[j], data.get(counter) - indivGoals.get(counter));
       }
@@ -1078,13 +905,13 @@ public class Handle {
 
     //date display
     fill(0);
-    textSize(buttonFontSize);
+    textSize(25);
     if (sessionIndexBegin == sessionIndexEnd){
       text(sessionDates.get(sessionIndexBegin), width/2, height/4);
     } else{
       text("From " + sessionDates.get(sessionIndexBegin) + " to " + sessionDates.get(sessionIndexEnd), width/2, height/4);
     }
-    textSize(fontSize);
+    textSize(defaultFontSize);
   }
 
   public boolean overRect(int x, int y, int width, int height) {
@@ -1110,71 +937,16 @@ public class Handle {
     hold = false;
   }
 }
-public class IntroButton{
-  float x;
-  float y;
-  int size;
-  int origColor;
-  boolean over = false;
-  String displayText;
-
-  public IntroButton(int c, int num, String text) {
-    origColor = c;
-    x = num * width / 4;
-    y = height / 2;
-    size = introButtonSize;
-    displayText = text;
-  }
-
-  public void update() {
-    //update over
-    if (isOver()){
-      over = true;
-    }
-    else {
-      over = false;
-    }
-
-    if (over) {
-      fill(highlight);
-    } else {
-      fill(origColor);
-    }
-
-    rect(x, y, size, size);
-
-    fill(0);
-    textSize(buttonFontSize);
-    text(displayText, x, y);
-    textSize(fontSize);
-  }
-
-  public boolean isOver()  {
-    if (mouseX >= x-size/2 && mouseX <= x+size/2 &&
-        mouseY >= y-size/2 && mouseY <= y+size/2) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-}
-public class PlayerButton{
-  float x;
-  float y;
-  int wid;
-  int hei;
-  int origColor;
-  boolean over = false;
-
+public class PlayerButton extends Button{
   boolean checked = true;
-
-  String name;
   String position;
 
   //each stat in order of session
   HashMap<String, ArrayList<Float>> stats = new HashMap<String, ArrayList<Float>>();
 
-  public PlayerButton(float yIndex, int c, int size, String name, String pos) {
+  public PlayerButton(float yIndex, int wid, int hei, String name, String pos) {
+    super(0, 0, wid, hei, 25, name);
+
     int num;
     //find number of button in a column
     if (pos.equals("Defense")){
@@ -1196,66 +968,47 @@ public class PlayerButton{
         x = width * 3 / 4;
       }
     }
-
     this.y = yIndex * (height - benchLen) / num + (height - benchLen) / num / 2;
-    this.wid = size;
-    this.hei = size;
     this.position = pos;
-    this.name = name;
-    origColor = c;
   }
 
-  public PlayerButton(float xIndex, int c, int wid, int hei, String name, String pos, int total) {
-    if (xIndex > total/2){
+  public PlayerButton(float xIndex, int wid, int hei, String name, String pos, int total) {
+    super(0, 0, wid, hei, 25, name);
+
+    if (xIndex > total/2){ //top row
       this.x = (xIndex - (total+1)/2) * width / (total / 2 + 1) + width / total;
       this.y = height - benchLen / 4;
-      this.wid = wid;
-      this.hei = hei;
       this.position = pos;
-      this.name = name;
-      origColor = c;
-    } else{
+    } else{ //bot row
       this.x = xIndex * width / (total / 2 + 1) + width / total;
       this.y = height - benchLen * 3 / 4;
-      this.wid = wid;
-      this.hei = hei;
       this.position = pos;
-      this.name = name;
-      origColor = c;
     }
   }
 
-  public void update(String name) {
+  @Override
+  public void update() {
     //update over
     if (isOver()){
       over = true;
+      handCursor = true;
     }
     else {
       over = false;
     }
 
-    //color on or off
+    //display depend on over
     if (checked){
       fill(0, 255, 255);
     } else{
-      fill(origColor);
+      fill(255);
     }
-
     rect(x, y, wid, hei);
-
     fill(0);
-    textSize(buttonFontSize);
-    text(name, x, y);
-    textSize(fontSize);
-  }
 
-  public boolean isOver()  {
-    if (mouseX >= x-wid/2 && mouseX <= x+wid/2 &&
-        mouseY >= y-hei/2 && mouseY <= y+hei/2) {
-      return true;
-    } else {
-      return false;
-    }
+    textSize(fontSize);
+    text(word, x, y);
+    textSize(fontSize);
   }
 }
 String screen = "Intro";
@@ -1264,12 +1017,18 @@ PImage SoccerField;
 
 int benchLen = 150;
 
-public void draw(){
-  boolean handCursor = false;
+boolean handCursor;
 
+public void draw(){
+  handCursor = false;
   if (screen.equals("Display")){
-    debug.update();
-    if (debug.tableMode && sessionIndexBegin != sessionIndexEnd){
+    if (table.tableMode){
+      table.word = "graph";
+    } else{
+      table.word = "Table";
+    }
+    table.update();
+    if (table.tableMode && sessionIndexBegin != sessionIndexEnd){
       statIndexChange.update();
     }
     if (numOfStatOn() == 1){
@@ -1277,7 +1036,6 @@ public void draw(){
     } else{
       takeAverage = true;
     }
-    handCursor = handCursor || debug.over || statIndexChange.over || average.over;
   } else{ //refresh when not display
     background(255);
   }
@@ -1291,8 +1049,7 @@ public void draw(){
     //soccer field image
     image(SoccerField, 0, 0, width, height - benchLen);
     for (String i : players.keySet()){
-      players.get(i).update(i);
-      handCursor = handCursor || players.get(i).over;
+      players.get(i).update();
     }
     //player change buttons
     for (AllPlayerChangeButton apcb : playerChange){
@@ -1304,7 +1061,12 @@ public void draw(){
     for (String i : statCheckboxes.keySet()){
       statCheckboxes.get(i).update();
     }
-    statChange.update();
+    if (numOfStatOn() > 0){
+      allStatChange.word = "All Off";
+    } else{
+      allStatChange.word = "All On";
+    }
+    allStatChange.update();
   }
 
   if (screen.equals("Intro")){
@@ -1331,7 +1093,7 @@ public void mousePressed() {
   if (back.over){
     screen = "Intro";
     back.over = false;
-    debug.tableMode = false;
+    table.tableMode = false;
   }
 
   //other buttons
@@ -1351,11 +1113,11 @@ public void mousePressed() {
     }
   }
   else if (screen.equals("Display")){
-    if (debug.over){
+    if (table.over){
       //display table vs display graph
-      debug.tableMode = !debug.tableMode;
-      if (debug.tableMode){
-        debug.displayTable();
+      table.tableMode = !table.tableMode;
+      if (table.tableMode){
+        table.displayTable();
       } else{
         graph.graph();
       }
@@ -1370,9 +1132,9 @@ public void mousePressed() {
       graph.graph();
     }
     else if (statIndexChange.over){
-      debug.statIndex = debug.nextValidStatIndex(debug.statIndex);
+      table.statIndex = table.nextValidStatIndex(table.statIndex);
       background(255);
-      debug.displayTable();
+      table.displayTable();
     }
   }
   else if (screen.equals("Session Selecting")){
@@ -1399,10 +1161,15 @@ public void mousePressed() {
         statCheckboxes.get(i).checked = !statCheckboxes.get(i).checked;
       }
     }
-    if (statChange.over){
-      statChange.allOff = ! statChange.allOff;
+    if (allStatChange.over){
+      boolean status;
+      if (numOfStatOn() > 0){
+        status = false;
+      } else{
+        status = true;
+      }
       for (String i : statCheckboxes.keySet()){
-        statCheckboxes.get(i).checked = statChange.allOff;
+        statCheckboxes.get(i).checked = status;
       }
     }
   }
@@ -1533,9 +1300,9 @@ public class StatCheckbox{
 
     //text
     textAlign(LEFT);
-    textSize(buttonFontSize);
+    textSize(25);
     text(statNames[index], x + size/2+5, y+5);
-    textSize(fontSize);
+    textSize(defaultFontSize);
     textAlign(CENTER);
   }
 
@@ -1548,95 +1315,12 @@ public class StatCheckbox{
     }
   }
 }
-public class StatIndexChangeButton{
-  int x;
-  int y;
-  int wid;
-  int hei;
-  int origColor;
-  boolean over = false;
-
-  public StatIndexChangeButton(int c) {
-    origColor = c;
-  }
-
-  public void display(int x, int y, int wid, int hei){
-    this.x = x;
-    this.y = y;
-    this.wid = wid;
-    this.hei = hei;
-
-    fill(255);
-    rect(x, y, wid, hei);
-
-    fill(0);
-    text(statNames[debug.statIndex], x, y);
-  }
-
-  public void update() {
-    //update over
-    if (isOver()){
-      over = true;
-    }
-    else {
-      over = false;
-    }
-  }
-
-  public boolean isOver()  {
-    if (mouseX >= x-wid/2 && mouseX <= x+wid/2 &&
-        mouseY >= y-hei/2 && mouseY <= y+hei/2) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-}
-public class SwitchButton{
-  float x;
-  float y;
-  int size;
-  int origColor;
-  boolean over = false;
-
+public class TableButton extends Button{
   int statIndex = 0;
-
   boolean tableMode = false;
 
-  public SwitchButton(int c, int size) {
-    origColor = c;
-    //bot right
-    this.x = width - size/2 - 5;
-    this.y = height - size/2 - 5;
-    this.size = size;
-  }
-
-  public void update() {
-    //update over
-    if (isOver()){
-      over = true;
-    }
-    else {
-      over = false;
-    }
-
-    fill(255);
-    rect(x, y, size, size);
-    fill(0);
-    if (tableMode){
-      text("Graph", x, y);
-    } else{
-      text("Table", x, y);
-    }
-  }
-
-  public boolean isOver()  {
-    if (mouseX >= x-size/2 && mouseX <= x+size/2 &&
-        mouseY >= y-size/2 && mouseY <= y+size/2) {
-      return true;
-    } else {
-      return false;
-    }
+  public TableButton(float x, float y, float wid, float hei) {
+    super(x, y, wid, hei, defaultFontSize, "");
   }
 
   public void dataPrint(){
@@ -1686,7 +1370,11 @@ public class SwitchButton{
     int ySize = height / (playerIncluded.size() + 3);
 
     //display stat change button
-    statIndexChange.display(xSize, ySize, xSize - 10, ySize - 10);
+    statIndexChange.x = xSize;
+    statIndexChange.y = ySize;
+    statIndexChange.wid = xSize - 10;
+    statIndexChange.hei = ySize - 10;
+    statIndexChange.word = "Stat "+ (table.statIndex + 1);
 
     //grid lines
     for (int i = 0; i < playerIncluded.size() + 3; i ++){ //horizontal
