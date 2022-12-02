@@ -169,12 +169,8 @@ public class GraphButton{
       xLabel.add(sessionDates.get(i));
     }
     
-    println(data);
-    println(teamGoalsInput);
-    println(legends);
-    
     rectMode(CORNER);
-    drawGraph(title, "Scatter", xLabel, legends.get(0), data);
+    drawGraph(title, "Scatter", xLabel, title, data);
     drawMultiScatterPlot(data, teamGoalsInput, legends);
     rectMode(CENTER);
   }

@@ -145,19 +145,23 @@ void drawScatterPlot(ArrayList<Float> data){
 void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayList<String> legends){
   int numOfStat = legends.size();
   
-  //set colors
   ArrayList<Integer> allColors = new ArrayList<Integer>();
-  for (int i = 0; i < colors.length; i ++){
-    allColors.add(colors[i]);
-  }
   color[] palett = new color[numOfStat];
-  for (int i = 0; i < palett.length; i ++){
-    int ran = (int) random(allColors.size());
-    palett[i] = allColors.get(ran);
-    allColors.remove(ran);
+  if (numOfStat < palett.length){
+    //set colors
+    for (int i = 0; i < colors.length; i ++){
+      allColors.add(colors[i]);
+    }
+    for (int i = 0; i < palett.length; i ++){
+      int ran = (int) random(allColors.size());
+      palett[i] = allColors.get(ran);
+      allColors.remove(ran);
+    }
+  } else{
+    for (int x = 0; x < numOfStat; x ++){
+      palett[x] = color(random(255), random(255), random(255));
+    }
   }
-  
-  println(xSpaces);
   
   //loop
   int index = 0;
