@@ -12,7 +12,11 @@ void draw(){
     if (debug.tableMode && sessionIndexBegin != sessionIndexEnd){
       statIndexChange.update();
     }
-    average.update();
+    if (numOfStatOn() == 1){
+      average.update();
+    } else{
+      takeAverage = true;
+    }
     handCursor = handCursor || debug.over || statIndexChange.over || average.over;
   } else{ //refresh when not display
     background(255);
@@ -83,8 +87,6 @@ void mousePressed() {
     }
     else if (graph.over){
       graph.graph();
-      debug.display();
-      average.display();
       screen = "Display";
     }
   }
@@ -94,10 +96,8 @@ void mousePressed() {
       debug.tableMode = !debug.tableMode;
       if (debug.tableMode){
         debug.displayTable();
-        debug.display();
       } else{
         graph.graph();
-        debug.display();
       }
     }
     else if (average.over){
@@ -107,13 +107,12 @@ void mousePressed() {
         average.word = "Average: On";
       }
       takeAverage = !takeAverage;
-      average.display();
+      graph.graph();
     }
     else if (statIndexChange.over){
       debug.statIndex = debug.nextValidStatIndex(debug.statIndex);
       background(255);
       debug.displayTable();
-      debug.display();
     }
   }
   else if (screen.equals("Session Selecting")){

@@ -24,10 +24,8 @@ public class Button{
     else {
       over = false;
     }
-  }
-  
-  void display(){
-    fill(255);
+    
+    fill(origColor);
 
     rect(x, y, wid, hei);
     

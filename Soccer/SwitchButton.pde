@@ -17,17 +17,6 @@ public class SwitchButton{
     this.size = size;
   }
   
-  void display(){
-    fill(255);
-    rect(x, y, size, size);
-    fill(0);
-    if (tableMode){
-      text("Graph", x, y);
-    } else{
-      text("Table", x, y);
-    }
-  }
-  
   void update() {
     //update over
     if (isOver()){
@@ -35,6 +24,15 @@ public class SwitchButton{
     } 
     else {
       over = false;
+    }
+    
+    fill(255);
+    rect(x, y, size, size);
+    fill(0);
+    if (tableMode){
+      text("Graph", x, y);
+    } else{
+      text("Table", x, y);
     }
   }
     
