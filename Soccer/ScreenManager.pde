@@ -37,8 +37,7 @@ void draw(){
     //soccer field image
     image(SoccerField, 0, 0, width, height - benchLen);
     for (String i : players.keySet()){
-      players.get(i).update(i);
-      handCursor = handCursor || players.get(i).over;
+      players.get(i).update();
     } 
     //player change buttons
     for (AllPlayerChangeButton apcb : playerChange){

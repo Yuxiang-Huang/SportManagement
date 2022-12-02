@@ -4,7 +4,6 @@ import java.util.*;
 int defaultFontSize = 12;
 
 //button setting
-int buttonSize = 100;
 int distBtwButton = 50; //take out later
 color highlight = color(200);
 
@@ -115,7 +114,7 @@ void setup(){
       //create new player button
       String name = curr[i].split(" ")[0]; //take first name
       playerNames.add(name); 
-      PlayerButton now = new PlayerButton(i, 255, buttonSize, name, pos);
+      PlayerButton now = new PlayerButton(i, 100, 100, name, pos);
       players.put(name, now);
       //set the keys for hashmap
       for (int j = 0; j < statNames.length; j ++){
@@ -137,7 +136,7 @@ void setup(){
       String name = curr[i].split(" ")[0]; //take first name
       playerNames.add(name); 
       backups.add(name);
-      PlayerButton now = new PlayerButton(xIndex, 255, buttonSize, buttonSize/2, name, pos, 11); //12 hard number
+      PlayerButton now = new PlayerButton(xIndex, 100, 50, name, pos, 11); //11 hard number
       players.put(name, now);
       now.checked = false;
       //set the keys for hashmap

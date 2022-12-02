@@ -1,20 +1,13 @@
-public class PlayerButton{
-  float x; 
-  float y;    
-  int wid;
-  int hei;
-  color origColor;
-  boolean over = false;
-  
+public class PlayerButton extends Button{
   boolean checked = true;
-  
-  String name;
   String position;
 
   //each stat in order of session
   HashMap<String, ArrayList<Float>> stats = new HashMap<String, ArrayList<Float>>();
 
-  public PlayerButton(float yIndex, color c, int size, String name, String pos) {
+  public PlayerButton(float yIndex, int wid, int hei, String name, String pos) {
+    super(0, 0, wid, hei, 25, name);
+    
     int num;
     //find number of button in a column
     if (pos.equals("Defense")){
@@ -36,65 +29,46 @@ public class PlayerButton{
         x = width * 3 / 4;
       }
     }
-    
     this.y = yIndex * (height - benchLen) / num + (height - benchLen) / num / 2;
-    this.wid = size;
-    this.hei = size;
     this.position = pos;
-    this.name = name;
-    origColor = c;
   }
   
-  public PlayerButton(float xIndex, color c, int wid, int hei, String name, String pos, int total) {
-    if (xIndex > total/2){
+  public PlayerButton(float xIndex, int wid, int hei, String name, String pos, int total) {
+    super(0, 0, wid, hei, 25, name);
+    
+    if (xIndex > total/2){ //top row
       this.x = (xIndex - (total+1)/2) * width / (total / 2 + 1) + width / total;
       this.y = height - benchLen / 4;
-      this.wid = wid;
-      this.hei = hei;
       this.position = pos;
-      this.name = name;
-      origColor = c;
-    } else{
+    } else{ //bot row
       this.x = xIndex * width / (total / 2 + 1) + width / total;
       this.y = height - benchLen * 3 / 4;
-      this.wid = wid;
-      this.hei = hei;
       this.position = pos;
-      this.name = name;
-      origColor = c;
     }
   }
   
-  void update(String name) {
+  @Override
+  public void update() {
     //update over
     if (isOver()){
       over = true;
-    } 
+      handCursor = true;
+    }
     else {
       over = false;
     }
-    
-    //color on or off
+
+    //display depend on over
     if (checked){
       fill(0, 255, 255);
     } else{
-      fill(origColor);
+      fill(255);
     }
-    
     rect(x, y, wid, hei);
-    
     fill(0);
-    textSize(25);
-    text(name, x, y);
-    textSize(defaultFontSize);
-  }
     
-  boolean isOver()  {
-    if (mouseX >= x-wid/2 && mouseX <= x+wid/2 && 
-        mouseY >= y-hei/2 && mouseY <= y+hei/2) {
-      return true;
-    } else {
-      return false;
-    }
+    textSize(fontSize);
+    text(word, x, y);
+    textSize(fontSize);
   }
 }

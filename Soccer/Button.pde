@@ -25,16 +25,16 @@ public class Button{
       over = false;
     }
     
+    //display depend on over
     if (over){
       fill(highlight);
       handCursor = true;
     } else{
       fill(255);
     }
-
     rect(x, y, wid, hei);
-    
     fill(0);
+    
     textSize(fontSize);
     text(word, x, y);
     textSize(defaultFontSize);
