@@ -35,11 +35,14 @@ public class TableButton extends Button{
   }
   
   void mutliSessionTable(){
-    //for edge case
+    //edge case of figuring out which stat
     if (! statCheckboxes.get(statNames[statIndex]).checked){
       statIndex = nextValidStatIndex(statIndex);
     }
     
+    int tableBot = height - 10; //leave space for buttons
+    
+    //find all included players
     ArrayList<String> playerIncluded = new ArrayList<String>();
     for (int i = 0; i < playerNames.size(); i ++){
       if (players.get(playerNames.get(i)).checked){
@@ -49,8 +52,9 @@ public class TableButton extends Button{
     
     //set unit
     int xTotal = sessionIndexEnd - sessionIndexBegin + 3;
+    int yTotal = playerIncluded.size() + 3;
     int xSize = width/ xTotal;
-    int ySize = height / (playerIncluded.size() + 3);
+    int ySize = tableBot / yTotal;
     
     //display stat change button
     statIndexChange.x = xSize;
@@ -60,18 +64,18 @@ public class TableButton extends Button{
     statIndexChange.word = "Stat "+ (table.statIndex + 1);
     
     //grid lines
-    for (int i = 0; i < playerIncluded.size() + 3; i ++){ //horizontal
-      line(xSize - xSize/2, (i + 0.5) * ySize, width - xSize/2, (i + 0.5) * ySize);
+    for (int i = 0; i < yTotal; i ++){ //horizontal
+      line(xSize - xSize/2, (i + 0.5) * ySize, (xTotal - 0.5)*xSize, (i + 0.5) * ySize);
     }
     for (int i = 0; i < xTotal; i ++){ //vertical
-      line((i + 0.5)*xSize, height - ySize/2, (i + 0.5)*xSize, ySize/2);
+      line((i + 0.5)*xSize, ySize - ySize/2, (i + 0.5)*xSize, (yTotal - 0.5) * ySize);
     }
     
     //first col
     for (int i = 0; i < playerIncluded.size(); i ++){
       text(playerIncluded.get(i), xSize, (i + 2) * ySize);
     }
-    text("Team Goals", xSize, (playerIncluded.size() + 2) * ySize);
+    text("Team", xSize, tableBot - ySize);
     
     for (int i = sessionIndexBegin; i <= sessionIndexEnd; i ++){
       int xCount = i - sessionIndexBegin + 2;
@@ -90,7 +94,7 @@ public class TableButton extends Button{
       }
       
       //team goal
-      text(sd.teamGoals[statIndex], xCount * xSize, height - ySize);
+      text(sd.teamGoals[statIndex], xCount * xSize, tableBot - ySize);
     }
   }
   
