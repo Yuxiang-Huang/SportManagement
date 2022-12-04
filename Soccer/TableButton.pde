@@ -40,8 +40,6 @@ public class TableButton extends Button{
       statIndex = nextValidStatIndex(statIndex);
     }
     
-    int tableBot = height - 10; //leave space for buttons
-    
     //find all included players
     ArrayList<String> playerIncluded = new ArrayList<String>();
     for (int i = 0; i < playerNames.size(); i ++){
@@ -51,6 +49,7 @@ public class TableButton extends Button{
     }
     
     //set unit
+    int tableBot = height - 10; //leave space for buttons 
     int xTotal = sessionIndexEnd - sessionIndexBegin + 3;
     int yTotal = playerIncluded.size() + 3;
     int xSize = width/ xTotal;
@@ -65,18 +64,19 @@ public class TableButton extends Button{
     
     //grid lines
     for (int i = 0; i < yTotal; i ++){ //horizontal
-      line(xSize - xSize/2, (i + 0.5) * ySize, (xTotal - 0.5)*xSize, (i + 0.5) * ySize);
+      line(xSize/2, (i + 0.5) * ySize, (xTotal - 0.5)*xSize, (i + 0.5) * ySize);
     }
     for (int i = 0; i < xTotal; i ++){ //vertical
-      line((i + 0.5)*xSize, ySize - ySize/2, (i + 0.5)*xSize, (yTotal - 0.5) * ySize);
+      line((i + 0.5) * xSize, ySize/2, (i + 0.5)*xSize, (yTotal - 0.5) * ySize);
     }
     
     //first col
     for (int i = 0; i < playerIncluded.size(); i ++){
       text(playerIncluded.get(i), xSize, (i + 2) * ySize);
     }
-    text("Team", xSize, tableBot - ySize);
+    text("Team", xSize, (yTotal - 1) * ySize);
     
+    //for every session
     for (int i = sessionIndexBegin; i <= sessionIndexEnd; i ++){
       int xCount = i - sessionIndexBegin + 2;
       //first row
@@ -85,8 +85,8 @@ public class TableButton extends Button{
       //each player
       int yCount = 2;
       SessionData sd = sessions.get(sessionDates.get(i));
-      ArrayList<Float> curr = sd.stats.get(statNames[statIndex]);
-      for (int j = 0; j < curr.size(); j ++){
+      ArrayList<Float> curr = sd.stats.get(statNames[statIndex]); //for this stat
+      for (int j = 0; j < curr.size(); j ++){ //for each player
         if (players.get(playerNames.get(j)).checked){ //if included
           text(curr.get(j), xCount * xSize, yCount * ySize);
           yCount ++;
@@ -94,7 +94,7 @@ public class TableButton extends Button{
       }
       
       //team goal
-      text(sd.teamGoals[statIndex], xCount * xSize, tableBot - ySize);
+      text(sd.teamGoals[statIndex], xCount * xSize, (yTotal - 1) * ySize);
     }
   }
   
@@ -102,12 +102,14 @@ public class TableButton extends Button{
     //prepare
     SessionData sd = sessions.get(sessionDates.get(sessionIndexBegin));
     
+    //find all player included
     ArrayList<String> playerIncluded = new ArrayList<String>();
     for (int i = 0; i < playerNames.size(); i ++){
       if (players.get(playerNames.get(i)).checked){
         playerIncluded.add(playerNames.get(i));
       }
     }
+    //find all stat included
     ArrayList<String> statIncluded = new ArrayList<String>();
     for (int i = 0; i < statNames.length; i ++){
       if (statCheckboxes.get(statNames[i]).checked){
@@ -116,42 +118,46 @@ public class TableButton extends Button{
     }
     
     //set unit
-    int xSize = width / (statIncluded.size() + 2);
-    int ySize = height / (playerIncluded.size() + 3);
+    int tableBot = height - 10; //leave space for buttons 
+    int xTotal = statIncluded.size() + 2;
+    int yTotal = playerIncluded.size() + 3;
+    int xSize = width / xTotal;
+    int ySize = tableBot / yTotal;
     
     //grid lines
-    for (int i = 0; i < playerIncluded.size() + 3; i ++){ //horizontal
-      line(xSize - xSize/2, (i + 0.5) * ySize, width - xSize/2, (i + 0.5) * ySize);
+    for (int i = 0; i < yTotal; i ++){ //horizontal
+      line(xSize/2, (i + 0.5) * ySize, (xTotal - 0.5) * xSize, (i + 0.5) * ySize);
     }
-    for (int i = 0; i < statIncluded.size() + 2; i ++){ //vertical
-      line((i + 0.5)*xSize, height - ySize/2, (i + 0.5)*xSize, ySize/2);
+    for (int i = 0; i < xTotal; i ++){ //vertical
+      line((i + 0.5) * xSize, ySize/2, (i + 0.5) * xSize, (yTotal - 0.5) * ySize);
     }
     
     //first col
     for (int i = 0; i < playerIncluded.size(); i ++){
       text(playerIncluded.get(i), xSize, (i + 2) * ySize);
     }
-    text("Team Goals", xSize, height - ySize);
+    text("Team Goals", xSize, (yTotal - 1) * ySize);
     
     //other part
     int xCount = 2;
-    for (int i = 0; i < statNames.length; i ++){
-      if (statCheckboxes.get(statNames[i]).checked){
+    //for each stat
+    for (int i = 0; i < statNames.length; i ++){ //for each stat
+      if (statCheckboxes.get(statNames[i]).checked){ //if included
         //first row
         text(statNames[i], xCount * xSize, ySize);
 
-        //each player
+        //for this stat
         ArrayList<Float> curr = sd.stats.get(statNames[i]);
         int yCount = 2;
-        for (int j = 0; j < curr.size(); j ++){
-          if (players.get(playerNames.get(j)).checked){
+        for (int j = 0; j < curr.size(); j ++){//for each player
+          if (players.get(playerNames.get(j)).checked){ //if included
             text(curr.get(j), xCount * xSize,  yCount * ySize);
             yCount ++;
           }
         }
 
         //team goals
-        text(sd.teamGoals[i], xCount * xSize, height - ySize);
+        text(sd.teamGoals[i], xCount * xSize, (yTotal - 1) * ySize);
         
         xCount ++;
       }
