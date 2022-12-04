@@ -13,6 +13,7 @@ Button stat;
 Button back;
 Button statIndexChange;
 Button average;
+Button percentage;
 Button allStatChange;
 
 GraphButton graph;
@@ -68,6 +69,7 @@ public void setup(){
   table = new TableButton(width - 30, height - 20, 50, 30);
   back = new Button(50/2 + 5, 30/2 + 5, 50, 30, defaultFontSize, "Back");
   average = new Button(50, height - 30, 75, 50, defaultFontSize, "Average: On");
+  percentage = new Button(150, height - 30, 100, 50, defaultFontSize, "Percentage: Off");
   statIndexChange = new Button(0, 0, 0, 0, defaultFontSize, ""); //set later
 
   //set all change button
@@ -362,6 +364,7 @@ public class Button{
   }
 }
 boolean takeAverage = true;
+boolean singlePercent = false;
 
 public class GraphButton extends Button{
   public GraphButton(float x, float y, float wid, float hei) {
@@ -445,11 +448,16 @@ public class GraphButton extends Button{
 
         rectMode(CORNER);
         if (legends.size() == 1){
-          drawGraph(title, "Scatter", xLabel, legends.get(0), data);
-          drawScatterPlot(data);
+          if (singlePercent){
+            drawGraph(title, "Scatter", xLabel, "%", data);
+            drawScatterPlotPercent(data, teamGoalsInput);
+          }else{
+            drawGraph(title, "Scatter", xLabel, legends.get(0), data);
+            drawScatterPlot(data);
+          }
         } else{
           drawGraph(title, "Scatter", xLabel, "%", data);
-          drawMultiScatterPlot(data, teamGoalsInput, legends);
+          drawMultiScatterPlotPercent(data, teamGoalsInput, legends);
         }
         rectMode(CENTER);
       } else{
@@ -493,8 +501,13 @@ public class GraphButton extends Button{
     }
 
     rectMode(CORNER);
-    drawGraph(title, "Scatter", xLabel, title, data);
-    drawMultiScatterPlot(data, teamGoalsInput, legends);
+    if (singlePercent){
+      drawGraph(title, "Scatter", xLabel, "%", data);
+      drawMultiScatterPlotPercent(data, teamGoalsInput, legends);
+    } else{
+      drawGraph(title, "Scatter", xLabel, title, data);
+      drawMultiScatterPlot(data, legends);
+    }
     rectMode(CENTER);
   }
 }
@@ -641,7 +654,116 @@ public void drawScatterPlot(ArrayList<Float> data){
   lineOfBestFit(xVal, yVal);
 }
 
-public void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayList<String> legends){
+public void drawScatterPlotPercent(ArrayList<Float> data, ArrayList<Float> goals){
+  float max = -1;
+  float lastX = -1;
+  float lastY = -1;
+  ArrayList<Float> xVal = new ArrayList<Float>();
+  ArrayList<Float> yVal = new ArrayList<Float>();
+
+  for (int i = 1; i <= xSpaces; i ++){
+    if (data.get(i - 1) > -1){ //absent player
+      //point
+      float yNow = startY - data.get(i-1) / goals.get(i-1) * 100 / percent * yunit;
+
+      if (data.get(i - 1) >= max){
+        max = data.get(i - 1);
+        fill(0);
+      } else{
+        fill(255);
+      }
+
+      ellipse(startX + i*xunit, yNow, sizeOfPoint, sizeOfPoint);
+
+      //line
+      if (lastY > 0){
+        line(lastX, lastY, startX + i*xunit, yNow);
+      }
+
+      //add for later calculation
+      xVal.add(startX + i*xunit);
+      yVal.add(yNow);
+
+      //adjust for next loop
+      lastX = startX + i*xunit;
+      lastY = yNow;
+    }
+  }
+  fill(0);
+  lineOfBestFit(xVal, yVal);
+}
+
+public void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<String> legends){
+  int numOfStat = legends.size();
+
+  ArrayList<Integer> allColors = new ArrayList<Integer>();
+  int[] palett = new int[numOfStat];
+  if (numOfStat <= colors.length){
+    //set colors
+    for (int i = 0; i < colors.length; i ++){
+      allColors.add(colors[i]);
+    }
+    for (int i = 0; i < palett.length; i ++){
+      int ran = (int) random(allColors.size());
+      palett[i] = allColors.get(ran);
+      allColors.remove(ran);
+    }
+  } else{
+    for (int x = 0; x < numOfStat; x ++){
+      palett[x] = color(random(255), random(255), random(255));
+    }
+  }
+
+  //loop
+  int index = 0;
+  for (int x = 0; x < numOfStat; x ++){
+    fill(palett[x]);
+    stroke(palett[x]);
+
+    float max = -1;
+    float lastX = -1;
+    float lastY = -1;
+    ArrayList<Float> xVal = new ArrayList<Float>();
+    ArrayList<Float> yVal = new ArrayList<Float>();
+    for (int i = 1; i <= xSpaces; i ++){
+      if (data.get(index) > -1){ //absent player
+        //point
+        float yNow = startY - data.get(index) / yScaleUnit * yunit;
+
+        if (data.get(index) >= max){
+          max = data.get(index);
+          fill(palett[x]);
+        } else{
+          fill(255);
+        }
+
+        ellipse(startX + i*xunit, yNow, sizeOfPoint, sizeOfPoint);
+
+        //line
+        if (lastY > 0){
+          line(lastX, lastY, startX + i*xunit, yNow);
+        }
+
+        //add for later calculation
+        xVal.add(startX + i*xunit);
+        yVal.add(yNow);
+
+        //adjust for next loop
+        lastX = startX + i*xunit;
+        lastY = yNow;
+      }
+      index ++;
+    }
+    fill(0);
+    lineOfBestFit(xVal, yVal);
+  }
+
+  stroke(0);
+
+  legend(palett, legends);
+}
+
+public void drawMultiScatterPlotPercent(ArrayList<Float> data, ArrayList<Float> goals, ArrayList<String> legends){
   int numOfStat = legends.size();
 
   ArrayList<Integer> allColors = new ArrayList<Integer>();
@@ -1032,8 +1154,7 @@ public void draw(){
     }
     if (numOfStatOn() == 1){
       average.update();
-    } else{
-      takeAverage = true;
+      percentage.update();
     }
   } else{ //refresh when not display
     background(255);
@@ -1091,8 +1212,11 @@ public void mousePressed() {
   //back button
   if (back.over){
     screen = "Intro";
+    //reset modes
     back.over = false;
     table.tableMode = false;
+    takeAverage = true;
+    singlePercent = false;
   }
 
   //other buttons
@@ -1128,6 +1252,15 @@ public void mousePressed() {
         average.word = "Average: On";
       }
       takeAverage = !takeAverage;
+      graph.graph();
+    }
+    else if (percentage.over){
+      if (singlePercent){
+        percentage.word = "Percent: Off";
+      } else{
+        percentage.word = "Percent: On";
+      }
+      singlePercent = !singlePercent;
       graph.graph();
     }
     else if (statIndexChange.over){

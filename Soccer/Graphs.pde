@@ -141,7 +141,7 @@ void drawScatterPlot(ArrayList<Float> data){
   lineOfBestFit(xVal, yVal);
 }
 
-void drawScatterPlot(ArrayList<Float> data, ArrayList<Float> goals){
+void drawScatterPlotPercent(ArrayList<Float> data, ArrayList<Float> goals){
   float max = -1;
   float lastX = -1;
   float lastY = -1;
@@ -250,7 +250,7 @@ void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<String> legends){
   legend(palett, legends);
 }
 
-void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayList<String> legends){
+void drawMultiScatterPlotPercent(ArrayList<Float> data, ArrayList<Float> goals, ArrayList<String> legends){
   int numOfStat = legends.size();
   
   ArrayList<Integer> allColors = new ArrayList<Integer>();
