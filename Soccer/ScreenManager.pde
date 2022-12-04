@@ -21,9 +21,6 @@ void draw(){
     if (numOfStatOn() == 1){
       average.update();
       percentage.update();
-    } else{
-      takeAverage = true;
-      singlePercent = false;
     }
   } else{ //refresh when not display
     background(255);
@@ -81,8 +78,11 @@ void mousePressed() {
   //back button
   if (back.over){
     screen = "Intro";
+    //reset modes
     back.over = false;
     table.tableMode = false;
+    takeAverage = true;
+    singlePercent = false;
   }
   
   //other buttons
