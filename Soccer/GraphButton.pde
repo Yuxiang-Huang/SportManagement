@@ -83,8 +83,13 @@ public class GraphButton extends Button{
         
         rectMode(CORNER);
         if (legends.size() == 1){
-          drawGraph(title, "Scatter", xLabel, legends.get(0), data);
-          drawScatterPlot(data);
+          if (singlePercent){
+            drawGraph(title, "Scatter", xLabel, "%", data);
+            drawScatterPlot(data, teamGoalsInput);
+          }else{
+            drawGraph(title, "Scatter", xLabel, legends.get(0), data);
+            drawScatterPlot(data);
+          }
         } else{
           drawGraph(title, "Scatter", xLabel, "%", data);
           drawMultiScatterPlot(data, teamGoalsInput, legends);
@@ -131,8 +136,13 @@ public class GraphButton extends Button{
     }
     
     rectMode(CORNER);
-    drawGraph(title, "Scatter", xLabel, title, data);
-    drawMultiScatterPlot(data, teamGoalsInput, legends);
+    if (singlePercent){
+      drawGraph(title, "Scatter", xLabel, "%", data);
+      drawMultiScatterPlot(data, teamGoalsInput, legends);
+    } else{
+      drawGraph(title, "Scatter", xLabel, title, data);
+      drawMultiScatterPlot(data, legends);
+    }
     rectMode(CENTER);
   }
 }

@@ -141,6 +141,115 @@ void drawScatterPlot(ArrayList<Float> data){
   lineOfBestFit(xVal, yVal);
 }
 
+void drawScatterPlot(ArrayList<Float> data, ArrayList<Float> goals){
+  float max = -1;
+  float lastX = -1;
+  float lastY = -1;
+  ArrayList<Float> xVal = new ArrayList<Float>();
+  ArrayList<Float> yVal = new ArrayList<Float>();
+
+  for (int i = 1; i <= xSpaces; i ++){ 
+    if (data.get(i - 1) > -1){ //absent player
+      //point      
+      float yNow = startY - data.get(i-1) / goals.get(i-1) * 100 / percent * yunit;
+      
+      if (data.get(i - 1) >= max){
+        max = data.get(i - 1);
+        fill(0);
+      } else{
+        fill(255);
+      }
+   
+      ellipse(startX + i*xunit, yNow, sizeOfPoint, sizeOfPoint);
+      
+      //line
+      if (lastY > 0){
+        line(lastX, lastY, startX + i*xunit, yNow);
+      }
+      
+      //add for later calculation
+      xVal.add(startX + i*xunit);
+      yVal.add(yNow);
+      
+      //adjust for next loop
+      lastX = startX + i*xunit;
+      lastY = yNow;
+    }
+  }
+  fill(0);
+  lineOfBestFit(xVal, yVal);
+}
+
+void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<String> legends){
+  int numOfStat = legends.size();
+  
+  ArrayList<Integer> allColors = new ArrayList<Integer>();
+  color[] palett = new color[numOfStat];
+  if (numOfStat <= colors.length){
+    //set colors
+    for (int i = 0; i < colors.length; i ++){
+      allColors.add(colors[i]);
+    }
+    for (int i = 0; i < palett.length; i ++){
+      int ran = (int) random(allColors.size());
+      palett[i] = allColors.get(ran);
+      allColors.remove(ran);
+    }
+  } else{
+    for (int x = 0; x < numOfStat; x ++){
+      palett[x] = color(random(255), random(255), random(255));
+    }
+  }
+  
+  //loop
+  int index = 0;
+  for (int x = 0; x < numOfStat; x ++){
+    fill(palett[x]);
+    stroke(palett[x]);
+    
+    float max = -1;
+    float lastX = -1;
+    float lastY = -1;
+    ArrayList<Float> xVal = new ArrayList<Float>();
+    ArrayList<Float> yVal = new ArrayList<Float>();
+    for (int i = 1; i <= xSpaces; i ++){  
+      if (data.get(index) > -1){ //absent player
+        //point
+        float yNow = startY - data.get(index) / yScaleUnit * yunit;
+        
+        if (data.get(index) >= max){
+          max = data.get(index);
+          fill(palett[x]);
+        } else{
+          fill(255);
+        }
+      
+        ellipse(startX + i*xunit, yNow, sizeOfPoint, sizeOfPoint);
+        
+        //line
+        if (lastY > 0){
+          line(lastX, lastY, startX + i*xunit, yNow);
+        }
+        
+        //add for later calculation
+        xVal.add(startX + i*xunit);
+        yVal.add(yNow);
+        
+        //adjust for next loop
+        lastX = startX + i*xunit;
+        lastY = yNow;
+      }
+      index ++;
+    }
+    fill(0);
+    lineOfBestFit(xVal, yVal);
+  }
+  
+  stroke(0);
+  
+  legend(palett, legends);
+}
+
 void drawMultiScatterPlot(ArrayList<Float> data, ArrayList<Float> goals, ArrayList<String> legends){
   int numOfStat = legends.size();
   
