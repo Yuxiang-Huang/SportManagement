@@ -371,6 +371,20 @@ void drawBarGraph(ArrayList<Float> data, ArrayList<Float> indivGoals, float team
   line(startX, teamGoalY, startX + xlen - xunit / 2, teamGoalY);
 }
 
+void drawBarGraphPercent(ArrayList<Float> data, ArrayList<Float> indivGoals, float teamGoal){  
+  //draw bars
+  for (int i = 0; i < xSpaces; i ++){
+    if (data.get(i) > -1){ //absent player
+      float h = data.get(i) / teamGoal * 100 / percent * yunit;
+      drawBar(1, 0, startX + i*xunit, startY, h, color(0), data.get(i) - indivGoals.get(i));
+    }
+  }
+  
+  //team goal line
+  float teamGoalY = startY - teamGoal / yScaleUnit * yunit;
+  line(startX, teamGoalY, startX + xlen - xunit / 2, teamGoalY);
+}
+
 void drawMultiBarGraph(ArrayList<Float> data, ArrayList<Float> indivGoals, ArrayList<String> legends,
 int barNum, ArrayList<Float> teamGoals){
   //set colors

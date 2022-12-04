@@ -56,8 +56,13 @@ public class SessionData{
       drawMultiBarGraph(data, indivGoalsInput, legends, barNum, teamGoalsInput);
     } 
     else{
-      drawGraph(date, "Bar", xLabel, statNames[statIndex], data);
-      drawBarGraph(data, indivGoalsInput, teamGoals[statIndex]);
+      if (singlePercent){
+        drawGraph(date, "Bar", xLabel, "%", data);
+        drawBarGraphPercent(data, indivGoalsInput, teamGoals[statIndex]);
+      } else{
+        drawGraph(date, "Bar", xLabel, statNames[statIndex], data);
+        drawBarGraph(data, indivGoalsInput, teamGoals[statIndex]);
+      }
     }
     rectMode(CENTER);
   }
