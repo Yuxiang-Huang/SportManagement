@@ -20,6 +20,7 @@ void draw(){
     }
     if (numOfStatOn() == 1){
       average.update();
+      percentage.update();
     } else{
       takeAverage = true;
     }

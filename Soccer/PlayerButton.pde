@@ -47,7 +47,6 @@ public class PlayerButton extends Button{
     }
   }
   
-  @Override
   public void update() {
     //update over
     if (isOver()){
