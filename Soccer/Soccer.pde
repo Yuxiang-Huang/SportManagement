@@ -69,7 +69,7 @@ void setup(){
   
   graph = new GraphButton(width/2, height - 50, 50, 50);
   table = new TableButton(width - 30, height - 20, 50, 30);
-  back = new Button(50/2 + 5, 30/2 + 5, 50, 30, defaultFontSize + 4, "Back");
+  back = new Button(40/2 + 5, 30/2 + 5, 40, 30, defaultFontSize, "Back");
   average = new Button(50, height - 20, 75, 30, defaultFontSize, "Average: On");
   percentage = new Button(150, height - 20, 100, 30, defaultFontSize, "Percentage: Off");
   statIndexChange = new Button(0, 0, 0, 0, defaultFontSize, ""); //set later

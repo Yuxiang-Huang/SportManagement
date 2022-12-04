@@ -379,9 +379,8 @@ void drawBarGraphPercent(ArrayList<Float> data, ArrayList<Float> indivGoals, flo
       drawBar(1, 0, startX + i*xunit, startY, h, color(0), data.get(i) - indivGoals.get(i));
     }
   }
-  
   //team goal line
-  float teamGoalY = startY - teamGoal / yScaleUnit * yunit;
+  float teamGoalY = startY - 100 / percent * yunit;
   line(startX, teamGoalY, startX + xlen - xunit / 2, teamGoalY);
 }
 
