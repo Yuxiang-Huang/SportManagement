@@ -23,6 +23,7 @@ void draw(){
       percentage.update();
     } else{
       takeAverage = true;
+      singlePercent = false;
     }
   } else{ //refresh when not display
     background(255);
@@ -117,6 +118,15 @@ void mousePressed() {
         average.word = "Average: On";
       }
       takeAverage = !takeAverage;
+      graph.graph();
+    }
+    else if (percentage.over){
+      if (singlePercent){
+        percentage.word = "Percent: Off";
+      } else{
+        percentage.word = "Percent: On";
+      }
+      singlePercent = !singlePercent;
       graph.graph();
     }
     else if (statIndexChange.over){

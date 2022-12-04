@@ -1,4 +1,5 @@
 boolean takeAverage = true;
+boolean singlePercent = false;
 
 public class GraphButton extends Button{
   public GraphButton(float x, float y, float wid, float hei) {

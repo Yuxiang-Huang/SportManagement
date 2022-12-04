@@ -71,7 +71,7 @@ void setup(){
   table = new TableButton(width - 30, height - 20, 50, 30);
   back = new Button(50/2 + 5, 30/2 + 5, 50, 30, defaultFontSize, "Back");
   average = new Button(50, height - 30, 75, 50, defaultFontSize, "Average: On");
-  percentage = new Button(150, height - 30, 75, 50, defaultFontSize, "Percentage: Off");
+  percentage = new Button(150, height - 30, 100, 50, defaultFontSize, "Percentage: Off");
   statIndexChange = new Button(0, 0, 0, 0, defaultFontSize, ""); //set later
   
   //set all change button
