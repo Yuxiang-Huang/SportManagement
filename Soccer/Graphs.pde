@@ -362,7 +362,8 @@ void drawBarGraph(ArrayList<Float> data, ArrayList<Float> indivGoals, float team
   for (int i = 0; i < xSpaces; i ++){
     if (data.get(i) > -1){ //absent player
       float h = data.get(i) / yScaleUnit * yunit;
-      drawBar(1, 0, startX + i*xunit, startY, h, color(0), data.get(i) - indivGoals.get(i));
+      float goal = data.get(i) / indivGoals.get(i) * h;
+      drawBar(1, 0, startX + i*xunit, startY, h, goal, color(0));
     }
   }
   
@@ -376,7 +377,8 @@ void drawBarGraphPercent(ArrayList<Float> data, ArrayList<Float> indivGoals, flo
   for (int i = 0; i < xSpaces; i ++){
     if (data.get(i) > -1){ //absent player
       float h = data.get(i) / teamGoal * 100 / percent * yunit;
-      drawBar(1, 0, startX + i*xunit, startY, h, color(0), data.get(i) - indivGoals.get(i));
+      float goal = data.get(i) / indivGoals.get(i) * h;
+      drawBar(1, 0, startX + i*xunit, startY, h, goal, color(0));
     }
   }
   //team goal line
@@ -403,8 +405,9 @@ int barNum, ArrayList<Float> teamGoals){
   for (int i = 0; i < xSpaces; i ++){
     for (int j = 0; j < barNum; j ++){
       if (data.get(counter) > -1){ //absent player
-        float yNow = data.get(counter) / teamGoals.get(j) * 100 / percent * yunit;
-        drawBar(barNum, j, startX + i*xunit, startY, yNow, palett[j], data.get(counter) - indivGoals.get(counter));
+        float h = data.get(counter) / teamGoals.get(j) * 100 / percent * yunit;
+        float goal = data.get(counter) / indivGoals.get(counter) * h;
+        drawBar(barNum, j, startX + i*xunit, startY, h, goal, palett[j]);
       }
       counter ++;
     }
@@ -413,15 +416,14 @@ int barNum, ArrayList<Float> teamGoals){
   legend(palett, legends);
 }
 
-void drawBar(int barNum, int index, float x, float y, float h, color c, float det){ 
+void drawBar(int barNum, int index, float x, float y, float h, float goal, color c){ 
   fill(c);
   float adjxUnit = xunit - lenbtwBars * 2;
-  if (det < 0){
+  if (goal < h){
     fill(255);
     rect(x + lenbtwBars + adjxUnit / barNum * index, y, adjxUnit / barNum, -h);
     fill(c);
-    stroke(c);
-    shading(x, adjxUnit, barNum, h, index); 
+    rect(x + lenbtwBars + adjxUnit / barNum * index, y, adjxUnit / barNum, -goal);
   } else{
     rect(x + lenbtwBars + adjxUnit / barNum * index, y, adjxUnit / barNum, -h);
   }
