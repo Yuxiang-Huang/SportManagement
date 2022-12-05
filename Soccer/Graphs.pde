@@ -423,7 +423,9 @@ void drawBar(int barNum, int index, float x, float y, float h, float goal, color
     fill(255);
     rect(x + lenbtwBars + adjxUnit / barNum * index, y, adjxUnit / barNum, -h);
     fill(c);
-    rect(x + lenbtwBars + adjxUnit / barNum * index, y, adjxUnit / barNum, -goal);
+    //rect(x + lenbtwBars + adjxUnit / barNum * index, y, adjxUnit / barNum, -goal);
+    stroke(c);
+    shading(x, adjxUnit, barNum, goal, index);
   } else{
     rect(x + lenbtwBars + adjxUnit / barNum * index, y, adjxUnit / barNum, -h);
   }
