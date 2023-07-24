@@ -116,7 +116,7 @@ public class GraphButton extends Button{
           PlayerButton pb = players.get(playerNames.get(j));
           if (pb.checked){ //check if player is selected
             //data
-            legends.add(playerNames.get(j));
+            legends.add(playerNumbers.get(playerNames.get(j)));
             for (int k = 0; k <= sessionIndexEnd - sessionIndexBegin; k ++){
               data.add(pb.stats.get(statNames[i]).get(sessionIndexBegin + k));
             }

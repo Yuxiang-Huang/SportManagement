@@ -72,7 +72,7 @@ public class TableButton extends Button{
     
     //first col
     for (int i = 0; i < playerIncluded.size(); i ++){
-      text(playerIncluded.get(i), xSize, (i + 2) * ySize);
+      text(playerNumbers.get(playerIncluded.get(i)), xSize, (i + 2) * ySize);
     }
     text("Team", xSize, (yTotal - 1) * ySize);
     
@@ -134,7 +134,7 @@ public class TableButton extends Button{
     
     //first col
     for (int i = 0; i < playerIncluded.size(); i ++){
-      text(playerIncluded.get(i), xSize, (i + 2) * ySize);
+      text(playerNumbers.get(playerIncluded.get(i)), xSize, (i + 2) * ySize);
     }
     text("Team Goals", xSize, (yTotal - 1) * ySize);
     

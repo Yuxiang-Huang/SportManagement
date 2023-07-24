@@ -64,7 +64,7 @@ void drawGraph(String title, String mode, ArrayList<String> xLabel, String yLabe
   for (int i = 1; i <= xSpaces; i ++){
     line(startX + i*xunit, startY + sll, startX + i*xunit, startY - sll);
     if (mode.equals("Bar")){
-      text(xLabel.get(i-1), startX + i*xunit - xunit/2, startY + offset);
+      text(playerNumbers.get(xLabel.get(i-1)), startX + i*xunit - xunit/2, startY + offset);
     } else{
       text(xLabel.get(i-1), startX + i*xunit, startY + offset);
     }

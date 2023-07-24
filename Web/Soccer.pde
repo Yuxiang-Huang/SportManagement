@@ -512,7 +512,7 @@ public class GraphButton extends Button{
           PlayerButton pb = players.get(playerNames.get(j));
           if (pb.checked){ //check if player is selected
             //data
-            legends.add(playerNames.get(j));
+            legends.add(playerNumbers.get(playerNames.get(j)));
             for (int k = 0; k <= sessionIndexEnd - sessionIndexBegin; k ++){
               data.add(pb.stats.get(statNames[i]).get(sessionIndexBegin + k));
             }
@@ -608,7 +608,7 @@ public void drawGraph(String title, String mode, ArrayList<String> xLabel, Strin
   for (int i = 1; i <= xSpaces; i ++){
     line(startX + i*xunit, startY + sll, startX + i*xunit, startY - sll);
     if (mode.equals("Bar")){
-      text(xLabel.get(i-1), startX + i*xunit - xunit/2, startY + offset);
+      text(playerNumbers.get(xLabel.get(i-1)), startX + i*xunit - xunit/2, startY + offset);
     } else{
       text(xLabel.get(i-1), startX + i*xunit, startY + offset);
     }
@@ -1574,7 +1574,7 @@ public class TableButton extends Button{
 
     //first col
     for (int i = 0; i < playerIncluded.size(); i ++){
-      text(playerIncluded.get(i), xSize, (i + 2) * ySize);
+      text(playerNumbers.get(playerIncluded.get(i)), xSize, (i + 2) * ySize);
     }
     text("Team", xSize, (yTotal - 1) * ySize);
 
@@ -1636,7 +1636,7 @@ public class TableButton extends Button{
 
     //first col
     for (int i = 0; i < playerIncluded.size(); i ++){
-      text(playerIncluded.get(i), xSize, (i + 2) * ySize);
+      text(playerNumbers.get(playerIncluded.get(i)), xSize, (i + 2) * ySize);
     }
     text("Team Goals", xSize, (yTotal - 1) * ySize);
 
