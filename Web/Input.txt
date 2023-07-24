@@ -4,20 +4,20 @@ Offense
 Jack, Aden, Mitchell
 
 Center
-Stefan Broge, Ryan Petrauskas, Eben
+Nicholas, MartinI, Ryan
 
 Defense
-Nicholas, Giles, Anselm, Soham
+Eben, Giles, Anselm, Farzad
 
 Backups
 Offense
-Patrick, Michael, Ethan
+Benjamin, Siddhartha, Ethan, Kaeden, Romain, Noah
 
 Center
-John, Martin, Duncan
+Michael, Soham, MartinW, Frederik, Duncan
 
 Defense
-Farzad, Kaeden, Gabriel, Frederik, Rafael
+Rafael, Gabriel, John, Stefan, Patrick, Sayeb
 
 Session: 8-29-22
 Aden
@@ -189,7 +189,7 @@ Michael
 3.4927 14.8633 53 307.5764 18.452 56.3789
 John
 4.1484 15.7084 46 356.453 11.8887 29.4431
-Martin
+MartinI
 3.2698 15.2908 36 252.5836 9.0094 23.3033
 Farzad
 2.6882 16.5237 32 238.459 10.4887 43.3559
@@ -218,7 +218,7 @@ Ethan
 3.8862 18.87 32 620.4733 16.9857 41.8292
 John
 1.0471 6.4126 0 113.2968 5.6518 10.9782
-Martin
+MartinI
 4.6046 16.7275 41 325.2143 22.3664 48.7204
 Kaeden
 2.8301 17.2494 20 238.3145 17.2137 39.168
@@ -245,7 +245,7 @@ Ethan
 5.74 16.9909 33 465.9138 17.7061 40.6857
 John
 6.7265 16.8269 37 617.4412 22.2609 48.1516
-Martin
+MartinI
 4.5813 15.8377 23 343.2432 11.6566 32.5325
 Farzad
 4.505 18.691 21 417.832 11.6898 31.8549
@@ -278,7 +278,7 @@ Michael
 1.5412 13.372 2 180.7193 4.4406 17.7974
 John
 4.2302 15.8377 40 396.356 8.6353 22.3941
-Martin
+MartinI
 8.2609 14.8633 47 537.2306 19.1177 43.2207
 Duncan
 2.0227 13.4267 1 217.3452 3.0033 10.9274
@@ -317,7 +317,7 @@ Ethan
 1.0006 6.4226 0 53.9586 6.5046 8.4815
 John
 4.6488 12.9893 19 431.0353 14.3357 35.6685
-Martin
+MartinI
 3.0995 12.5767 3 249.2045 10.1266 24.2046
 Duncan
 5.1283 14.4259 40 371.0998 16.6174 39.5366
@@ -342,7 +342,7 @@ Anselm
 3.1461 13.9984 11 260.5768 11.253 23.0195
 Ethan
 3.9638 13.9188 29 292.2327 12.0617 29.217
-Martin
+MartinI
 3.7538 12.7059 13 263.1954 12.1412 28.5226
 Duncan
 4.1131 15.8725 32 316.3844 13.6164 29.9228
@@ -375,7 +375,7 @@ Soham
 2.8423 15.1218 20 226.3237 12.9182 48.2002
 Michael
 4.0131 17.0357 23 357.5732 21.8657 63.0805
-Martin
+MartinI
 4.0701 14.0183 10 297.1909 12.2742 37.7821
 Duncan
 4.3489 17.2445 14 349.2578 17.3375 39.3158

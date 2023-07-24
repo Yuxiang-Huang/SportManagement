@@ -32,7 +32,11 @@ int index = 0;
 
 ArrayList<String> playerNames = new ArrayList<String>(); //all player names
 ArrayList<String> backups = new ArrayList<String>(); //backup player names
+
+
 HashMap<String, PlayerButton> players = new HashMap<String, PlayerButton>(); //key: playerNames
+HashMap<String, String> playerNumbers = new HashMap<String, String>();
+
 
 String[] statNames;
 HashMap<String, StatCheckbox> statCheckboxes = new HashMap<String, StatCheckbox>(); //key: statNames
@@ -45,6 +49,35 @@ HashMap<String, ArrayList<Float>> indivBest = new HashMap<String, ArrayList<Floa
 HashMap<String, ArrayList<Float>> teamGoals = new HashMap<String, ArrayList<Float>>(); //team goals in order of session
 
 void setup(){
+  
+  playerNumbers.put("Benjamin", "#00");
+  playerNumbers.put("Siddhartha", "#1");
+  playerNumbers.put("Ethan", "#3");
+  playerNumbers.put("Kaeden", "#4");
+  playerNumbers.put("Mitchell", "#5");
+  playerNumbers.put("Ryan", "#6");
+  playerNumbers.put("MartinI", "#8");
+  playerNumbers.put("Farzad", "#9");
+  playerNumbers.put("Romain", "#10");
+  playerNumbers.put("Aden", "#11");
+  playerNumbers.put("Noah", "#12");
+  playerNumbers.put("Giles", "#15");
+  playerNumbers.put("Nicholas", "#16");
+  playerNumbers.put("Michael", "#18");
+  playerNumbers.put("Soham", "#19");
+  playerNumbers.put("Anselm", "#20");
+  playerNumbers.put("MartinW", "#22");
+  playerNumbers.put("Frederik", "#23");
+  playerNumbers.put("Duncan", "#25");
+  playerNumbers.put("Rafael", "#27");
+  playerNumbers.put("Jack", "#30");
+  playerNumbers.put("Gabriel", "#33");
+  playerNumbers.put("Eben", "#34");
+  playerNumbers.put("John", "#35");
+  playerNumbers.put("Stefan", "#36");
+  playerNumbers.put("Patrick", "#47");
+  playerNumbers.put("Sayeb", "#99");
+
   allData = loadStrings("Input.txt");
 
   //settings
@@ -80,7 +113,7 @@ void setup(){
   playerChange.add(new AllPlayerChangeButton(125, 75, "Center", 2));
   playerChange.add(new AllPlayerChangeButton(125, 75, "Defense", 3));
   playerChange.add(new AllPlayerChangeButton(125, 75, "All", 4));
-  playerChange.add(new AllPlayerChangeButton(125, 50, "Backups"));
+  playerChange.add(new AllPlayerChangeButton(110, 50, "Backups"));
 
   //for session
   sessionHandleTop = new Handle(true, height/2, width/4, 50);
@@ -138,7 +171,7 @@ void setup(){
       String name = curr[i].split(" ")[0]; //take first name
       playerNames.add(name);
       backups.add(name);
-      PlayerButton now = new PlayerButton(xIndex, 100, 50, name, pos, 11); //11 hard number
+      PlayerButton now = new PlayerButton(xIndex, 55, 50, name, pos, 17); //11 hard number
       players.put(name, now);
       now.checked = false;
       //set the keys for hashmap

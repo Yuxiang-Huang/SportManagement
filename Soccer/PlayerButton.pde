@@ -67,7 +67,7 @@ public class PlayerButton extends Button{
     fill(0);
     
     textSize(fontSize);
-    text(word, x, y);
+    text(playerNumbers.get(word), x, y);
     textSize(fontSize);
   }
 }

@@ -71,7 +71,7 @@ public class GraphButton extends Button{
         for (int j = 0; j < playerNames.size(); j ++){ //for every player IN ORDER
           if (players.get(playerNames.get(j)).checked){
             numOfPlayer ++;
-            player = playerNames.get(j);
+            player = playerNumbers.get(playerNames.get(j));
           }
         }
         String title;
